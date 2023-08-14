@@ -77,8 +77,12 @@ const NavBar = () =>{
         else if (pathname === '/purashes') {
             return [
                 {
-                  label: 'Inicio',
-                  route: '/inicio'
+                  label: 'Home',
+                  route: '/home'
+                },
+                {
+                    label: 'Profile',
+                    route: '/profile'
                 },
                 {
                   label: 'About',
@@ -89,31 +93,19 @@ const NavBar = () =>{
                     route: '/cart'
                 },
                 {
-                    label: 'Perfil',
-                    route: '/usuario'
-                },
-                {
-                    label: 'Juegos',
-                    route: '/juegos'
-                },
-                {
-                    label: 'Tienda',
-                    route: '/tienda'
+                    label: 'Logout',
+                    route: '/'
                 },
                 // {
                 //   label: 'Logout',
                 //   route: '/api/auth/signout'
-                // },,
-                {
-                    label: 'Salir',
-                    route: '/'
-                }
+                // },
             ];
         }
         else{
             return [
                 {
-                  label: 'Principal',
+                  label: 'Landing',
                   route: '/'
                 },
             ];
