@@ -28,32 +28,30 @@ const ProductForm = () => {
     })
 }
 
-const handleModalClose = () => {
-    setIsModalOpen(false);
-    setModalContent('');
-};
+  const handleModalClose = () => {
+      setIsModalOpen(false);
+      setModalContent('');
+  };
 
-const handlerSubmit = (event) =>{
+  const handlerSubmit = (event) => {
     event.preventDefault();
-    setErrors(
-        Validations({
-            ...product,
-            [event.target.name]: event.target.value
-        })
-    )
-    if(!errors){
-        setProduct({
-          name: '',
-          image: '',
-          description: '',
-          cost: '',
-        })
-        setModalContent(`Produc create susefull`);
-        setIsModalOpen(true);
+    
+    const validationErrors = Validations(product);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      setProduct({
+        name: '',
+        image: '',
+        description: '',
+        cost: '',
+      });
+      setModalContent(`Product created successfully`);
+      setIsModalOpen(true);
     }
-}
+  }
   return (
-    <div>ProductForm
+    <div>
       <form onSubmit={handlerSubmit} className={style.formproductcontainer}>
         <div className={style.formproductsection}>
           <label htmlFor="name">Name: </label>
@@ -80,6 +78,7 @@ const handlerSubmit = (event) =>{
           <input type="text" name='cost' value={product.cost} placeholder='' autoComplete='off' onChange={handleOnChange}/>
         </div>
         {errors.cost && <p className={style.formproducterrors}>{errors.cost}</p>}
+        <button type='submit'>Post</button>
       </form>
             <div className={style.divmodal}>
                 <Modal isOpen={isModalOpen} onRequestClose={handleModalClose} className={style.cardmodalcontainer}>

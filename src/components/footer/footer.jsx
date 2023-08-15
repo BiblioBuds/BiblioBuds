@@ -53,7 +53,7 @@ const participants = [
             },
             {
                 image: '/Media/IMG/linkedin.png',
-                route: 'https://www.google.com/',
+                route: 'https://www.linkedin.com/in/juan-david-p%C3%A9rez-v%C3%A9lez-276090184',
                 label: 'Linkedin'
             },
             {
