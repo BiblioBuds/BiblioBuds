@@ -98,6 +98,7 @@ const Footer = () => {
                                 <Link href={route} target='_blank'>
                                     <Image src={image} width={26} height={26} alt={label} />
                                 </Link>
+                                <span className={style.footertooltip}>{label}</span>
                             </li>
                         ))}
                     </ul>

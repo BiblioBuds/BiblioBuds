@@ -51,7 +51,8 @@ const ProductForm = () => {
     }
   }
   return (
-    <div>
+    <div className={style.formproductpage}>
+      <h2>New Product</h2>
       <form onSubmit={handlerSubmit} className={style.formproductcontainer}>
         <div className={style.formproductsection}>
           <label htmlFor="name">Name: </label>

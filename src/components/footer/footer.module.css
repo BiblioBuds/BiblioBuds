@@ -31,8 +31,34 @@
     align-items: center;
     justify-content: space-around;
 }
+.footertooltip{
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: .5rem;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
 .footli{
     width: 1.5rem;
     height: 1.5rem;
     list-style-type: none;
+}
+.footli:hover{
+    filter: drop-shadow(2px 2px 2px #ffffff);
+}
+.footli:hover .footertooltip {
+    opacity: 1;
+    visibility: visible;
+}
+.footli:not(:hover) .footertooltip {
+    opacity: 0;
+    visibility: hidden;
 }

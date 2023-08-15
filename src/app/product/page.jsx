@@ -3,7 +3,9 @@ import style from './product.module.css';
 
 const Product = () => {
   return (
-    <ProductForm/>
+    <div className={style.productmain}>
+        <ProductForm/>
+    </div>
   )
 }
 
