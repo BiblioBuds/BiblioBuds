@@ -1,0 +1,29 @@
+.navmain{
+    width: 70%;
+    height: 4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8rem;
+    margin-left: 1rem;
+    background-color: #d8c690;
+    /* border: 1px solid red; */
+}
+.navul{
+    width: 95%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    /* justify-items: center; */
+    justify-content: space-around;
+    list-style-type: none;
+}
+.navul li{
+    color: black;
+    width: 10%;
+}
+.navul li:hover{
+    font-size: 125%;
+    color: rgba(0, 0, 0, 0.603);
+}

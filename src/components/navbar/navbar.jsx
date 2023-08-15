@@ -113,7 +113,7 @@ const NavBar = () =>{
     }
     const links = getLinks();
     return(
-        <nav className={style.navcontainer}>
+        <nav className={style.navmain}>
             <ul className={style.navul}>
                 {links.map(({label, route}) =>(
                     <li key={route}>

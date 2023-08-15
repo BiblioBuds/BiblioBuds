@@ -1,0 +1,38 @@
+.footcontainer{
+    position: fixed;
+    height: 3rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: black;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(150, 153, 0, 0.719);
+    border: 1px solid black;
+}
+.footerlogo{
+    width: 10%;
+    height: 99%;
+    border: 1px solid black;
+}
+.participantContainer{
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: space-around;
+}
+.footul{
+    width: 60%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+.footli{
+    width: 1.5rem;
+    height: 1.5rem;
+    list-style-type: none;
+}
