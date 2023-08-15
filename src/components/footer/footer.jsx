@@ -13,7 +13,7 @@ const participants = [
             },
             {
                 image: '/Media/IMG/linkedin.png',
-                route: 'https://github.com/juand2295',
+                route: 'https://ar.linkedin.com/in/alex-laulhe',
                 label: 'Linkedin'
             },
             {
@@ -28,12 +28,12 @@ const participants = [
         links:[
             {
                 image: '/Media/IMG/github.png',
-                route: 'https://github.com/Uruvsereg',
+                route: 'https://www.google.com/',
                 label: 'github'
             },
             {
                 image: '/Media/IMG/linkedin.png',
-                route: 'https://github.com/juand2295',
+                route: 'https://www.google.com/',
                 label: 'Linkedin'
             },
             {
@@ -53,7 +53,7 @@ const participants = [
             },
             {
                 image: '/Media/IMG/linkedin.png',
-                route: 'https://github.com/juand2295',
+                route: 'https://www.google.com/',
                 label: 'Linkedin'
             },
             {

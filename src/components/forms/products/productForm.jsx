@@ -1,3 +1,5 @@
+'use client'
+import style from './product.module.css';
 import { useState } from "react"
 import Validations from './Validations';
 import Modal from 'react-modal';
@@ -20,7 +22,7 @@ const ProductForm = () => {
   })
   
   const handleOnChange = (event) =>{
-    setUsuario({
+    setProduct({
         ...product,
         [event.target.name]: event.target.value
     })
@@ -46,26 +48,26 @@ const handlerSubmit = (event) =>{
           description: '',
           cost: '',
         })
-        setModalContent(`Usuario creado exitosamente`);
+        setModalContent(`Produc create susefull`);
         setIsModalOpen(true);
     }
 }
   return (
     <div>ProductForm
-      <form onSubmit={handlerSubmit} className={sytle.formproductcontainer}>
+      <form onSubmit={handlerSubmit} className={style.formproductcontainer}>
         <div className={style.formproductsection}>
           <label htmlFor="name">Name: </label>
-          <input type="text" name='' value={product.name} placeholder='' autoComplete='off' onChange={handleOnChange}/>
+          <input type="text" name='name' value={product.name} placeholder='' autoComplete='off' onChange={handleOnChange}/>
         </div>
         {errors.name && <p className={style.formproducterrors}>{errors.name}</p>}
         <div className={style.formproductsection}>
           <label htmlFor="image">Image: </label>
-          <input type="text" name='' value={product.image} placeholder='' autoComplete='off' onChange={handleOnChange}/>
+          <input type="text" name='image' value={product.image} placeholder='' autoComplete='off' onChange={handleOnChange}/>
         </div>
         {errors.image && <p className={style.formproducterrors}>{errors.image}</p>}
         <div className={style.formproductsection}>
           <label htmlFor="description">Description: </label>
-          <input type="text" name='' value={product.description} placeholder='' autoComplete='off' onChange={handleOnChange}/>
+          <input type="text" name='description' value={product.description} placeholder='' autoComplete='off' onChange={handleOnChange}/>
         </div>
         {errors.description && <p className={style.formproducterrors}>{errors.description}</p>}
         {/* <div className={style.formproductsection}>
@@ -75,21 +77,21 @@ const handlerSubmit = (event) =>{
         {errors. && <p className={style.formproducterrors}>{errors.cost}</p>} */}
         <div className={style.formproductsection}>
           <label htmlFor="cost">Cost: </label>
-          <input type="text" name='' value={product.cost} placeholder='' autoComplete='off' onChange={handleOnChange}/>
+          <input type="text" name='cost' value={product.cost} placeholder='' autoComplete='off' onChange={handleOnChange}/>
         </div>
         {errors.cost && <p className={style.formproducterrors}>{errors.cost}</p>}
       </form>
             <div className={style.divmodal}>
-                <Modal isOpen={isModalOpen} onRequestClose={handleModalClose} className={stylem.cardmodalcontainer}>
-                    <div className={stylem.cmaviso}>
-                        <div className={stylem.cmavisotit}>
+                <Modal isOpen={isModalOpen} onRequestClose={handleModalClose} className={style.cardmodalcontainer}>
+                    <div className={style.cmaviso}>
+                        <div className={style.cmavisotit}>
                             <h3>Aviso</h3>
                         </div>
-                        <div className={stylem.cmclosecont}>
-                            <button onClick={handleModalClose} className={stylem.cmclose}>X</button>
+                        <div className={style.cmclosecont}>
+                            <button onClick={handleModalClose} className={style.cmclose}>X</button>
                         </div>
                     </div>
-                    <p className={stylem.textm}>{modalContent}</p>
+                    <p className={style.textm}>{modalContent}</p>
                 </Modal>
             </div>
     </div>
