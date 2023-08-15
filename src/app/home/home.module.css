@@ -1,0 +1,9 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    min-height: 68vh;
+    border: 1px solid red;
+}
