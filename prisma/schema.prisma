@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  orders  Order[]
+}
+
+model Book {
+  id          Int         @id @default(autoincrement())
+  title       String
+  author      String
+  image       String
+  editorialId Int
+  editorial   Editorial   @relation(fields: [editorialId], references: [id])
+  genreId     Int
+  genres      Genre[]
+  price       Float
+  synopsis    String
+  date        DateTime
+  pages       Int
+  languageId  Int
+  language    Language    @relation(fields: [languageId], references: [id])
+  ratingId    Int
+  ratings     Rating[]
+  stock       Int
+  formatId    Int
+  formats     Format[]
+  orders      OrderBook[]
+}
+
+model Rating { 
+  id     Int    @id @default(autoincrement())
+  comment String
+  rating Int
+  bookId Int
+  book   Book   @relation(fields: [bookId], references: [id])
+}
+
+model Order {
+  id        Int     @id @default(autoincrement())
+  clientId  Int
+  date      DateTime
+  status    String
+  totalPrice Float
+  books     OrderBook[]
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+}
+
+model OrderBook {
+  orderId Int
+  bookId  Int
+  order   Order  @relation(fields: [orderId], references: [id])
+  book    Book   @relation(fields: [bookId], references: [id])
+
+  @@id([orderId, bookId])
+}
+
+model Language {
+  id       Int      @id @default(autoincrement())
+  language String
+  books    Book[]
+}
+
+
+model Genre {
+  id    Int     @id @default(autoincrement())
+  genre String
+  books Book[]
+}
+
+model Format {
+  id     Int     @id @default(autoincrement())
+  format String
+  books  Book[]
+}
+
+model Editorial {
+  id        Int    @id @default(autoincrement())
+  editorial String
+  books Book[]
+}
