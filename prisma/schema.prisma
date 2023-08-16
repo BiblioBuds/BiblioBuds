@@ -15,6 +15,13 @@ model User {
   email String  @unique
   name  String?
   orders  Order[]
+  role    Role     @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPERADMIN
 }
 
 model Book {
@@ -30,14 +37,23 @@ model Book {
   synopsis    String
   date        DateTime
   pages       Int
-  languageId  Int
-  language    Language    @relation(fields: [languageId], references: [id])
+  language    Language
   ratingId    Int
   ratings     Rating[]
   stock       Int
-  formatId    Int
-  formats     Format[]
+  formats     Formats
   orders      OrderBook[]
+}
+
+enum Language {
+  English
+  Spanish
+}
+
+enum Formats {
+  Physicall
+  Digital
+  AudioBook
 }
 
 model Rating { 
@@ -68,12 +84,6 @@ model OrderBook {
   @@id([orderId, bookId])
 }
 
-model Language {
-  id       Int      @id @default(autoincrement())
-  language String
-  books    Book[]
-}
-
 
 model Genre {
   id    Int     @id @default(autoincrement())
@@ -81,11 +91,6 @@ model Genre {
   books Book[]
 }
 
-model Format {
-  id     Int     @id @default(autoincrement())
-  format String
-  books  Book[]
-}
 
 model Editorial {
   id        Int    @id @default(autoincrement())
