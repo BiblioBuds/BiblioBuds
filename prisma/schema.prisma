@@ -22,22 +22,24 @@ model Book {
   title       String
   author      String
   image       String
-  editorialId Int
-  editorial   Editorial   @relation(fields: [editorialId], references: [id])
-  genreId     Int
+  editorialId Int?
+  editorial   Editorial?   @relation(fields: [editorialId], references: [id])
+  genreId     Int?
   genres      Genre[]
   price       Float
   synopsis    String
   date        DateTime
   pages       Int
-  languageId  Int
-  language    Language    @relation(fields: [languageId], references: [id])
-  ratingId    Int
+  languageId  Int?
+  language    Language?    @relation(fields: [languageId], references: [id])
+  ratingId    Int?
   ratings     Rating[]
   stock       Int
-  formatId    Int
+  formatId    Int?
   formats     Format[]
   orders      OrderBook[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Rating { 
@@ -51,7 +53,7 @@ model Rating {
 model Order {
   id        Int     @id @default(autoincrement())
   clientId  Int
-  date      DateTime
+  date      DateTime @default(now())
   status    String
   totalPrice Float
   books     OrderBook[]
@@ -70,25 +72,25 @@ model OrderBook {
 
 model Language {
   id       Int      @id @default(autoincrement())
-  language String
+  language String   @unique
   books    Book[]
 }
 
 
 model Genre {
   id    Int     @id @default(autoincrement())
-  genre String
+  genre String  @unique
   books Book[]
 }
 
 model Format {
   id     Int     @id @default(autoincrement())
-  format String
+  format String  @unique
   books  Book[]
 }
 
 model Editorial {
   id        Int    @id @default(autoincrement())
-  editorial String
+  editorial String @unique
   books Book[]
 }
