@@ -1,20 +1,35 @@
 .cardcontainer{
+    padding-top: 1rem;
     width: 10rem;
     height: 15rem;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid darkgrey;
 }
 .cardcontainer:hover{
 }
 .cardimage{
     width: 90%;
     height: 9rem;
-    margin-top: 1rem;
+    margin-top: .2rem;
 }
 .cardinfo{
     width: 90%;
     height: 2rem;
-    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    font-size: .7rem;
+    margin-top: .5rem;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid darkgrey;
 }
 .cardathor{
-    margin-top: 1rem;
+    width: 90%;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    margin-top: .5rem;
+    align-items: center;
 }

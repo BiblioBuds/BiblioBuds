@@ -16,6 +16,10 @@ const NavBar = () =>{
                     label: 'Login',
                     route: '/login'
                 },
+                {
+                    label: 'Explore shop',
+                    route: '/home'
+                }
                 // {
                 //   label: 'Logout',
                 //   route: '/api/auth/signout'
