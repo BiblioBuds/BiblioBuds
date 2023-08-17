@@ -90,3 +90,13 @@ export const POST = async (req, res) => {
     return NextResponse.json({ error });
   }
 };
+
+
+export const GET = async (req, res) => {
+  try {
+    const books = await prisma.book.findMany()
+    return NextResponse.json(books)
+  } catch (error) {
+    return NextResponse.json({error})
+  }
+}
