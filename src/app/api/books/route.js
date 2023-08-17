@@ -5,7 +5,7 @@ export const POST = async (req, res) => {
   try {
     const newBook = await req.json();
 
-    const { formats, language, genres, editorial, date, ...otherData } =
+    const { formats, languages, genres, editorial, date, ...otherData } =
       newBook;
 
     const formatIds = [];
@@ -19,12 +19,16 @@ export const POST = async (req, res) => {
       formatIds.push(formatId);
     }
 
-    const languageRecord = await prisma.language.findUnique({
-      where: { language },
-    });
-    const languageId = languageRecord
-      ? languageRecord.id
-      : (await prisma.language.create({ data: { language } })).id;
+    const languageIds = [];
+    for (const language of languages) {
+      const languageRecord = await prisma.language.findUnique({
+        where: { language },
+      });
+      const languageId = languageRecord
+        ? languageRecord.id
+        : (await prisma.language.create({ data: { language } })).id;
+      languageIds.push(languageId);
+    }
 
     const genreIds = [];
     for (const genre of genres) {
@@ -49,7 +53,6 @@ export const POST = async (req, res) => {
     const storedBook = await prisma.book.create({
       data: {
         ...otherData,
-        languageId,
         editorialId,
         date: formattedDate,
       },
@@ -69,6 +72,15 @@ export const POST = async (req, res) => {
         data: {
           genreId,
           bookId: storedBook.id,
+        },
+      });
+    }
+
+    for (const languageId of languageIds) {
+      await prisma.bookLanguage.create({
+        data: {
+          bookId: storedBook.id,
+          languageId,
         },
       });
     }

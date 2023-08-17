@@ -28,14 +28,13 @@ model Book {
   synopsis    String
   date        DateTime
   pages       Int
-  languageId  Int?
-  language    Language?    @relation(fields: [languageId], references: [id])
   ratingId    Int?
   ratings     Rating[]
   stock       Int
   orders      OrderBook[]
   bookGenres  BookGenre[]
   bookFormats BookFormat[]
+  bookLanguages BookLanguage[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
@@ -70,7 +69,7 @@ model OrderBook {
 model Language {
   id       Int      @id @default(autoincrement())
   language String   @unique
-  books    Book[]
+  books    BookLanguage[]
 }
 
 
@@ -108,4 +107,13 @@ model BookFormat {
   book     Book   @relation(fields: [bookId],  references: [id])
 
   @@id([formatId, bookId])
+}
+
+model BookLanguage {
+  bookId     Int
+  languageId Int
+  book       Book     @relation(fields: [bookId], references: [id])
+  language   Language @relation(fields: [languageId], references: [id])
+
+  @@id([bookId, languageId])
 }

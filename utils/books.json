@@ -11,7 +11,7 @@
     "editorial": "Bloomsbury",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English", "Spanish"]
   },
   {
     "title": "Harry Potter and the Chamber of Secrets",
@@ -25,7 +25,7 @@
     "editorial": "Bloomsbury",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "Harry Potter and the Prisoner of Azkaban",
@@ -39,7 +39,7 @@
     "editorial": "Bloomsbury",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English", "Spanish"]
   },
   {
     "title": "Harry Potter and the Goblet of Fire",
@@ -53,7 +53,7 @@
     "editorial": "Bloomsbury",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English", "Chinese"]
   },
   {
     "title": "Harry Potter and the Order of the Phoenix",
@@ -67,7 +67,7 @@
     "editorial": "Bloomsbury",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English", "Russian"]
   },
   {
     "title": "Harry Potter and the Half-Blood Prince",
@@ -81,7 +81,7 @@
     "editorial": "Bloomsbury",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "Harry Potter and the Deathly Hallows",
@@ -95,7 +95,7 @@
     "editorial": "Bloomsbury",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "The Count of Monte Cristo",
@@ -109,7 +109,7 @@
     "editorial": "Penguin Classics",
     "genres": ["Historical Fiction"],
     "formats": ["Digital"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "One Hundred Years of Solitude",
@@ -123,7 +123,7 @@
     "editorial": "Harper",
     "genres": ["Magical Realism"],
     "formats": ["Physicall"],
-    "language": "Spanish"
+    "languages": "Spanish"
   },
   {
     "title": "Memoirs of a Geisha",
@@ -137,7 +137,7 @@
     "editorial": "Vintage Books USA",
     "genres": ["Historical Fiction"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "Les Misérables",
@@ -151,7 +151,7 @@
     "editorial": "Penguin",
     "genres": ["Historical Fiction"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "The Picture of Dorian Gray",
@@ -165,7 +165,7 @@
     "editorial": "Random House: Modern Library",
     "genres": ["Fiction"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "The Hobbit",
@@ -179,7 +179,7 @@
     "editorial": "Houghton Mifflin",
     "genres": ["Fantasy"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "Little Women",
@@ -193,7 +193,7 @@
     "editorial": "Signet Classics",
     "genres": ["Romance"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "Lord of the Flies",
@@ -207,7 +207,7 @@
     "editorial": "Penguin Books ",
     "genres": ["Dystopia"],
     "formats": ["Digital"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "The Book Thief",
@@ -221,7 +221,7 @@
     "editorial": "Alfred A. Knopf",
     "genres": ["Historical Fiction"],
     "formats": ["Digital"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "The Diary of a Young Girl",
@@ -235,7 +235,7 @@
     "editorial": "Bantam",
     "genres": ["Biography"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "The Maid",
@@ -249,7 +249,7 @@
     "editorial": "HarperCollins",
     "genres": ["Thriller"],
     "formats": ["AudioBook"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "Crime and Punishment",
@@ -263,7 +263,7 @@
     "editorial": "Penguin",
     "genres": ["Crime"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "The Alchemist",
@@ -277,7 +277,7 @@
     "editorial": "HarperOne",
     "genres": ["Fiction"],
     "formats": ["Physicall"],
-    "language": "Spanish"
+    "languages": "Spanish"
   },
   {
     "title": "And Then There Were None",
@@ -291,7 +291,7 @@
     "editorial": "St. Martin's Griffin",
     "genres": ["Mystery"],
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   },
   {
     "title": "Wuthering Heights",
@@ -305,6 +305,6 @@
     "genres": "Romance",
     "editorial": "Paperback",
     "formats": ["Physicall"],
-    "language": "English"
+    "languages": ["English"]
   }
 ]

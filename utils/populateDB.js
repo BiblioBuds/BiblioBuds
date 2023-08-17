@@ -22,15 +22,17 @@ async function main() {
     }
     delete book.formats;
 
-    const languageRecord = await prisma.language.findUnique({
-      where: { language: book.language },
-    });
-    book.languageId = languageRecord
-      ? languageRecord.id
-      : (await prisma.language.create({ data: { language: book.language } }))
-          .id;
-
-    delete book.language;
+    const languageIds = [];
+    for (const language of book.languages) {
+      const languageRecord = await prisma.language.findUnique({
+        where: { language },
+      });
+      const languageId = languageRecord
+        ? languageRecord.id
+        : (await prisma.language.create({ data: { language } })).id;
+      languageIds.push(languageId);
+    }
+    delete book.languages;
 
     const genreIds = [];
     for (const genre of book.genres) {
@@ -71,6 +73,15 @@ async function main() {
       await prisma.bookGenre.create({
         data: {
           genreId,
+          bookId: createdBook.id,
+        },
+      });
+    }
+
+    for (const languageId of languageIds) {
+      await prisma.bookLanguage.create({
+        data: {
+          languageId,
           bookId: createdBook.id,
         },
       });
