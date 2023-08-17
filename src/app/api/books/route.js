@@ -94,7 +94,27 @@ export const POST = async (req, res) => {
 
 export const GET = async (req, res) => {
   try {
-    const books = await prisma.book.findMany()
+    const books = await prisma.book.findMany({
+      include: {
+        orders:true,
+        bookGenres: {
+          select:{
+            genre:true
+          }
+        },
+        bookFormats:{
+          select: {
+            format:true
+          }
+        },
+        bookLanguages:{
+          select: {
+            language: true
+          }
+        }
+      },
+    }
+  )
     return NextResponse.json(books)
   } catch (error) {
     return NextResponse.json({error})
