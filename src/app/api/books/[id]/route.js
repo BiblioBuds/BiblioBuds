@@ -56,3 +56,18 @@ export const PUT = async (req, { params }) => {
     return NextResponse.json({ error });
   }
 };
+
+
+export const GET = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const book = await prisma.book.findUnique({
+      where: {
+        id: id,
+      },
+    })
+    return NextResponse.json(book)
+  } catch (error) {
+    return NextResponse.json({error})
+  }
+}
