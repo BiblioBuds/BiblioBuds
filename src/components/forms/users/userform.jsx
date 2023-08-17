@@ -66,10 +66,12 @@ const UserForm = () => {
             <label htmlFor="password"></label>
             <input type="text" name='password' value='' placeholder='password' autoComplete='off' onChange={handleOnChange}/>
           </section>
-          {/* <section>
+          {/*
+          <section>
             <label htmlFor="confimpassword"></label>
             <input type="text" name='confimpassword' value='' placeholder='Confirm password' autoComplete='off' onChange={handleOnChange}/>
-          </section> */}
+          </section>
+          */}
           <button type='submit'>Log in</button>
         </form>
             <div className={style.divmodal}>

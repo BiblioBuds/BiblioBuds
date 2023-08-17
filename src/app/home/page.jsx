@@ -5,11 +5,11 @@ export const Home = () => {
   return (
     <div className={styles.main}>
         <header>
-          <h1>BiblioBuds</h1>
+          <h1 className={styles.hometitle}>BiblioBuds</h1>
         </header>
         <section className={styles.popular}>
           <h3>Popular</h3>
-          {/* acá vn las cards de los má revisados */}
+          <Card/>
         </section>
         <section className={styles.cards}>
           <Card/>
