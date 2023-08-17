@@ -5,5 +5,14 @@
     align-items: center;
     margin-top: 3rem;
     min-height: 68vh;
-    border: 1px solid red;
+}
+.popular{
+    width: 90%;
+    height: 17rem;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid grey;
+}
+.cards{
+    width: 90%;
 }

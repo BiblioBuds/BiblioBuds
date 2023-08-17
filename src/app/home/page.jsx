@@ -1,4 +1,5 @@
 import styles from './home.module.css';
+import Card from '@/components/cards/card';
 
 export const Home = () => {
   return (
@@ -6,12 +7,12 @@ export const Home = () => {
         <header>
           <h1>BiblioBuds</h1>
         </header>
-        <section>
+        <section className={styles.popular}>
           <h3>Popular</h3>
           {/* acá vn las cards de los má revisados */}
         </section>
-        <section>
-          {/* acá van las cards de los libros */}
+        <section className={styles.cards}>
+          <Card/>
         </section>
     </div>
   )
