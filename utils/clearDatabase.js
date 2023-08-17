@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 async function clearDatabase() {
   await prisma.bookFormat.deleteMany();
   await prisma.bookGenre.deleteMany();
+  await prisma.bookLanguage.deleteMany();
   await prisma.book.deleteMany();
   await prisma.format.deleteMany();
   await prisma.genre.deleteMany();
