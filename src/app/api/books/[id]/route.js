@@ -58,14 +58,35 @@ export const PUT = async (req, { params }) => {
 };
 
 
-export const GET = async (req, res) => {
-  const { id } = req.params;
+export const GET = async (req, {params}) => {
+  const { id } = params;
+  console.log(id)
   try {
+    console.log(id)
     const book = await prisma.book.findUnique({
       where: {
-        id: id,
+        id: parseInt(id),
       },
-    })
+        include: {
+          orders:true,
+          bookGenres: {
+            select:{
+              genre:true
+            }
+          },
+          bookFormats:{
+            select: {
+              format:true
+            }
+          },
+          bookLanguages:{
+            select: {
+              language: true
+            }
+          }
+        },
+      },
+    )
     return NextResponse.json(book)
   } catch (error) {
     return NextResponse.json({error})
