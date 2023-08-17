@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "populateDB": "node ./utils/populateDB",
+    "clearDB": "node ./utils/clearDatabase"
   },
   "dependencies": {
     "@prisma/client": "^5.1.1",

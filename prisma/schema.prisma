@@ -24,8 +24,6 @@ model Book {
   image       String
   editorialId Int?
   editorial   Editorial?   @relation(fields: [editorialId], references: [id])
-  genreId     Int?
-  genres      Genre[]
   price       Float
   synopsis    String
   date        DateTime
@@ -35,9 +33,9 @@ model Book {
   ratingId    Int?
   ratings     Rating[]
   stock       Int
-  formatId    Int?
-  formats     Format[]
   orders      OrderBook[]
+  bookGenres  BookGenre[]
+  bookFormats BookFormat[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
@@ -52,7 +50,6 @@ model Rating {
 
 model Order {
   id        Int     @id @default(autoincrement())
-  clientId  Int
   date      DateTime @default(now())
   status    String
   totalPrice Float
@@ -80,17 +77,35 @@ model Language {
 model Genre {
   id    Int     @id @default(autoincrement())
   genre String  @unique
-  books Book[]
+  bookGenres BookGenre[]
 }
 
 model Format {
   id     Int     @id @default(autoincrement())
   format String  @unique
-  books  Book[]
+  bookFormats BookFormat[]
 }
 
 model Editorial {
   id        Int    @id @default(autoincrement())
   editorial String @unique
   books Book[]
+}
+
+model BookGenre {
+  genreId Int
+  bookId  Int
+  genre   Genre @relation(fields: [genreId], references: [id])
+  book    Book  @relation(fields: [bookId],  references: [id])
+
+  @@id([genreId, bookId])
+}
+
+model BookFormat {
+  formatId Int
+  bookId   Int
+  format   Format @relation(fields: [formatId], references: [id])
+  book     Book   @relation(fields: [bookId],  references: [id])
+
+  @@id([formatId, bookId])
 }

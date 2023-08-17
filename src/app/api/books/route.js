@@ -5,14 +5,19 @@ export const POST = async (req, res) => {
   try {
     const newBook = await req.json();
 
-    const { format, language, genre, editorial, date, ...otherData } = newBook;
+    const { formats, language, genres, editorial, date, ...otherData } =
+      newBook;
 
-    const formatRecord = await prisma.format.findUnique({
-      where: { format },
-    });
-    const formatId = formatRecord
-      ? formatRecord.id
-      : (await prisma.format.create({ data: { format } })).id;
+    const formatIds = [];
+    for (const format of formats) {
+      const formatRecord = await prisma.format.findUnique({
+        where: { format },
+      });
+      const formatId = formatRecord
+        ? formatRecord.id
+        : (await prisma.format.create({ data: { format } })).id;
+      formatIds.push(formatId);
+    }
 
     const languageRecord = await prisma.language.findUnique({
       where: { language },
@@ -21,12 +26,16 @@ export const POST = async (req, res) => {
       ? languageRecord.id
       : (await prisma.language.create({ data: { language } })).id;
 
-    const genreRecord = await prisma.genre.findUnique({
-      where: { genre },
-    });
-    const genreId = genreRecord
-      ? genreRecord.id
-      : (await prisma.genre.create({ data: { genre } })).id;
+    const genreIds = [];
+    for (const genre of genres) {
+      const genreRecord = await prisma.genre.findUnique({
+        where: { genre },
+      });
+      const genreId = genreRecord
+        ? genreRecord.id
+        : (await prisma.genre.create({ data: { genre } })).id;
+      genreIds.push(genreId);
+    }
 
     const editorialRecord = await prisma.editorial.findUnique({
       where: { editorial },
@@ -40,13 +49,29 @@ export const POST = async (req, res) => {
     const storedBook = await prisma.book.create({
       data: {
         ...otherData,
-        formatId,
         languageId,
-        genreId,
         editorialId,
         date: formattedDate,
       },
     });
+
+    for (const formatId of formatIds) {
+      await prisma.bookFormat.create({
+        data: {
+          formatId,
+          bookId: storedBook.id,
+        },
+      });
+    }
+
+    for (const genreId of genreIds) {
+      await prisma.bookGenre.create({
+        data: {
+          genreId,
+          bookId: storedBook.id,
+        },
+      });
+    }
 
     return NextResponse.json({ storedBook });
   } catch (error) {
