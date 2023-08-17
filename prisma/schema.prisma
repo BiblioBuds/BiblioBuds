@@ -15,13 +15,6 @@ model User {
   email String  @unique
   name  String?
   orders  Order[]
-  role    Role     @default(USER)
-}
-
-enum Role {
-  USER
-  ADMIN
-  SUPERADMIN
 }
 
 model Book {
@@ -31,31 +24,19 @@ model Book {
   image       String
   editorialId Int?
   editorial   Editorial?   @relation(fields: [editorialId], references: [id])
-  genreId     Int?
-  genres      Genre[]
   price       Float
   synopsis    String
   date        DateTime
   pages       Int
-  language    Language @default(Spanish)
   ratingId    Int?
   ratings     Rating[]
   stock       Int
-  formats     Format @default(Physicall)
   orders      OrderBook[]
+  bookGenres  BookGenre[]
+  bookFormats BookFormat[]
+  bookLanguages BookLanguage[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-}
-
-enum Language {
-  English
-  Spanish
-}
-
-enum Format {
-  Physicall
-  Digital
-  AudioBook
 }
 
 model Rating { 
@@ -68,7 +49,6 @@ model Rating {
 
 model Order {
   id        Int     @id @default(autoincrement())
-  clientId  Int
   date      DateTime @default(now())
   status    String
   totalPrice Float
@@ -86,16 +66,54 @@ model OrderBook {
   @@id([orderId, bookId])
 }
 
+model Language {
+  id       Int      @id @default(autoincrement())
+  language String   @unique
+  books    BookLanguage[]
+}
+
 
 model Genre {
   id    Int     @id @default(autoincrement())
   genre String  @unique
-  books Book[]
+  bookGenres BookGenre[]
 }
 
+model Format {
+  id     Int     @id @default(autoincrement())
+  format String  @unique
+  bookFormats BookFormat[]
+}
 
 model Editorial {
   id        Int    @id @default(autoincrement())
   editorial String @unique
   books Book[]
+}
+
+model BookGenre {
+  genreId Int
+  bookId  Int
+  genre   Genre @relation(fields: [genreId], references: [id])
+  book    Book  @relation(fields: [bookId],  references: [id])
+
+  @@id([genreId, bookId])
+}
+
+model BookFormat {
+  formatId Int
+  bookId   Int
+  format   Format @relation(fields: [formatId], references: [id])
+  book     Book   @relation(fields: [bookId],  references: [id])
+
+  @@id([formatId, bookId])
+}
+
+model BookLanguage {
+  bookId     Int
+  languageId Int
+  book       Book     @relation(fields: [bookId], references: [id])
+  language   Language @relation(fields: [languageId], references: [id])
+
+  @@id([bookId, languageId])
 }

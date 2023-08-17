@@ -1,15 +1,17 @@
-import prisma from "../../../../lib/prisma";
-import { NextResponse } from "next/server";
+const { PrismaClient } = require("@prisma/client");
+const fs = require("fs");
+const path = require("path");
+const prisma = new PrismaClient();
 
-export const POST = async (req, res) => {
-  try {
-    const newBook = await req.json();
+const dataPath = path.join(__dirname, "./books.json");
+const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 
-    const { formats, languages, genres, editorial, date, ...otherData } =
-      newBook;
+async function main() {
+  for (const book of data) {
+    book.date = new Date(book.date).toISOString();
 
     const formatIds = [];
-    for (const format of formats) {
+    for (const format of book.formats) {
       const formatRecord = await prisma.format.findUnique({
         where: { format },
       });
@@ -18,9 +20,10 @@ export const POST = async (req, res) => {
         : (await prisma.format.create({ data: { format } })).id;
       formatIds.push(formatId);
     }
+    delete book.formats;
 
     const languageIds = [];
-    for (const language of languages) {
+    for (const language of book.languages) {
       const languageRecord = await prisma.language.findUnique({
         where: { language },
       });
@@ -29,9 +32,10 @@ export const POST = async (req, res) => {
         : (await prisma.language.create({ data: { language } })).id;
       languageIds.push(languageId);
     }
+    delete book.languages;
 
     const genreIds = [];
-    for (const genre of genres) {
+    for (const genre of book.genres) {
       const genreRecord = await prisma.genre.findUnique({
         where: { genre },
       });
@@ -40,29 +44,27 @@ export const POST = async (req, res) => {
         : (await prisma.genre.create({ data: { genre } })).id;
       genreIds.push(genreId);
     }
+    delete book.genres;
 
     const editorialRecord = await prisma.editorial.findUnique({
-      where: { editorial },
+      where: { editorial: book.editorial },
     });
-    const editorialId = editorialRecord
+    book.editorialId = editorialRecord
       ? editorialRecord.id
-      : (await prisma.editorial.create({ data: { editorial } })).id;
+      : (await prisma.editorial.create({ data: { editorial: book.editorial } }))
+          .id;
 
-    const formattedDate = new Date(date);
+    delete book.editorial;
 
-    const storedBook = await prisma.book.create({
-      data: {
-        ...otherData,
-        editorialId,
-        date: formattedDate,
-      },
+    const createdBook = await prisma.book.create({
+      data: book,
     });
 
     for (const formatId of formatIds) {
       await prisma.bookFormat.create({
         data: {
           formatId,
-          bookId: storedBook.id,
+          bookId: createdBook.id,
         },
       });
     }
@@ -71,7 +73,7 @@ export const POST = async (req, res) => {
       await prisma.bookGenre.create({
         data: {
           genreId,
-          bookId: storedBook.id,
+          bookId: createdBook.id,
         },
       });
     }
@@ -79,24 +81,20 @@ export const POST = async (req, res) => {
     for (const languageId of languageIds) {
       await prisma.bookLanguage.create({
         data: {
-          bookId: storedBook.id,
           languageId,
+          bookId: createdBook.id,
         },
       });
     }
-
-    return NextResponse.json({ storedBook });
-  } catch (error) {
-    return NextResponse.json({ error });
-  }
-};
-
-
-export const GET = async (req, res) => {
-  try {
-    const books = await prisma.book.findMany()
-    return NextResponse.json(books)
-  } catch (error) {
-    return NextResponse.json({error})
   }
 }
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    console.log("Your database is now populated!.");
+    await prisma.$disconnect();
+  });
