@@ -8,7 +8,7 @@ export const Home = () => {
           <h1 className={styles.hometitle}>BiblioBuds</h1>
         </header>
         <section className={styles.popular}>
-          <h3>Popular</h3>
+          <h3 className={styles.popularpad}>Popular</h3>
           <Card/>
         </section>
         <section className={styles.cards}>

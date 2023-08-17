@@ -8,7 +8,7 @@
     /* border: 1px solid rgb(131, 123, 123); */
 }
 .hometitle{
-    margin-top: -12rem;
+    margin-top: -9rem;
 }
 .popular{
     width: 90%;
@@ -16,6 +16,9 @@
     display: flex;
     flex-direction: row;
     /* border: 1px solid grey; */
+}
+.popularpad{
+    margin-right: 2rem;
 }
 .cards{
     width: 90%;
