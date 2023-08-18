@@ -3,16 +3,17 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-top: 0rem;
+    margin-top: 3rem;
     min-height: 75vh;
     /* border: 1px solid rgb(131, 123, 123); */
 }
 .hometitle{
-    margin-top: -9rem;
+    margin-top: 1rem;
 }
 .popular{
     width: 90%;
     height: 17rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: row;
     /* border: 1px solid grey; */
