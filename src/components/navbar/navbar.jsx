@@ -2,6 +2,7 @@
 import style from './navbar.module.css';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import SearchBar from '../searchbar/searchbar';
 
 const NavBar = () =>{
     const pathname = usePathname();
@@ -118,6 +119,7 @@ const NavBar = () =>{
     const links = getLinks();
     return(
         <nav className={style.navmain}>
+            <SearchBar className={style.searchbar}/>
             <ul className={style.navul}>
                 {links.map(({label, route}) =>(
                     <li key={route}>

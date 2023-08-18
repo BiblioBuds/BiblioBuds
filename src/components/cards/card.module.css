@@ -1,22 +1,32 @@
 .cardcontainer{
     padding-top: 1rem;
-    width: 10rem;
+    width: 20rem;
     height: 15rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    gap: 1rem;
     border: 1px solid darkgrey;
 }
 .cardcontainer:hover{
 }
 .cardimage{
-    width: 90%;
-    height: 9rem;
-    margin-top: .2rem;
+    width: 48%;
+    height: 90%;
+    margin-left: 1rem;
 }
 .cardinfo{
+    width: 48%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    font-size: .7rem;
+    margin-right: 1rem;
+    align-items: center;
+    justify-content: space-around;
+}
+.bookinfo{
     width: 90%;
-    height: 2rem;
     display: flex;
     flex-direction: row;
     font-size: .7rem;
@@ -32,4 +42,5 @@
     flex-direction: row;
     margin-top: .5rem;
     align-items: center;
+    border: 1px solid darkgrey;
 }
