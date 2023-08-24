@@ -123,7 +123,7 @@
     "editorial": "Harper",
     "genres": ["Magical Realism"],
     "formats": ["Physicall"],
-    "languages": "Spanish"
+    "languages": ["Spanish"]
   },
   {
     "title": "Memoirs of a Geisha",
@@ -277,7 +277,7 @@
     "editorial": "HarperOne",
     "genres": ["Fiction"],
     "formats": ["Physicall"],
-    "languages": "Spanish"
+    "languages": ["Spanish"]
   },
   {
     "title": "And Then There Were None",
@@ -302,8 +302,8 @@
     "date": "1847-01-01",
     "pages": 464,
     "stock": 10,
-    "genres": "Romance",
     "editorial": "Paperback",
+    "genres": ["Romance"],
     "formats": ["Physicall"],
     "languages": ["English"]
   }
