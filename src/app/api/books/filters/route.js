@@ -39,7 +39,7 @@ export const POST = async (req, res) => {
   if (orderBy && typeof orderBy === "object") {
     if (orderBy.price) order.price = orderBy.price;
     if (orderBy.pages) order.pages = orderBy.pages;
-    if (orderBy.name) order.name = orderBy.name;
+    if (orderBy.title) order.title = orderBy.title;
   }
 
   try {

@@ -21,9 +21,13 @@ const Shop = () => {
       });
   }, []);
   return (
-    <div>
-      <Filters />
-      {isLoading ? <p>Loading...</p> : <Cards books={books} />}
+    <div className="flex">
+      <div className=" w-[15%] p-4">
+        <Filters setBooks={setBooks} />
+      </div>
+      <div className="p-4">
+        {isLoading ? <p>Loading...</p> : <Cards books={books} />}
+      </div>
     </div>
   );
 };
