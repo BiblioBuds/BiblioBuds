@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useGlobalContext } from "@/app/Context/store";
 
 const FilterCategory = ({ title, items, setFilters }) => (
   <div className="my-2">
@@ -10,10 +11,7 @@ const FilterCategory = ({ title, items, setFilters }) => (
     {items.map((item) => (
       <p
         onClick={() => {
-          setFilters((prevState) => ({
-            ...prevState,
-            [title.toLowerCase()]: item.name,
-          }));
+          setFilters(item.name);
         }}
         key={item.id}
         className="text-xs py-1 cursor-pointer hover:underline hover:text-red-500"
@@ -31,16 +29,7 @@ const OrderCategory = ({ title, items, setFilters }) => (
     {items.map((item, index) => (
       <p
         onClick={() => {
-          setFilters((prevState) => {
-            const currentOrder = prevState.orderBy[item.toLowerCase()];
-            const newOrder = currentOrder === "desc" ? "asc" : "desc";
-            return {
-              ...prevState,
-              orderBy: {
-                [item.toLowerCase()]: newOrder,
-              },
-            };
-          });
+          setFilters(`${item.toLowerCase()}: desc`);
         }}
         key={index}
         className="text-xs py-1 cursor-pointer hover:underline hover:text-red-500"
@@ -54,33 +43,43 @@ const OrderCategory = ({ title, items, setFilters }) => (
 const FilterTag = ({ filter, setFilters, filterValue }) => (
   <p
     className="w-fit cursor-pointer text-sm border-2 border-black hover:bg-black hover:text-white rounded-xl p-1 duration-300"
-    onClick={() =>
-      setFilters((prevState) => ({
-        ...prevState,
-        [filter]: "",
-      }))
-    }
+    onClick={() => setFilters("")}
   >
     {filterValue} X
   </p>
 );
 
-const Filters = ({ setBooks }) => {
-  const [genres, setGenres] = useState([]);
-  const [formats, setFormats] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [editorials, setEditorials] = useState([]);
+const Filters = () => {
   const [isLoading, setLoading] = useState(true);
 
-  const [filters, setFilters] = useState({
-    editorial: "",
-    format: "",
-    language: "",
-    genre: "",
-    orderBy: {
-      title: "desc",
-    },
-  });
+  const {
+    books,
+    setBooks,
+    filteredBooks,
+    setFilteredBooks,
+    genres,
+    setGenres,
+    editorials,
+    setEditorials,
+    formats,
+    setFormats,
+    languages,
+    setLanguages,
+    filterGenre,
+    setFilterGenre,
+    filterEditorial,
+    setFilterEditorial,
+    filterFormat,
+    setFilterFormat,
+    filterLanguage,
+    setFilterLanguage,
+    orderBooks,
+    setOrderBooks,
+    page,
+    setPage,
+    size,
+    setSize,
+  } = useGlobalContext();
 
   useEffect(() => {
     axios
@@ -117,8 +116,16 @@ const Filters = ({ setBooks }) => {
   }, []);
 
   const filterBooks = () => {
+    const queryString = new URLSearchParams({
+      filterGenre,
+      filterFormat,
+      filterLanguage,
+      filterEditorial,
+      orderBooks,
+    }).toString();
+    console.log(queryString);
     axios
-      .post("/api/books/filters", filters)
+      .get("/api/books/filters?" + queryString)
       .then((res) => res.data)
       .then((data) => {
         console.log(data);
@@ -128,44 +135,55 @@ const Filters = ({ setBooks }) => {
 
   useEffect(() => {
     filterBooks();
-  }, [filters]);
+  }, [filterGenre, filterFormat, filterLanguage, filterEditorial, orderBooks]);
 
   return (
     <div className="p-2">
-      <h1 onClick={() => console.log(filters)} className="font-bold text-xl">
+      <h1
+        onClick={() =>
+          console.log({
+            filterEditorial,
+            filterFormat,
+            filterGenre,
+            filterLanguage,
+            orderBooks,
+          })
+        }
+        className="font-bold text-xl"
+      >
         Categories
       </h1>
       <div className="flex flex-wrap">
-        {filters.genre ? (
+        {filterGenre ? (
           <FilterTag
-            key={filters.genre}
+            key={filterGenre}
             filter="genre"
-            setFilters={setFilters}
-            filterValue={filters.genre}
+            setFilters={setFilterGenre}
+            filterValue={filterGenre}
           />
         ) : null}
-        {filters.format ? (
+        {filterFormat ? (
           <FilterTag
-            key={filters.format}
+            key={filterFormat}
             filter="format"
-            setFilters={setFilters}
-            filterValue={filters.format}
+            setFilters={setFilterFormat}
+            filterValue={filterFormat}
           />
         ) : null}
-        {filters.language ? (
+        {filterLanguage ? (
           <FilterTag
-            key={filters.language}
+            key={filterLanguage}
             filter="language"
-            setFilters={setFilters}
-            filterValue={filters.language}
+            setFilters={setFilterLanguage}
+            filterValue={filterLanguage}
           />
         ) : null}
-        {filters.editorial ? (
+        {filterEditorial ? (
           <FilterTag
-            key={filters.editorial}
+            key={filterEditorial}
             filter="editorial"
-            setFilters={setFilters}
-            filterValue={filters.editorial}
+            setFilters={setFilterEditorial}
+            filterValue={filterEditorial}
           />
         ) : null}
       </div>
@@ -175,17 +193,17 @@ const Filters = ({ setBooks }) => {
         <>
           <FilterCategory
             title="Genre"
-            setFilters={setFilters}
+            setFilters={setFilterGenre}
             items={genres.map(({ id, genre }) => ({ id, name: genre }))}
           />
           <FilterCategory
             title="Format"
-            setFilters={setFilters}
+            setFilters={setFilterFormat}
             items={formats.map(({ id, format }) => ({ id, name: format }))}
           />
           <FilterCategory
             title="Language"
-            setFilters={setFilters}
+            setFilters={setFilterLanguage}
             items={languages.map(({ id, language }) => ({
               id,
               name: language,
@@ -193,7 +211,7 @@ const Filters = ({ setBooks }) => {
           />
           <FilterCategory
             title="Editorial"
-            setFilters={setFilters}
+            setFilters={setFilterEditorial}
             items={editorials.map(({ id, editorial }) => ({
               id,
               name: editorial,
@@ -203,7 +221,7 @@ const Filters = ({ setBooks }) => {
       )}
       <OrderCategory
         title="Order"
-        setFilters={setFilters}
+        setFilters={setOrderBooks}
         items={["Title", "Price", "Pages"]}
       />
     </div>
