@@ -12,9 +12,6 @@ export const GET = async (req, res) => {
   const page = parseInt(nextReq.nextUrl.searchParams.get("page")) || 1;
   const size = parseInt(nextReq.nextUrl.searchParams.get("size")) || 12;
 
-  // const filters = await req.json();
-  // const { editorial, format, language, genre, orderBy } = filters;
-
   let filter = {};
   if (editorial)
     filter.editorial = {
@@ -45,15 +42,12 @@ export const GET = async (req, res) => {
       },
     };
 
-  console.log(filter);
-
   let order = {};
-  if (orderBy && typeof orderBy === "object") {
-    if (orderBy.price) order.price = orderBy.price;
-    if (orderBy.pages) order.pages = orderBy.pages;
-    if (orderBy.title) order.title = orderBy.title;
+  if (orderBy) {
+    if (orderBy === "price") order.price = "desc";
+    if (orderBy === "pages") order.pages = "desc";
+    if (orderBy === "title") order.title = "desc";
   }
-  console.log(order);
 
   try {
     const [books, total] = await Promise.all([
@@ -81,7 +75,7 @@ export const GET = async (req, res) => {
           },
         },
       }),
-      prisma.book.count(),
+      prisma.book.count({ where: filter }),
     ]);
     return NextResponse.json({ books, length: total });
   } catch (error) {

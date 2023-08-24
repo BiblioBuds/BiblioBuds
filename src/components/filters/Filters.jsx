@@ -6,7 +6,7 @@ import { useGlobalContext } from "@/app/Context/store";
 
 const FilterCategory = ({ title, items, setFilters }) => (
   <div className="my-2">
-    <h2 className="font-bold text-lg mb-2">{title}</h2>
+    <h2 className="font-bold text-lg">{title}</h2>
     <div className="border-t border-gray-200"></div>
     {items.map((item) => (
       <p
@@ -29,7 +29,7 @@ const OrderCategory = ({ title, items, setFilters }) => (
     {items.map((item, index) => (
       <p
         onClick={() => {
-          setFilters(`${item.toLowerCase()}: desc`);
+          setFilters(`${item.toLowerCase()}`);
         }}
         key={index}
         className="text-xs py-1 cursor-pointer hover:underline hover:text-red-500"
@@ -86,28 +86,28 @@ const Filters = () => {
       .get("/api/genres")
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setGenres(data);
       });
     axios
       .get("/api/formats")
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setFormats(data);
       });
     axios
       .get("/api/languages")
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setLanguages(data);
       });
     axios
       .get("/api/editorials")
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setEditorials(data);
       });
     // return () => {
@@ -122,19 +122,22 @@ const Filters = () => {
       filterLanguage,
       filterEditorial,
       orderBooks,
+      page,
+      size,
     }).toString();
-    console.log(queryString);
+    // console.log(queryString);
     axios
       .get("/api/books/filters?" + queryString)
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBooks(data);
       });
   };
 
   useEffect(() => {
     filterBooks();
+    setPage(1);
   }, [filterGenre, filterFormat, filterLanguage, filterEditorial, orderBooks]);
 
   return (
