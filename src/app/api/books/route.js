@@ -1,5 +1,5 @@
 import prisma from "../../../../lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req, res) => {
   try {
@@ -91,7 +91,6 @@ export const POST = async (req, res) => {
   }
 };
 
-
 export const GET = async (req, res) => {
   try {
     const books = await prisma.book.findMany({
@@ -103,25 +102,24 @@ export const GET = async (req, res) => {
           }
         },
         bookGenres: {
-          select:{
-            genre:true
-          }
-        },
-        bookFormats:{
           select: {
-            format:true
-          }
+            genre: true,
+          },
         },
-        bookLanguages:{
+        bookFormats: {
           select: {
-            language: true
-          }
-        }
+            format: true,
+          },
+        },
+        bookLanguages: {
+          select: {
+            language: true,
+          },
+        },
       },
-    }
-  )
-    return NextResponse.json(books)
+    });
+    return NextResponse.json(books);
   } catch (error) {
-    return NextResponse.json({error})
+    return NextResponse.json({ error });
   }
-}
+};

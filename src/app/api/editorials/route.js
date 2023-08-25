@@ -3,10 +3,9 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req, res) => {
   try {
-    const formats = await prisma.format.findMany();
-    return NextResponse.json(formats);
+    const editorials = await prisma.editorial.findMany();
+    return NextResponse.json(editorials);
   } catch (error) {
     return NextResponse.json({ error });
   }
 };
-
