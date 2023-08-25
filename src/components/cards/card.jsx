@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { FaBookOpen, FaShoppingCart, FaTimesCircle } from "react-icons/fa";
+import {
+  FaBookOpen,
+  FaShoppingCart,
+  FaTimesCircle,
+  FaDollarSign,
+} from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 // import style from "./card.module.css";
 // Helper function to manage cart items
@@ -49,9 +54,12 @@ const Card = ({ book }) => {
         </span>
         <section className="w-9/10 flex flex-row text-xs mt-2 space-x-4">
           <span className="flex flex-row justify-center items-center">
-            <FaBookOpen className="mr-2" /> {book.pages}
+            <FaBookOpen className="mr-1" /> {book.pages}
           </span>
-          <span className="">${book.price}</span>
+          <span className="flex flex-row justify-center items-center">
+            <FaDollarSign />
+            {book.price}
+          </span>
         </section>
         <button
           onClick={handleCart}
