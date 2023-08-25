@@ -66,7 +66,7 @@ const Shop = () => {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <div className=" space-y-5">
+          <div className=" space-y-5 w-full">
             <Cards books={books.books} />
             <Pagination
               currentPage={page}
