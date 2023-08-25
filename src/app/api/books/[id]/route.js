@@ -153,6 +153,11 @@ export const GET = async (req, {params}) => {
       },
         include: {
           orders:true,
+          editorial:{
+            select:{
+              editorial:true
+            }
+          },
           bookGenres: {
             select:{
               genre:true

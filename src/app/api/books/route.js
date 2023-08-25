@@ -97,6 +97,11 @@ export const GET = async (req, res) => {
     const books = await prisma.book.findMany({
       include: {
         orders:true,
+        editorial:{
+          select:{
+            editorial:true
+          }
+        },
         bookGenres: {
           select:{
             genre:true
