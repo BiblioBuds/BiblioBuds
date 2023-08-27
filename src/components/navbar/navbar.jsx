@@ -124,7 +124,7 @@ const Navbar = () => {
               <FaShoppingCart className="w-6 h-6" />
             </Link>
             <Link
-              href="/product"
+              href="/form"
               className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
             >
               <FaBookMedical className="w-6 h-6" />
