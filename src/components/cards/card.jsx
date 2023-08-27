@@ -8,15 +8,22 @@ import {
 } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const manageCart = (book) => {
   let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
   let itemIndex = cartItems.findIndex((item) => item.id === book.id);
 
   if (itemIndex !== -1) {
+    toast.info(
+      `You have removed ${cartItems[itemIndex].title} from your cart.`
+    );
     cartItems.splice(itemIndex, 1);
   } else {
     cartItems.push(book);
+    toast.success("Item successfully added to your cart.");
   }
 
   localStorage.setItem("cart", JSON.stringify(cartItems));
