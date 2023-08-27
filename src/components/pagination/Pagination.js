@@ -1,14 +1,17 @@
+import { useGlobalContext } from "@/app/Context/store";
 import React from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  const { books } = useGlobalContext();
+
   const handlePageClick = (page) => {
     onPageChange(page);
   };
 
   return (
     <div className="flex justify-center space-x-2">
-      {!(currentPage === 1) ? (
+      {!(currentPage === 1) && books.books.length > 0 ? (
         <button
           onClick={() => handlePageClick(currentPage - 1)}
           disabled={currentPage === 1}
@@ -20,7 +23,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         </button>
       ) : null}
       {renderPaginationLinks()}
-      {!(currentPage === totalPages) ? (
+      {!(currentPage === totalPages) && books.books.length > 0 ? (
         <button
           onClick={() => handlePageClick(currentPage + 1)}
           disabled={currentPage === totalPages}
