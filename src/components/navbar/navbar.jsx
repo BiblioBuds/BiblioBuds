@@ -11,20 +11,16 @@ const NavBar = () =>{
             return [
                 {
                   label: 'Signup',
-                  route: '/signup'
+                  route: '/api/auth/signin'
                 },
                 {
                     label: 'Login',
-                    route: '/login'
+                    route: '/api/auth/signin'
                 },
                 {
                     label: 'Explore shop',
                     route: '/home'
                 }
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
             ];
         } 
         else if (pathname === '/home') {
@@ -49,10 +45,10 @@ const NavBar = () =>{
                     label: 'Logout',
                     route: '/'
                 },
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
+                {
+                  label: 'Logout',
+                  route: '/api/auth/signout'
+                },
             ];
         }
         else if (pathname === '/profile') {
@@ -70,13 +66,9 @@ const NavBar = () =>{
                     route: '/cart'
                 },
                 {
-                    label: 'Logout',
-                    route: '/'
+                  label: 'Logout',
+                  route: '/api/auth/signout'
                 },
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
             ];
         }
         else if (pathname === '/purashes') {
@@ -98,13 +90,9 @@ const NavBar = () =>{
                     route: '/cart'
                 },
                 {
-                    label: 'Logout',
-                    route: '/'
+                  label: 'Logout',
+                  route: '/api/auth/signout'
                 },
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
             ];
         }
         else{

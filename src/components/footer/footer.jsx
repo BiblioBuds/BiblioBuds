@@ -24,21 +24,21 @@ const participants = [
         ]
     },
     {
-        name: 'Gonzalo',
+        name: 'Evelyn',
         links:[
             {
                 image: '/Media/IMG/github.png',
-                route: 'https://www.google.com/',
+                route: 'https://github.com/EvelynLiss',
                 label: 'github'
             },
             {
                 image: '/Media/IMG/linkedin.png',
-                route: 'https://www.google.com/',
+                route: 'https://www.linkedin.com/in/evelyn-victoria-lissalde-436b131b1',
                 label: 'Linkedin'
             },
             {
                 image: '/Media/IMG/instagram.png',
-                route: 'https://www.google.com/',
+                route: 'https://instagram.com/evelissalde?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D',
                 label: 'Instagram'
             }
         ]
@@ -79,6 +79,26 @@ const participants = [
             {
                 image: '/Media/IMG/instagram.png',
                 route: 'https://www.instagram.com/juliuzz9210/',
+                label: 'Instagram'
+            }
+        ]
+    },
+    {
+        name: 'Julieta',
+        links:[
+            {
+                image: '/Media/IMG/github.png',
+                route: 'https://github.com/Julivito22',
+                label: 'github'
+            },
+            {
+                image: '/Media/IMG/linkedin.png',
+                route: 'https://github.com/Julivito22',
+                label: 'Linkedin'
+            },
+            {
+                image: '/Media/IMG/instagram.png',
+                route: 'https://www.google.com/',
                 label: 'Instagram'
             }
         ]
