@@ -42,9 +42,11 @@ const Detail = async ({params}) => {
                                 ${book.price}
                             </h1>
                         </div>
-                        <h1 className=" text-lg pt-0 mb-4 font-serif mx-6 ml-0 text-white italic drop-shadow-lg">
+                        <div className="overflow-auto h-48">
+                        <h1 className=" text-lg pt-0 mb-4 font-serif mx-6 ml-0 text-white italic drop-shadow-lg overflow-auto">
                             {book.synopsis}
                         </h1>
+                        </div>
                     </div>
                 </div>
             </div>
