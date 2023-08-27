@@ -1,4 +1,6 @@
+"use client"
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
 import Link from "next/link";
 import {
   FaBookOpen,
@@ -43,14 +45,18 @@ const Card = ({ book }) => {
     setInCart(cartItems.some((item) => item.id === book.id));
   };
 
+  const router = useRouter()
+
   return (
     <div className="pt-4 flex-grow w-[22rem] h-[16.5rem] flex flex-row items-center space-x-4">
       <img
         src={book.image}
         alt={book.title}
-        className="w-1/2 h-64 ml-4 object-cover shadow-2xl rounded"
+        className="w-1/2 h-64 ml-4 object-cover shadow-2xl rounded cursor-pointer"
+        onClick={() => router.push(`/shop/${book.id}`)}
       />
-      <section className="w-1/2 h-9/10 flex flex-col text-xs mr-4 justify-around">
+      <section className="w-1/2 h-9/10 flex flex-col text-xs mr-4 justify-around cursor-pointer">
+      <div onClick={() => router.push(`/shop/${book.id}`)}>
         <span className="w-9/10 h-8 flex flex-row text-sm items-center font-semibold">
           {book.title}
         </span>
@@ -66,6 +72,7 @@ const Card = ({ book }) => {
             {book.price}
           </span>
         </section>
+        </div>
         <button
           onClick={handleCart}
           className={`flex flex-row text-sm border rounded text-white hover:text-black border-b-4 ${
