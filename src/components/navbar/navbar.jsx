@@ -1,135 +1,149 @@
-'use client'
-import style from './navbar.module.css';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import SearchBar from '../searchbar/searchbar';
+"use client";
+import { useGlobalContext } from "@/app/Context/store";
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import {
+  FaSearch,
+  FaHome,
+  FaShoppingBag,
+  FaShoppingCart,
+  FaUserAlt,
+  FaBookMedical,
+  FaTimesCircle,
+  FaBars,
+} from "react-icons/fa";
 
-const NavBar = () =>{
-    const pathname = usePathname();
-    const getLinks = () => {
-        if (pathname === '/') {
-            return [
-                {
-                  label: 'Signup',
-                  route: '/signup'
-                },
-                {
-                    label: 'Login',
-                    route: '/login'
-                },
-                {
-                    label: 'Explore shop',
-                    route: '/home'
-                }
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
-            ];
-        } 
-        else if (pathname === '/home') {
-            return [
-                {
-                  label: 'Profile',
-                  route: '/profile'
-                },
-                {
-                    label: 'My purashes',
-                    route: '/purashes'
-                },
-                {
-                  label: 'About',
-                  route: '/about'
-                },
-                {
-                    label: 'Cart',
-                    route: '/cart'
-                },
-                {
-                    label: 'Logout',
-                    route: '/'
-                },
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
-            ];
-        }
-        else if (pathname === '/profile') {
-            return [
-                {
-                  label: 'Home',
-                  route: '/home'
-                },
-                {
-                  label: 'About',
-                  route: '/about'
-                },
-                {
-                    label: 'Cart',
-                    route: '/cart'
-                },
-                {
-                    label: 'Logout',
-                    route: '/'
-                },
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
-            ];
-        }
-        else if (pathname === '/purashes') {
-            return [
-                {
-                  label: 'Home',
-                  route: '/home'
-                },
-                {
-                    label: 'Profile',
-                    route: '/profile'
-                },
-                {
-                  label: 'About',
-                  route: '/about'
-                },
-                {
-                    label: 'Cart',
-                    route: '/cart'
-                },
-                {
-                    label: 'Logout',
-                    route: '/'
-                },
-                // {
-                //   label: 'Logout',
-                //   route: '/api/auth/signout'
-                // },
-            ];
-        }
-        else{
-            return [
-                {
-                  label: 'Landing',
-                  route: '/'
-                },
-            ];
-        }
+const Navbar = () => {
+  const {
+    setBooks,
+    filterGenre,
+    filterEditorial,
+    filterFormat,
+    filterLanguage,
+    orderBooks,
+    searchInput,
+    setSearchInput,
+    page,
+    setPage,
+    size,
+  } = useGlobalContext();
+
+  const router = useRouter();
+
+  const handleInput = (e) => {
+    setSearchInput(e.target.value);
+  };
+  const searchByQuery = async () => {
+    const queryString = new URLSearchParams({
+      filterGenre,
+      filterFormat,
+      filterLanguage,
+      filterEditorial,
+      orderBooks,
+      searchInput,
+      page,
+      size,
+    }).toString();
+    setPage(1);
+    await axios
+      .get("/api/books/filters?" + queryString)
+      .then((res) => res.data)
+      .then((data) => {
+        setBooks(data);
+      });
+    //   .finally(() => {
+    // });
+    if (router.pathname !== "/shop") {
+      router.push("/shop");
+      return;
     }
-    const links = getLinks();
-    return(
-        <nav className={style.navmain}>
-            <SearchBar className={style.searchbar}/>
-            <ul className={style.navul}>
-                {links.map(({label, route}) =>(
-                    <li key={route}>
-                        <Link href={route}>
-                            {label}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </nav>
-    )
-}
-export default NavBar;
+  };
+
+  useEffect(() => {
+    if (searchInput === "") {
+      searchByQuery();
+    }
+  }, [searchInput]);
+
+  return (
+    <nav className="bg-white shadow-lg">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="flex justify-between">
+          {/* Left Section */}
+          <div className="flex w-1/3">
+            <div className="flex space-x-1 justify-center items-center">
+              <Link href="/" className="flex items-center px-2">
+                <img src="/BiblioWhite.png" alt="Logo" className="h-8" />
+              </Link>
+              <div className="relative">
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={searchInput}
+                  onChange={handleInput}
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                      searchByQuery();
+                    }
+                  }}
+                  maxLength={30}
+                  className="p-1 pl-8 border rounded border-b-2 border-black w-52"
+                />
+                {searchInput ? (
+                  <FaTimesCircle
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                    onClick={() => {
+                      setSearchInput("");
+                    }}
+                  />
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          {/* Middle Section */}
+          <div className="hidden md:flex items-center space-x-1 w-1/3">
+            <Link
+              href="/home"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaHome className="w-6 h-6" />
+            </Link>
+            <Link
+              href="/shop"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaShoppingBag className="w-6 h-6" />
+            </Link>
+            <Link
+              href="/cart"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaShoppingCart className="w-6 h-6" />
+            </Link>
+            <Link
+              href="/product"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaBookMedical className="w-6 h-6" />
+            </Link>
+          </div>
+
+          {/* Right Section */}
+          <div className="hidden md:flex items-center space-x-3">
+            <a
+              href=""
+              className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
+            >
+              <FaUserAlt className="w-6 h-6" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
