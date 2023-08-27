@@ -25,6 +25,8 @@ const GlobalContext = createContext({
   setFilterLanguage: () => "",
   orderBooks: "",
   setOrderBooks: () => "",
+  searchInput: "",
+  setSearchInput: () => "",
   page: 1,
   setPage: () => 0,
   size: 12,
@@ -43,6 +45,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [filterFormat, setFilterFormat] = useState("");
   const [filterLanguage, setFilterLanguage] = useState("");
   const [orderBooks, setOrderBooks] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12);
 
@@ -71,6 +74,8 @@ export const GlobalContextProvider = ({ children }) => {
         setFilterLanguage,
         orderBooks,
         setOrderBooks,
+        searchInput,
+        setSearchInput,
         page,
         setPage,
         size,

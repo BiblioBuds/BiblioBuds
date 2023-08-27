@@ -1,5 +1,6 @@
-'use client'
+"use client"
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
 import Link from "next/link";
 import {
   FaBookOpen,
@@ -8,24 +9,29 @@ import {
   FaDollarSign,
 } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-// import style from "./card.module.css";
-// Helper function to manage cart items
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const manageCart = (book) => {
   let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
   let itemIndex = cartItems.findIndex((item) => item.id === book.id);
 
   if (itemIndex !== -1) {
+    toast.info(
+      `You have removed ${cartItems[itemIndex].title} from your cart.`
+    );
     cartItems.splice(itemIndex, 1);
   } else {
     cartItems.push(book);
+    toast.success("Item successfully added to your cart.");
   }
 
   localStorage.setItem("cart", JSON.stringify(cartItems));
   return cartItems;
 };
 
-// const Card = ({ id, title, author, image, price, pages }) => {
 const Card = ({ book }) => {
   const [inCart, setInCart] = useState(false);
 
@@ -39,32 +45,37 @@ const Card = ({ book }) => {
     setInCart(cartItems.some((item) => item.id === book.id));
   };
 
+  const router = useRouter()
+
   return (
-    <div className="pt-4 w-80 h-60 flex flex-row items-center space-x-4">
+    <div className="pt-4 flex-grow w-[22rem] h-[16.5rem] flex flex-row items-center space-x-4">
       <img
         src={book.image}
         alt={book.title}
-        className="w-1/2 h-56 ml-4 object-cover shadow-2xl rounded"
+        className="w-1/2 h-64 ml-4 object-cover shadow-2xl rounded cursor-pointer"
+        onClick={() => router.push(`/shop/${book.id}`)}
       />
-      <section className="w-1/2 h-9/10 flex flex-col text-xs mr-4 justify-around">
-        <span className="w-9/10 h-8 flex flex-row items-center font-semibold">
+      <section className="w-1/2 h-9/10 flex flex-col text-xs mr-4 justify-around cursor-pointer">
+      <div onClick={() => router.push(`/shop/${book.id}`)}>
+        <span className="w-9/10 h-8 flex flex-row text-sm items-center font-semibold">
           {book.title}
         </span>
-        <span className="w-9/10 h-8 flex flex-row items-center text-gray-600 italic">
+        <span className="w-9/10 h-8 flex flex-row text-sm items-center text-gray-600 italic">
           {book.author}
         </span>
         <section className="w-9/10 flex flex-row text-xs mt-2 space-x-4">
-          <span className="flex flex-row justify-center items-center">
+          <span className="flex flex-row text-sm justify-center items-center">
             <FaBookOpen className="mr-1" /> {book.pages}
           </span>
-          <span className="flex flex-row justify-center items-center">
+          <span className="flex flex-row text-sm justify-center items-center">
             <FaDollarSign />
             {book.price}
           </span>
         </section>
+        </div>
         <button
           onClick={handleCart}
-          className={`flex flex-row border rounded text-white hover:text-black border-b-4 ${
+          className={`flex flex-row text-sm border rounded text-white hover:text-black border-b-4 ${
             inCart
               ? "bg-red-500 hover:bg-red-400 border-red-700"
               : "bg-green-500 hover:bg-green-400 border-green-700"
@@ -74,7 +85,7 @@ const Card = ({ book }) => {
             <>REMOVE FROM CART</>
           ) : (
             <>
-              <FaShoppingCart />
+              <FaShoppingCart className="h-5 w-5" />
               ADD TO CART
             </>
           )}

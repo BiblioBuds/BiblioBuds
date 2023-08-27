@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const CartItem = ({ book, removeFromCart }) => (
   <div className="flex flex-row bg-zinc-100 rounded border border-b-[6px] border-black w-[90%] space-x-8 text-sm">
     <section>
@@ -79,6 +82,9 @@ const Cart = () => {
 
     let itemIndex = cartItems.findIndex((item) => item.id === book.id);
 
+    toast.info(
+      `You have removed ${cartItems[itemIndex].title} from your cart.`
+    );
     cartItems.splice(itemIndex, 1);
 
     localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -89,7 +95,16 @@ const Cart = () => {
 
   const clearCart = () => {
     localStorage.removeItem("cart");
+    if (cartItems.length > 0) {
+      toast.warn("Your cart was cleared successfully.");
+    }
     setCartItems([]);
+  };
+
+  const checkout = () => {
+    toast.success(
+      "Order confirmed! We have received your payment and will proceed to fulfill your order. Thank you for shopping with us!"
+    );
   };
 
   return (
@@ -125,7 +140,10 @@ const Cart = () => {
             </p>
             <div className="border border-black"></div>
             <div className="space-x-4 flex justify-evenly">
-              <button className="p-1 w-full bg-green-500 text-white font-bold rounded border border-green-700 border-b-4 hover:bg-green-700 hover:border-green-500 duration-300">
+              <button
+                className="p-1 w-full bg-green-500 text-white font-bold rounded border border-green-700 border-b-4 hover:bg-green-700 hover:border-green-500 duration-300"
+                onClick={() => checkout()}
+              >
                 CHECKOUT
               </button>
               <button

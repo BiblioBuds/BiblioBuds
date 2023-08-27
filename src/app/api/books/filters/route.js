@@ -12,7 +12,15 @@ export const GET = async (req, res) => {
   const page = parseInt(nextReq.nextUrl.searchParams.get("page")) || 1;
   const size = parseInt(nextReq.nextUrl.searchParams.get("size")) || 12;
 
+  const searchQuery = nextReq.nextUrl.searchParams.get("searchInput") || "";
+
   let filter = {};
+  if (searchQuery) {
+    filter.OR = [
+      { title: { contains: searchQuery, mode: "insensitive" } },
+      { author: { contains: searchQuery, mode: "insensitive" } },
+    ];
+  }
   if (editorial)
     filter.editorial = {
       editorial: editorial,
@@ -46,7 +54,7 @@ export const GET = async (req, res) => {
   if (orderBy) {
     if (orderBy === "price") order.price = "desc";
     if (orderBy === "pages") order.pages = "desc";
-    if (orderBy === "title") order.title = "desc";
+    if (orderBy === "title") order.title = "asc";
   }
 
   try {

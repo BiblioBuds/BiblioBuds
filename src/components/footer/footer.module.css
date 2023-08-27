@@ -1,64 +1,65 @@
-.footcontainer{
-    position: fixed;
-    height: 3rem;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    color: black;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: space-around;
-    background-color: rgba(150, 153, 0, 0.719);
-    border: 1px solid black;
+.footcontainer {
+  position: relative;
+  height: 3rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: black;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(224, 224, 224, 0.719);
+  border: 1px solid black;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
-.footerlogo{
-    width: 10%;
-    height: 99%;
-    border: 1px solid black;
+.footerlogo {
+  width: 10%;
+  height: fit-content;
+  border: 1px solid black;
 }
-.participantContainer{
-    width: 15%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-content: space-around;
+.participantContainer {
+  width: 15%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.footul{
-    width: 60%;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: space-around;
+.footul {
+  width: 30%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
 }
-.footertooltip{
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 5px;
-    border-radius: .5rem;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+.footertooltip {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px;
+  border-radius: 0.5rem;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
 }
-.footli{
-    width: 1.5rem;
-    height: 1.5rem;
-    list-style-type: none;
+.footli {
+  width: 1.5rem;
+  height: 1.5rem;
+  list-style-type: none;
 }
-.footli:hover{
-    filter: drop-shadow(2px 2px 2px #ffffff);
+.footli:hover {
+  filter: drop-shadow(2px 2px 2px #ffffff);
 }
 .footli:hover .footertooltip {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 .footli:not(:hover) .footertooltip {
-    opacity: 0;
-    visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
 }

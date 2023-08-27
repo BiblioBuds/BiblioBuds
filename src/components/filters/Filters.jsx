@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "@/app/Context/store";
 
 const FilterCategory = ({ title, items, setFilters }) => (
-  <div className="my-2">
+  <div className="my-1">
     <h2 className="font-bold text-lg">{title}</h2>
     <div className="border-t border-gray-200"></div>
     {items.map((item) => (
@@ -14,7 +14,7 @@ const FilterCategory = ({ title, items, setFilters }) => (
           setFilters(item.name);
         }}
         key={item.id}
-        className="text-xs py-1 cursor-pointer hover:underline hover:text-red-500"
+        className="text-xs py-[0.1rem] cursor-pointer font-raleway hover:underline hover:text-red-500"
       >
         {item.name}
       </p>
@@ -23,7 +23,7 @@ const FilterCategory = ({ title, items, setFilters }) => (
 );
 
 const OrderCategory = ({ title, items, setFilters }) => (
-  <div className="my-2">
+  <div className="my-1">
     <h2 className="font-bold text-lg mb-2">{title}</h2>
     <div className="border-t border-gray-200"></div>
     {items.map((item, index) => (
@@ -32,7 +32,7 @@ const OrderCategory = ({ title, items, setFilters }) => (
           setFilters(`${item.toLowerCase()}`);
         }}
         key={index}
-        className="text-xs py-1 cursor-pointer hover:underline hover:text-red-500"
+        className="text-xs py-[0.1rem] cursor-pointer font-raleway hover:underline hover:text-red-500"
       >
         {item}
       </p>
@@ -75,6 +75,8 @@ const Filters = () => {
     setFilterLanguage,
     orderBooks,
     setOrderBooks,
+    searchInput,
+    setSearchInput,
     page,
     setPage,
     size,
@@ -122,6 +124,7 @@ const Filters = () => {
       filterLanguage,
       filterEditorial,
       orderBooks,
+      searchInput,
       page,
       size,
     }).toString();
@@ -141,7 +144,7 @@ const Filters = () => {
   }, [filterGenre, filterFormat, filterLanguage, filterEditorial, orderBooks]);
 
   return (
-    <div className="p-2">
+    <div className="p-2 w-fit">
       <h1
         onClick={() =>
           console.log({
