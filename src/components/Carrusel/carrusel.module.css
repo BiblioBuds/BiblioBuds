@@ -1,0 +1,45 @@
+/* PromoCarousel.module.css */
+
+.carouselContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px; /* Espaciado entre las imágenes */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .carouselImageContainer {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background-color: #c5bdf7; /* Color violeta clarito */
+    border-radius: 8px;
+    margin-right: 10px; /* Espacio entre las imágenes */
+    text-align: left; /* Alineación a la izquierda */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .carouselImage {
+    width: 40%;
+    height: 40%;
+    object-fit: cover; /* Ajustar imagen al recuadro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .bookName {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  
+  
+  
+  
+  
+  
+  

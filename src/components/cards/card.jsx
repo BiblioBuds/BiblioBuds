@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
@@ -30,8 +31,10 @@ const Card = ({ book }) => {
 
   useEffect(() => {
     let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    setInCart(cartItems.some((item) => item.id === book.id));
-  }, []);
+    if (cartItems.length > 0 && book) {
+      setInCart(cartItems.some((item) => item.id === book.id));
+    }
+  }, [book]);
 
   const handleCart = () => {
     let cartItems = manageCart(book);
@@ -41,24 +44,24 @@ const Card = ({ book }) => {
   return (
     <div className="pt-4 w-80 h-60 flex flex-row items-center space-x-4">
       <img
-        src={book.image}
-        alt={book.title}
+        src={book?.image}
+        alt={book?.title}
         className="w-1/2 h-56 ml-4 object-cover shadow-2xl rounded"
       />
       <section className="w-1/2 h-9/10 flex flex-col text-xs mr-4 justify-around">
         <span className="w-9/10 h-8 flex flex-row items-center font-semibold">
-          {book.title}
+          {book?.title}
         </span>
         <span className="w-9/10 h-8 flex flex-row items-center text-gray-600 italic">
-          {book.author}
+          {book?.author}
         </span>
         <section className="w-9/10 flex flex-row text-xs mt-2 space-x-4">
           <span className="flex flex-row justify-center items-center">
-            <FaBookOpen className="mr-1" /> {book.pages}
+            <FaBookOpen className="mr-1" /> {book?.pages}
           </span>
           <span className="flex flex-row justify-center items-center">
             <FaDollarSign />
-            {book.price}
+            {book?.price}
           </span>
         </section>
         <button
