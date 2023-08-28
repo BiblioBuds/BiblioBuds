@@ -1,38 +1,23 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
 import validateForm from "../../../utils/validateForm";
 import { CldUploadWidget } from 'next-cloudinary';
 
-const NewBookInputs = ({bookGenres, languages, formats}) => {
-    const [book, setBook] = useState({
-        title: "",
-        author: "",
-        editorial: "",
-        genres: "",
-        price: 0,
-        pages: 0,
-        languages: "",
-        formats: "",
-        stock: 0,
-        date: "",
-        image: "",
-        synopsis: ""
-    })
-
-    const [errors, setErrors] = useState({
-        title: "",
-        author: "",
-        editorial: "",
-        genres: "",
-        price: "",
-        pages: "",
-        languages: "",
-        formats: "",
-        stock: "",
-        date: "",
-        image: "",
-        synopsis: ""
-    })
+const NewBookInputs = ({ bookGenres, languages, formats }) => {
+  const [book, setBook] = useState({
+    title: "",
+    author: "",
+    editorial: "",
+    genres: "",
+    price: 0,
+    pages: 0,
+    languages: "",
+    formats: "",
+    stock: 0,
+    date: "",
+    image: "",
+    synopsis: "",
+  });
 
     const [uploadedImg, setUploadedImg] = useState(false)
 
@@ -40,45 +25,72 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
         setErrors(validateForm({ ...book }));
       }, [book]);
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        // const newValue = name === "price" ? parseFloat(value) : value;
-        setBook({ ...book, [name]: value });
-        console.log(book);
-    };
+  const [errors, setErrors] = useState({
+    title: "",
+    author: "",
+    editorial: "",
+    genres: "",
+    price: "",
+    pages: "",
+    languages: "",
+    formats: "",
+    stock: "",
+    date: "",
+    image: "",
+    synopsis: "",
+  });
 
-    const disabled = () => {
-        let disable = true;
-        for (let error in errors) {
-            if (errors[error] === "") disable = false;
-            else {
-            disable = true;
-            break;
-            }
-        }
-        return disable;
-    };
 
-    let postBook = async (book) => {
-        console.log(book)
-        await fetch("http://localhost:3000/api/books",{
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            body: JSON.stringify(book)
-        })
-            .then(res => res.json())
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
+  useEffect(() => {
+    setErrors(validateForm({ ...book }));
+  }, [book]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    // const newValue = name === "price" ? parseFloat(value) : value;
+    setBook({ ...book, [name]: value });
+    console.log(book);
+  };
+
+  const disabled = () => {
+    let disable = true;
+    for (let error in errors) {
+      if (errors[error] === "") disable = false;
+      else {
+        disable = true;
+        break;
+      }
     }
+    return disable;
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        postBook({...book, genres: [book.genres], formats: [book.formats], languages: [book.languages], price: Number(book.price), pages: Number(book.pages), stock: Number(book.stock)})
-    }
+  let postBook = async (book) => {
+    console.log(book);
+    await fetch("/api/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(book),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    postBook({
+      ...book,
+      genres: [book.genres],
+      formats: [book.formats],
+      languages: [book.languages],
+      price: Number(book.price),
+      pages: Number(book.pages),
+      stock: Number(book.stock),
+    });
+  };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -286,4 +298,5 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
         </form>  
     )
 }
+
 export default NewBookInputs;

@@ -1,35 +1,47 @@
+"use client";
+
 import NewBookInputs from "@/components/NewBookInputs/NewBookInputs";
+import axios from "axios";
+import { useEffect } from "react";
+import { useGlobalContext } from "../Context/store";
 
-const fetchGenres =  ()=> {
-    return fetch("http://localhost:3000/api/genres")
-        .then(res => res.json())
-        .then(res => res.map(e => e.genre))
-}
+const Form = () => {
+  const { genres, setGenres, formats, setFormats, languages, setLanguages } =
+    useGlobalContext();
 
-const fetchLanguages =  ()=> {
-    return fetch("http://localhost:3000/api/languages")
-        .then(res => res.json())
-        .then(res => res.map(e => e.language))
-}
+  useEffect(() => {
+    axios
+      .get("/api/genres")
+      .then((res) => res.data)
+      .then((data) => {
+        setGenres(data);
+      });
+    axios
+      .get("/api/formats")
+      .then((res) => res.data)
+      .then((data) => {
+        setFormats(data);
+      });
+    axios
+      .get("/api/languages")
+      .then((res) => res.data)
+      .then((data) => {
+        setLanguages(data);
+      });
+  }, []);
 
-const fetchFormats =  ()=> {
-    return fetch("http://localhost:3000/api/formats")
-        .then(res => res.json())
-        .then(res => res.map(e => e.format))
-}
+  //   console.log(bookGenres, languages, formats);
 
-const Form = async () => {
-    const bookGenres = await fetchGenres()
-    const languages = await fetchLanguages()
-    const formats = await fetchFormats()
-    
-    return (
-        <div className="h-full w-screen grid grid-cols-1 mb-14">
-            <div className="mt-14 w-[95%] bg-neutral-100 place-self-center rounded-xl border-gray-400 border-[1px]">
-                 <NewBookInputs bookGenres={bookGenres} languages={languages} formats={formats} />
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="h-full w-screen grid grid-cols-1 mb-14">
+      <div className="mt-14 w-[95%] bg-neutral-100 place-self-center rounded-xl border-gray-400 border-[1px]">
+        <NewBookInputs
+          bookGenres={genres.map((e) => e.genre)}
+          languages={languages.map((e) => e.language)}
+          formats={formats.map((e) => e.format)}
+        />
+      </div>
+    </div>
+  );
+};
 export default Form;
-
