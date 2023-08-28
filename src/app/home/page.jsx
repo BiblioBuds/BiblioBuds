@@ -1,6 +1,6 @@
 "use client";
 import styles from './home.module.css';
-import PromoCarousel from '@/components/Carrusel/carrusel';
+import PromoCarousel from '@/components/Carrusel/Carrusel';
 import Card from '@/components/cards/card';
 
 
