@@ -4,7 +4,41 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const manageCart = (book) => {
+  let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let itemIndex = cartItems.findIndex((item) => item.id === book.id);
+
+  if (itemIndex !== -1) {
+    toast.info(
+      `You have removed ${cartItems[itemIndex].title} from your cart.`
+    );
+    cartItems.splice(itemIndex, 1);
+  } else {
+    cartItems.push(book);
+    toast.success("Item successfully added to your cart.");
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cartItems));
+  return cartItems;
+};
+
 const Detail = ({ params }) => {
+  const [inCart, setInCart] = useState(false);
+
+  useEffect(() => {
+    let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setInCart(cartItems.some((item) => item.id === book.id));
+  }, []);
+
+  const handleCart = () => {
+    let cartItems = manageCart(book);
+    setInCart(cartItems.some((item) => item.id === book.id));
+  };
+
   const { id } = params;
   const [book, setBook] = useState({});
   useEffect(() => {
@@ -53,6 +87,16 @@ const Detail = ({ params }) => {
                 {book.synopsis}
               </h1>
             </div>
+            <button
+              className={`p-4 mt-8 text-lg font-bold rounded border-2 border-b-4 ${
+                inCart
+                  ? "bg-red-500 border-red-700 hover:border-red-500 hover:bg-red-700"
+                  : "bg-green-500 border-green-700 hover:border-green-500 hover:bg-green-700"
+              } hover:text-white duration-300`}
+              onClick={() => handleCart(book)}
+            >
+              {inCart ? "REMOVE FROM CART" : "ADD TO CART"}
+            </button>
           </div>
         </div>
       </div>

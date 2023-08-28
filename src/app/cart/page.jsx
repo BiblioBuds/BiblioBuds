@@ -102,9 +102,13 @@ const Cart = () => {
   };
 
   const checkout = () => {
-    toast.success(
-      "Order confirmed! We have received your payment and will proceed to fulfill your order. Thank you for shopping with us!"
-    );
+    localStorage.removeItem("cart");
+    if (cartItems.length > 0) {
+      toast.success(
+        "Order confirmed! We have received your payment and will proceed to fulfill your order. Thank you for shopping with us!"
+      );
+    }
+    setCartItems([]);
   };
 
   return (
