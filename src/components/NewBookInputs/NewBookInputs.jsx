@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import validateForm from "../../../utils/validateForm";
+import { CldUploadWidget } from 'next-cloudinary';
 
 const NewBookInputs = ({bookGenres, languages, formats}) => {
     const [book, setBook] = useState({
@@ -32,6 +33,8 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
         image: "",
         synopsis: ""
     })
+
+    const [uploadedImg, setUploadedImg] = useState(false)
 
     useEffect(() => {
         setErrors(validateForm({ ...book }));
@@ -75,6 +78,7 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
         event.preventDefault();
         postBook({...book, genres: [book.genres], formats: [book.formats], languages: [book.languages], price: Number(book.price), pages: Number(book.pages), stock: Number(book.stock)})
     }
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -201,14 +205,60 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
                 </div>
                 <div className="justify-center flex flex-col">
                     <h1 className="text-black text-center pb-1">Image</h1>
-                    <input 
-                    type="text"
+                    {uploadedImg 
+                    ?   <CldUploadWidget uploadPreset="z7gm9yas" onUpload={(result, error) => {
+                        // console.log(result.info.secure_url)
+                        console.log(result.info.secure_url)
+                        setBook({...book, image: result.info.secure_url}); 
+                        setUploadedImg(true)
+                    }}>
+                    {({ open }) => {
+                        function handleOnClick(e) {
+                        e.preventDefault();
+                        open();
+                        console.log(e)
+                        }
+                        return (
+                        <button className="text-white justify-center mx-2 rounded-lg bg-green-500 shadow-slate-600 shadow-md h-8 hover:bg-stone-200 p-2 placeholder:italic flex flex-row" onClick={handleOnClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                            </svg>
+                              Uploaded Sucessfully!
+                        </button>
+                        );
+                    }}
+                     </CldUploadWidget>
+                    : <CldUploadWidget uploadPreset="z7gm9yas" onUpload={(result, error) => {
+                        // console.log(result.info.secure_url)
+                        console.log(result.info.secure_url)
+                        setBook({...book, image: result.info.secure_url}); 
+                        setUploadedImg(true)
+                    }}>
+                    {({ open }) => {
+                        function handleOnClick(e) {
+                        e.preventDefault();
+                        open();
+                        console.log(e)
+                        }
+                        return (
+                        <button className="text-white justify-center mx-2 rounded-lg bg-blue-800 shadow-slate-600 shadow-md h-8 hover:bg-stone-200 p-2 placeholder:italic flex flex-row" onClick={handleOnClick}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                            </svg>
+                              Upload
+                        </button>
+                        );
+                    }}
+                     </CldUploadWidget>
+                    }
+                    {/* <input 
+                    type="file"
                     name="image"
                     onChange={handleChange}
                     value={book.image}
                     placeholder="https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg/220px-Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg"
                     className="text-black justify-center mx-2 rounded-lg bg-stone-100 shadow-slate-600 shadow-md h-8 hover:bg-stone-200 p-2 placeholder:italic"></input>
-                    <p className="align-bottom text-center text-red-500 text-sm mt-1" >{errors.image}</p>
+                    <p className="align-bottom text-center text-red-500 text-sm mt-1" >{errors.image}</p> */}
                 </div>
             </div>
             <div className="mx-4 mt-4 h-24 grid grid-cols-1 gap-5 mb-6">
@@ -231,6 +281,7 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
                  className="mb-3 mt-4 bg-red-400 w-36 h-10 rounded-lg text-white border-red-500 hover:border-2 ">
                     Submit
                 </button>
+                
             </div>
         </form>  
     )

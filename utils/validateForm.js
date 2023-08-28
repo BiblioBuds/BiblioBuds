@@ -14,8 +14,8 @@ const validateForm = (data) => {
         errors.date = 'Enter a valid date'
     }
     if (!date.length) errors.date = ''
-    image.length < 9 ? errors.image = 'Must have at least 9 characters' : errors.image = ''
-    if (image.length === 0) errors.image = ''
+    image?.length < 9 ? errors.image = 'Must have at least 9 characters' : errors.image = ''
+    if (image?.length === 0) errors.image = ''
     synopsis.length < 10 ? errors.synopsis = 'Must have at least 10 characters' : errors.synopsis = ''
     if (synopsis.length === 0) errors.synopsis = ''
     return errors;
