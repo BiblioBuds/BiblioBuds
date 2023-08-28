@@ -70,12 +70,20 @@ const Shop = () => {
           <p>Loading...</p>
         ) : (
           <div className=" space-y-5">
-            <Cards books={books.books} />
-            <Pagination
-              currentPage={page}
-              totalPages={Math.ceil(books.length / size)}
-              onPageChange={handlePageChange}
-            />
+            {books.books.length > 0 ? (
+              <>
+                <Cards books={books.books} />
+                <Pagination
+                  currentPage={page}
+                  totalPages={Math.ceil(books.length / size)}
+                  onPageChange={handlePageChange}
+                />
+              </>
+            ) : (
+              <p className="font-raleway text-lg font-bold text-center">
+                There are no books that match those filters.
+              </p>
+            )}
           </div>
         )}
       </div>
