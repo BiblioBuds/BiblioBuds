@@ -27,6 +27,8 @@ const Shop = () => {
     setFilterLanguage,
     orderBooks,
     setOrderBooks,
+    searchInput,
+    setSearchInput,
     page,
     setPage,
     size,
@@ -45,6 +47,7 @@ const Shop = () => {
       filterLanguage,
       filterEditorial,
       orderBooks,
+      searchInput,
       page,
       size,
     }).toString();
@@ -59,20 +62,28 @@ const Shop = () => {
   }, [page]);
   return (
     <div className="flex">
-      <div className=" w-[15%] p-4">
+      <div className="p-4">
         <Filters setBooks={setBooks} />
       </div>
-      <div className="p-4">
+      <div className="p-4 w-full">
         {isLoading ? (
           <p>Loading...</p>
         ) : (
           <div className=" space-y-5">
-            <Cards books={books.books} />
-            <Pagination
-              currentPage={page}
-              totalPages={Math.ceil(books.length / size)}
-              onPageChange={handlePageChange}
-            />
+            {books.books.length > 0 ? (
+              <>
+                <Cards books={books.books} />
+                <Pagination
+                  currentPage={page}
+                  totalPages={Math.ceil(books.length / size)}
+                  onPageChange={handlePageChange}
+                />
+              </>
+            ) : (
+              <p className="font-raleway text-lg font-bold text-center">
+                There are no books that match those filters.
+              </p>
+            )}
           </div>
         )}
       </div>
