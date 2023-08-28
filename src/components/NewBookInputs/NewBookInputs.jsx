@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import validateForm from "../../../utils/validateForm";
 import { CldUploadWidget } from 'next-cloudinary';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const NewBookInputs = ({ bookGenres, languages, formats }) => {
   const [book, setBook] = useState({
@@ -18,12 +21,8 @@ const NewBookInputs = ({ bookGenres, languages, formats }) => {
     image: "",
     synopsis: "",
   });
-
-    const [uploadedImg, setUploadedImg] = useState(false)
-
-    useEffect(() => {
-        setErrors(validateForm({ ...book }));
-      }, [book]);
+  
+  const [uploadedImg, setUploadedImg] = useState(false)
 
   const [errors, setErrors] = useState({
     title: "",
@@ -40,7 +39,6 @@ const NewBookInputs = ({ bookGenres, languages, formats }) => {
     synopsis: "",
   });
 
-
   useEffect(() => {
     setErrors(validateForm({ ...book }));
   }, [book]);
@@ -55,29 +53,58 @@ const NewBookInputs = ({ bookGenres, languages, formats }) => {
   const disabled = () => {
     let disable = true;
     for (let error in errors) {
-      if (errors[error] === "") disable = false;
-      else {
+        if (errors[error] === "") {
+            for(let fields in book){
+                if (book[fields] !== "") disable = false
+                else{
+                    disable = true
+                }
+            }
+            
+        }
+        else {
         disable = true;
         break;
-      }
+        }
     }
     return disable;
-  };
+    };  
 
-  let postBook = async (book) => {
-    console.log(book);
-    await fetch("/api/books", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(book),
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
-  };
+    let postBook = async (book) => {
+        console.log(book)
+        await fetch("http://localhost:3000/api/books",{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            body: JSON.stringify(book)
+        })
+            .then(res  => {
+                if (res.status == 200 ){
+                toast.success("Product created successfully!")
+                }
+            })
+            // .then(res => console.log(res))
+            .catch(error => {
+                console.log(error)
+                toast.error("Product creation failed")
+            })
+        setBook({
+            title: "",
+            author: "",
+            editorial: "",
+            genres: "",
+            price: 0,
+            pages: 0,
+            languages: "",
+            formats: "",
+            stock: 0,
+            date: "",
+            image: "",
+            synopsis: ""
+        })  
+    }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -289,7 +316,7 @@ const NewBookInputs = ({ bookGenres, languages, formats }) => {
             <div className="w-[97%] grid grid-cols-1 justify-items-center">
                  <button
                  type="submit"
-                //  disabled={disabled()}
+                 disabled={disabled()}
                  className="mb-3 mt-4 bg-red-400 w-36 h-10 rounded-lg text-white border-red-500 hover:border-2 ">
                     Submit
                 </button>
