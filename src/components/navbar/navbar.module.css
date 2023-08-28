@@ -1,4 +1,4 @@
-.navmain{
+.navmain {
     position: fixed;
     left: 0;
     top: 0;
@@ -8,31 +8,35 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #d8cca9;
+    background-color: #ffffff;
     border-bottom: 3px solid #3b3522;
-}
-.searchbar{
-    position: fixed;
-    right: 0;
-    width: 25%;
-    border: 1px solid green;
-}
-.navul{
+  }
+  
+  .searchbar {
+    position:initial;
+    margin-left: -50%; /* Cambio aquí para alinearlo a la izquierda */
+    width: calc(100% - 75%); /* Ajusta el ancho para que ocupe el espacio restante */
+    border: 1px solid rgb(4, 12, 4);
+    background-color: #ffffff; /* Agregado para que coincida con el fondo */
+  }
+  
+  .navul {
     position: fixed;
     right: 0;
     width: 70%;
     display: flex;
     align-content: center;
     align-items: center;
-    /* justify-items: center; */
     justify-content: space-around;
     list-style-type: none;
-}
-.navul li{
+  }
+  
+  .navul li {
     color: black;
     width: 10%;
-}
-.navul li:hover{
+  }
+  
+  .navul li:hover {
     font-size: 125%;
     color: rgba(0, 0, 0, 0.603);
-}
+  }

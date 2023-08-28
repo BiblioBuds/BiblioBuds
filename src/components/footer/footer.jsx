@@ -16,15 +16,11 @@ const participants = [
                 route: 'https://ar.linkedin.com/in/alex-laulhe',
                 label: 'Linkedin'
             },
-            {
-                image: '/Media/IMG/instagram.png',
-                route: 'https://www.google.com/',
-                label: 'Instagram'
-            }
+           
         ]
     },
     {
-        name: 'Gonzalo',
+        name: 'Evelyn',
         links:[
             {
                 image: '/Media/IMG/github.png',
@@ -36,11 +32,7 @@ const participants = [
                 route: 'https://www.google.com/',
                 label: 'Linkedin'
             },
-            {
-                image: '/Media/IMG/instagram.png',
-                route: 'https://www.google.com/',
-                label: 'Instagram'
-            }
+            
         ]
     },
     {
@@ -56,11 +48,7 @@ const participants = [
                 route: 'https://www.linkedin.com/in/juan-david-p%C3%A9rez-v%C3%A9lez-276090184',
                 label: 'Linkedin'
             },
-            {
-                image: '/Media/IMG/instagram.png',
-                route: 'https://www.google.com/',
-                label: 'Instagram'
-            }
+           
         ]
     },
     {
@@ -76,13 +64,25 @@ const participants = [
                 route: 'https://www.linkedin.com/in/juli%C3%A1n-gonz%C3%A1lez-750aa6168/',
                 label: 'Linkedin'
             },
-            {
-                image: '/Media/IMG/instagram.png',
-                route: 'https://www.instagram.com/juliuzz9210/',
-                label: 'Instagram'
-            }
+            
         ]
     },
+    {
+        name: 'Julieta',
+        links:[
+            {
+                image: '/Media/IMG/github.png',
+                route: 'https://github.com/Julivito22',
+                label: 'github'
+            },
+            {
+                image: '/Media/IMG/linkedin.png',
+                route: 'https://www.linkedin.com/in/julietagimenez/',
+                label: 'Linkedin'
+            },
+            
+        ]
+    }
 ]
 
 const Footer = () => {

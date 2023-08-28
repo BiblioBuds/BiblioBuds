@@ -7,9 +7,13 @@
     min-height: 75vh;
     /* border: 1px solid rgb(131, 123, 123); */
 }
-.hometitle{
+.hometitle {
+    font-weight: bold; /* Letras en negrita */
+    text-align: left; /* Alineación a un costado izquierdo */
     margin-top: 1rem;
-}
+    margin-left: -35rem;
+    font-size: 1.5rem;
+  }
 .popular{
     width: 90%;
     height: 17rem;

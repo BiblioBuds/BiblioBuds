@@ -1,8 +1,8 @@
-.sbinput{
-    position: fixed;
-    left: 0;
-    margin-left: 2.5rem;
-    display: flex;
-}
-.sbsearch{
-}
+.searchbar {
+    position:initial;
+    margin-left: -70%; /* Cambio aquí para alinearlo a la izquierda */
+    width: calc(100% - 75%); /* Ajusta el ancho para que ocupe el espacio restante */
+    
+    background-color: #ffffff; /* Agregado para que coincida con el fondo */
+  }
+  

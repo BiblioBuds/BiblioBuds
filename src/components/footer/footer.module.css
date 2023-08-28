@@ -9,7 +9,7 @@
     align-content: center;
     align-items: center;
     justify-content: space-around;
-    background-color: rgba(150, 153, 0, 0.719);
+    background-color: rgb(252, 252, 249);
     border: 1px solid black;
 }
 .footerlogo{
@@ -22,14 +22,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    align-content: space-around;
+    align-content: center;
+    margin: 0 20px;
 }
 .footul{
     width: 60%;
     display: flex;
     align-content: center;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 .footertooltip{
     position: absolute;
@@ -38,7 +39,7 @@
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 5px;
+    padding: 3px;
     border-radius: .5rem;
     font-size: 12px;
     white-space: nowrap;
@@ -46,11 +47,12 @@
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
 }
-.footli{
-    width: 1.5rem;
-    height: 1.5rem;
+.footli {
+    width: 1rem;
+    height: 1rem;
     list-style-type: none;
-}
+    margin: 0 5px; /* Añadido margen entre los iconos */
+  }
 .footli:hover{
     filter: drop-shadow(2px 2px 2px #ffffff);
 }
