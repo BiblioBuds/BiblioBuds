@@ -21,16 +21,16 @@ export const Home = () => {
         <PromoCarousel />
         <section className={styles.popular}>
           <h3 className={styles.popularpad}>Popular</h3>
-          <Card/>
+          {/* <Card/> */}
         </section>
-        <section className={styles.cards}>
+        {/* <section className={styles.cards}>
           <Card/>
          
 
           <div className={styles.cardContainer}>
             <Card></Card>
           </div>
-        </section>
+        </section> */}
     </div>
   )
 }

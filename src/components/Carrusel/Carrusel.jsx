@@ -30,7 +30,7 @@ const PromoCarousel = () => {
         autoPlay={true}
         interval={3000} // Cambia la velocidad de cambio de imagen si lo deseas
       >
-        {promoImages.map((item, index) => (
+        {promoImages?.map((item, index) => (
           <div key={index} className={style.carouselItem}>
           <div className={style.carouselImageContainer}>
             <img src={item.image} alt={`Promo ${index}`} className={style.carouselImage} />
