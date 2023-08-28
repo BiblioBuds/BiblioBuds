@@ -1,15 +1,21 @@
-import {getSession} from 'next-auth/react';
+// import { getSession } from "next-auth/react";
 
+// export const getServerSideProps = async() =>{
+//     const session = await getSession()
+//     return{
+//         props:{
 
+//         }
+//     }
+// }
 
-export const getServerSideProps = async() =>{
-    const session = await getSession()
-    return{
-        props:{
+import React from "react";
 
-        }
-    }
-}
+const Profile = () => {
+  return <div>Profile</div>;
+};
+
+export default Profile;
 
 /*-------------- Objeto user----------------
 en la constante del peril se tiene que tener recibir {session}
