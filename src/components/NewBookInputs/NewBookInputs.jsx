@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import validateForm from "../../../utils/validateForm";
 import { CldUploadWidget } from 'next-cloudinary';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewBookInputs = ({bookGenres, languages, formats}) => {
     const [book, setBook] = useState({
@@ -30,7 +32,6 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
         formats: "",
         stock: "",
         date: "",
-        image: "",
         synopsis: ""
     })
 
@@ -45,12 +46,21 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
         // const newValue = name === "price" ? parseFloat(value) : value;
         setBook({ ...book, [name]: value });
         console.log(book);
+        disabled()
     };
 
     const disabled = () => {
         let disable = true;
         for (let error in errors) {
-            if (errors[error] === "") disable = false;
+            if (errors[error] === "") {
+                for(let fields in book){
+                    if (book[fields] !== "") disable = false
+                    else{
+                        disable = true
+                    }
+                }
+                
+            }
             else {
             disable = true;
             break;
@@ -69,9 +79,30 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
               },
             body: JSON.stringify(book)
         })
-            .then(res => res.json())
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
+            .then(res  => {
+                if (res.status == 200 ){
+                toast.success("Product created successfully!")
+                }
+            })
+            // .then(res => console.log(res))
+            .catch(error => {
+                console.log(error)
+                toast.error("Product creation failed")
+            })
+        setBook({
+            title: "",
+            author: "",
+            editorial: "",
+            genres: "",
+            price: 0,
+            pages: 0,
+            languages: "",
+            formats: "",
+            stock: 0,
+            date: "",
+            image: "",
+            synopsis: ""
+        })  
     }
 
     const handleSubmit = async (event) => {
@@ -277,7 +308,7 @@ const NewBookInputs = ({bookGenres, languages, formats}) => {
             <div className="w-[97%] grid grid-cols-1 justify-items-center">
                  <button
                  type="submit"
-                //  disabled={disabled()}
+                 disabled={disabled()}
                  className="mb-3 mt-4 bg-red-400 w-36 h-10 rounded-lg text-white border-red-500 hover:border-2 ">
                     Submit
                 </button>
