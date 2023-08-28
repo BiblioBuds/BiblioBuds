@@ -13,6 +13,7 @@
     overflow: hidden;
     margin-top: 2%;
     z-index: -1;
+    backdrop-filter: blur(4px); 
   }
   
   .carouselItem {
@@ -28,7 +29,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom right, #c5bdf7, #a291d1);
+    
     opacity: 0.8;
     z-index: -1;
     border-radius: 12px;
@@ -45,18 +46,24 @@
   }
 
   .bookName {
-    margin-right: -150%;
     font-size: 45px; /* Tamaño de letra mediano */
     font-weight: bold;
     font-family: 'Arial', sans-serif; /* Cambia por la fuente que desees */
     color: rgb(243, 238, 238); /* Color del texto */
-    text-align: right; /* Alineación del texto a la derecha */
+    text-align: left; /* Alineación del texto a la derecha */
     position: absolute;
-  top: 50%;
-  right: 20px; /* Ajusta esta distancia para el margen derecho */
-  transform: translateY(-50%);
-  
-  
+    top: 50%;
+    right: -150px; /* Ajusta esta distancia para el margen derecho */
+    transform: translateY(-50%);
+    width: 80%; /* Ajusta el ancho del contenedor de texto */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+  padding: 5px 10px; /* Agrega un poco de espacio alrededor del texto */
+  backdrop-filter: blur(4px); 
+  white-space: normal; /* Permite el ajuste automático de líneas */
+ 
+  max-lines: 2; /* Limita la cantidad de líneas */
+ 
+    
   }
   
   /* Estilos para el carrusel */

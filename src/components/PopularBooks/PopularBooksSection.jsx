@@ -8,7 +8,7 @@ const PopularBooksSection = ({ books }) => {
 
   return (
     <section>
-      <h2>Libros Populares</h2>
+      
       <div className="popular-books-container">
         {popularBooks.map((book) => (
           <Card key={book.id} book={book} />

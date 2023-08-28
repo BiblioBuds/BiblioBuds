@@ -15,12 +15,11 @@
     font-size: 1.5rem;
   }
 .popular{
-    width: 90%;
-    height: 17rem;
+    font-weight: bold; /* Letras en negrita */
+    text-align: left; /* Alineación a un costado izquierdo */
     margin-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    /* border: 1px solid grey; */
+    margin-left: -52rem;
+    font-size: 1.5rem;
 }
 .popularpad{
     margin-right: 2rem;
