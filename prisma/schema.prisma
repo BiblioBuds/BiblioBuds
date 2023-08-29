@@ -15,6 +15,19 @@ model User {
   email String  @unique
   name  String?
   orders  Order[]
+  role    Role     @default(GUEST)
+  isActive IsActive   @default(true)
+}
+
+enum Role {
+  GUEST
+  USER
+  ADMIN
+}
+
+enum IsActive {
+  true
+  false
 }
 
 model Book {
@@ -37,6 +50,7 @@ model Book {
   bookLanguages BookLanguage[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  isActive IsActive   @default(true)
 }
 
 model Rating { 
