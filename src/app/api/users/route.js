@@ -8,6 +8,27 @@ export const POST = async (req, res) => {
 
     const { email, password } = newUser;
 
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email format" },
+        { status: 400 }
+      );
+      // throw new Error("Invalid email format");
+    }
+
+    // Check if user with given email already exists
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return NextResponse.json(
+        {
+          error: "User with this email already exists",
+        },
+        { status: 400 }
+      );
+      // throw new Error("User with this email already exists");
+    }
+
     console.log(email, password);
 
     const salt = bcrypt.genSaltSync(10);
@@ -20,9 +41,9 @@ export const POST = async (req, res) => {
       },
     });
 
-    return NextResponse.json({ storedUser });
+    return NextResponse.json({ storedUser }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error });
+    return NextResponse.json({ error }, { status: 400 });
   }
 };
 

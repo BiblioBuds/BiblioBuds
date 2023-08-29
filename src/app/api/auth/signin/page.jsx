@@ -1,16 +1,34 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import {
+  getCsrfToken,
+  getSession,
+  getProviders,
+  signIn,
+} from "next-auth/react";
 
 const SignIn = () => {
+  const [providers, setProviders] = useState({});
+
+  useEffect(() => {
+    getProviders().then((providers) => {
+      setProviders(providers);
+      console.log(providers);
+    });
+  }, []);
+
   // TODO: Agregar autenticacion al password y al email, mostrar errores
+  // TODO: Agregar notificaciones
   // TODO: Conectar con NextAuth
   return (
     <div className="w-full h-screen flex justify-center items-center text-center bg-[#F3F3F3]">
       <div className="min-w-[60%] max-w-[80%] min-h-[70%] max-h-[90%] border-4 border-[#C0C0C0] rounded-lg flex flex-row bg-white">
         <div className="w-full border-r-2 border-[#C0C0C0] flex flex-col justify-evenly items-center">
           <div>
-            <h3 className="font-lato md:text-lg lg:text-xl">Hello Again!</h3>
-            <h4 className="font-lato md:text-base lg:text-lg">
+            <h3 className="font-lato md:text-lg lg:text-2xl">Hello Again!</h3>
+            <h4 className="font-lato md:text-base lg:text-xl">
               Welcome back you've been missed!
             </h4>
           </div>
@@ -25,12 +43,23 @@ const SignIn = () => {
               type="password"
               placeholder="Password"
             />
-            <button className="w-[80%] font-lato border rounded-lg bg-[#EA8282] text-white shadow-md p-3 hover:bg-red-500 hover:tracking-widest duration-300">
+            <button
+              onClick={() => console.log(providers)}
+              className="w-[80%] font-lato border rounded-lg bg-[#EA8282] text-white shadow-md p-3 hover:bg-red-500 hover:tracking-widest duration-300"
+            >
               Sign In
             </button>
+            <Link href="/api/auth/register">
+              <p className="font-lato md:text-base lg:text-lg hover:underline hover:text-red-500 duration-300 pt-4">
+                Don't have an account? Sign Up
+              </p>
+            </Link>
           </div>
           <p className="font-lato md:text-base lg:text-lg">Or continue with</p>
-          <button className="w-[80%] font-lato bg-[#F5F5F5] shadow-md border rounded-lg p-3 flex items-center justify-center hover:bg-[#EA8282] duration-300">
+          <button
+            onClick={() => signIn(providers.github.id)}
+            className="w-[80%] font-lato bg-[#F5F5F5] shadow-md border rounded-lg p-3 flex items-center justify-center hover:bg-[#EA8282] duration-300"
+          >
             <img
               className="h-16"
               src="/Media/IMG/github.png"
