@@ -133,12 +133,12 @@ const Navbar = () => {
 
           {/* Right Section */}
           <div className="hidden md:flex items-center space-x-3">
-            <a
-              href=""
+            <Link
+              href="/api/auth/signin"
               className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
             >
               <FaUserAlt className="w-6 h-6" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
