@@ -1,6 +1,7 @@
 "use client";
 import { useGlobalContext } from "@/app/Context/store";
 import axios from "axios";
+import { getSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
@@ -12,10 +13,20 @@ import {
   FaUserAlt,
   FaBookMedical,
   FaTimesCircle,
+  FaUserCircle,
   FaBars,
 } from "react-icons/fa";
 
 const Navbar = () => {
+  const [session, setSession] = useState({});
+
+  useEffect(() => {
+    getSession().then((session) => {
+      setSession(session);
+      console.log(session);
+    });
+  }, []);
+
   const {
     setBooks,
     filterGenre,
@@ -132,14 +143,25 @@ const Navbar = () => {
           </div>
 
           {/* Right Section */}
-          <div className="hidden md:flex items-center space-x-3">
-            <a
-              href=""
-              className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
-            >
-              <FaUserAlt className="w-6 h-6" />
-            </a>
-          </div>
+          {session ? (
+            <div className="hidden md:flex items-center space-x-3">
+              <Link
+                href="/api/auth/signout"
+                className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
+              >
+                <FaUserCircle className="w-8 h-8" />
+              </Link>
+            </div>
+          ) : (
+            <div className="hidden md:flex items-center space-x-3">
+              <Link
+                href="/api/auth/signin"
+                className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
+              >
+                Log In
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

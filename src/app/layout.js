@@ -6,6 +6,7 @@ import Footer from "@/components/footer/footer";
 import { ToastContainer } from "react-toastify";
 
 import { GlobalContextProvider } from "./Context/store";
+import AuthProvider from "./Context/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,9 +25,11 @@ export default function RootLayout({ children }) {
           bodyClassName="font-lato text-base"
         />
         <GlobalContextProvider>
-          <NavBar className={style.navcont} />
-          {children}
-          <Footer />
+          <AuthProvider>
+            <NavBar className={style.navcont} />
+            {children}
+            <Footer />
+          </AuthProvider>
         </GlobalContextProvider>
       </body>
     </html>
