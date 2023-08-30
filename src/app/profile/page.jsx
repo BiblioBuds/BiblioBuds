@@ -1,8 +1,17 @@
-
+"use client"
 // import React from "react"; // Importa React
 // import { getSession } from "next-auth/react";
 // import { useSession } from "next-auth/react";
 // import Shopping from "./shopping";
+
+const Profile = () => {
+    return (
+        <div>
+            
+        </div>
+    )
+}
+export default Profile;
 
 // const Profile = ({ User, session }) => { // Corrige la declaración de los parámetros
 //   const UserInfo = User;
