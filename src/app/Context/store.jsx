@@ -1,6 +1,8 @@
 "use client";
 
-const { createContext, useContext, useState } = require("react");
+import axios from "axios";
+
+const { createContext, useContext, useState, useEffect } = require("react");
 
 const GlobalContext = createContext({
   books: [],
@@ -48,6 +50,77 @@ export const GlobalContextProvider = ({ children }) => {
   const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12);
+
+  useEffect(() => {
+    console.log("State Refresh");
+    const queryString = new URLSearchParams({
+      filterGenre,
+      filterFormat,
+      filterLanguage,
+      filterEditorial,
+      orderBooks,
+      searchInput,
+      page,
+      size,
+    }).toString();
+    axios
+      .get("/api/books/filters?" + queryString)
+      .then((res) => res.data)
+      .then((data) => {
+        // console.log(data);
+        setBooks(data);
+        setPage(1);
+      });
+    axios
+      .get("/api/genres")
+      .then((res) => res.data)
+      .then((data) => {
+        // console.log(data);
+        setGenres(data);
+      });
+    axios
+      .get("/api/formats")
+      .then((res) => res.data)
+      .then((data) => {
+        // console.log(data);
+        setFormats(data);
+      });
+    axios
+      .get("/api/languages")
+      .then((res) => res.data)
+      .then((data) => {
+        // console.log(data);
+        setLanguages(data);
+      });
+    axios
+      .get("/api/editorials")
+      .then((res) => res.data)
+      .then((data) => {
+        // console.log(data);
+        setEditorials(data);
+      });
+  }, [filterGenre, filterFormat, filterLanguage, filterEditorial, orderBooks]);
+
+  useEffect(() => {
+    console.log("Page Change");
+    const queryString = new URLSearchParams({
+      filterGenre,
+      filterFormat,
+      filterLanguage,
+      filterEditorial,
+      orderBooks,
+      searchInput,
+      page,
+      size,
+    }).toString();
+    axios
+      .get("/api/books/filters?" + queryString)
+      .then((res) => res.data)
+      .then((data) => {
+        // console.log(data);
+        setBooks(data);
+      });
+  }, [page]);
 
   return (
     <GlobalContext.Provider

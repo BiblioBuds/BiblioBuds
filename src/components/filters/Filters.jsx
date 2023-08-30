@@ -1,7 +1,6 @@
 "use client";
 
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useGlobalContext } from "@/app/Context/store";
 
 const FilterCategory = ({ title, items, setFilters }) => (
@@ -50,21 +49,11 @@ const FilterTag = ({ filter, setFilters, filterValue }) => (
 );
 
 const Filters = () => {
-  const [isLoading, setLoading] = useState(true);
-
   const {
-    books,
-    setBooks,
-    filteredBooks,
-    setFilteredBooks,
     genres,
-    setGenres,
     editorials,
-    setEditorials,
     formats,
-    setFormats,
     languages,
-    setLanguages,
     filterGenre,
     setFilterGenre,
     filterEditorial,
@@ -75,73 +64,7 @@ const Filters = () => {
     setFilterLanguage,
     orderBooks,
     setOrderBooks,
-    searchInput,
-    setSearchInput,
-    page,
-    setPage,
-    size,
-    setSize,
   } = useGlobalContext();
-
-  useEffect(() => {
-    axios
-      .get("/api/genres")
-      .then((res) => res.data)
-      .then((data) => {
-        // console.log(data);
-        setGenres(data);
-      });
-    axios
-      .get("/api/formats")
-      .then((res) => res.data)
-      .then((data) => {
-        // console.log(data);
-        setFormats(data);
-      });
-    axios
-      .get("/api/languages")
-      .then((res) => res.data)
-      .then((data) => {
-        // console.log(data);
-        setLanguages(data);
-      });
-    axios
-      .get("/api/editorials")
-      .then((res) => res.data)
-      .then((data) => {
-        // console.log(data);
-        setEditorials(data);
-      });
-    // return () => {
-    setLoading(false);
-    // };
-  }, []);
-
-  const filterBooks = () => {
-    const queryString = new URLSearchParams({
-      filterGenre,
-      filterFormat,
-      filterLanguage,
-      filterEditorial,
-      orderBooks,
-      searchInput,
-      page,
-      size,
-    }).toString();
-    // console.log(queryString);
-    axios
-      .get("/api/books/filters?" + queryString)
-      .then((res) => res.data)
-      .then((data) => {
-        // console.log(data);
-        setBooks(data);
-      });
-  };
-
-  useEffect(() => {
-    filterBooks();
-    setPage(1);
-  }, [filterGenre, filterFormat, filterLanguage, filterEditorial, orderBooks]);
 
   return (
     <div className="p-2 w-fit">
@@ -193,38 +116,34 @@ const Filters = () => {
           />
         ) : null}
       </div>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <FilterCategory
-            title="Genre"
-            setFilters={setFilterGenre}
-            items={genres.map(({ id, genre }) => ({ id, name: genre }))}
-          />
-          <FilterCategory
-            title="Format"
-            setFilters={setFilterFormat}
-            items={formats.map(({ id, format }) => ({ id, name: format }))}
-          />
-          <FilterCategory
-            title="Language"
-            setFilters={setFilterLanguage}
-            items={languages.map(({ id, language }) => ({
-              id,
-              name: language,
-            }))}
-          />
-          <FilterCategory
-            title="Editorial"
-            setFilters={setFilterEditorial}
-            items={editorials.map(({ id, editorial }) => ({
-              id,
-              name: editorial,
-            }))}
-          />
-        </>
-      )}
+      <>
+        <FilterCategory
+          title="Genre"
+          setFilters={setFilterGenre}
+          items={genres.map(({ id, genre }) => ({ id, name: genre }))}
+        />
+        <FilterCategory
+          title="Format"
+          setFilters={setFilterFormat}
+          items={formats.map(({ id, format }) => ({ id, name: format }))}
+        />
+        <FilterCategory
+          title="Language"
+          setFilters={setFilterLanguage}
+          items={languages.map(({ id, language }) => ({
+            id,
+            name: language,
+          }))}
+        />
+        <FilterCategory
+          title="Editorial"
+          setFilters={setFilterEditorial}
+          items={editorials.map(({ id, editorial }) => ({
+            id,
+            name: editorial,
+          }))}
+        />
+      </>
       <OrderCategory
         title="Order"
         setFilters={setOrderBooks}
