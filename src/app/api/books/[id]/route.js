@@ -6,8 +6,19 @@ export const PUT = async (req, { params }) => {
     const { id } = params;
     const updatedBook = await req.json();
 
-    const { formats, languages, genres, editorial, date, ...otherData } =
+    const { formats, languages, genres, editorial, date, isActive, ...otherData } =
       updatedBook;
+    
+    if (isActive !== undefined) {
+      await prisma.book.update({
+        where: {
+          id: parseInt(id),
+        },
+        data: {
+          isActive: isActive,
+        },
+      })
+    }
 
     const formatIds = [];
     for (const format of formats) {
@@ -181,3 +192,5 @@ export const GET = async (req, {params}) => {
     return NextResponse.json({error})
   }
 }
+
+

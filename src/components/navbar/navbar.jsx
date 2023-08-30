@@ -13,6 +13,8 @@ import {
   FaBookMedical,
   FaTimesCircle,
   FaBars,
+  FaBook,
+  FaUsers
 } from "react-icons/fa";
 
 const Navbar = () => {
@@ -128,6 +130,18 @@ const Navbar = () => {
               className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
             >
               <FaBookMedical className="w-6 h-6" />
+            </Link>
+            <Link
+              href="/dashboard/books"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaBook className="w-6 h-6" />
+            </Link>
+            <Link
+              href="/dashboard/users"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaUsers className="w-6 h-6" />
             </Link>
           </div>
 
