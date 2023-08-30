@@ -1,8 +1,22 @@
+"use client"
+import { useEffect, useState } from "react";
+import axios from "axios"
+import UsersTable from "./UsersTable";
+
 
 const Users = () => {
+    const [users, setUsers] = useState()
+
+    useEffect(() => {
+        axios
+          .get("/api/users")
+          .then((res) => res.data)
+          .then((data) => setUsers(data))
+    })
+
     return (
         <div>
-            <p>hola</p>
+            <UsersTable users={users}/>
         </div>
     )
 }
