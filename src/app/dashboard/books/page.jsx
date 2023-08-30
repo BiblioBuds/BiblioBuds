@@ -1,7 +1,7 @@
 import BooksTable from "./BooksTable"
 
 const fetchBooks = () => {
-    return fetch("http://localhost:3000/api/books", {cache: "no-store"})
+    return fetch("https://biblio-buds-git-dev-bibliobuds.vercel.app/api/books", {cache: "no-store"})
     .then(res=> res.json())
 };
 
