@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react"; // Importa React y useState
 import { Shopping as PaymentShopping } from "payment"; // Importa Shopping desde "payment"
 
