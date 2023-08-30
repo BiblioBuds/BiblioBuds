@@ -8,14 +8,30 @@ import {
   getProviders,
   signIn,
 } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
   const [providers, setProviders] = useState({});
+  const [csrfToken, setCsrfToken] = useState("");
+  const [session, setSession] = useState({});
+
+  const router = useRouter();
 
   useEffect(() => {
     getProviders().then((providers) => {
       setProviders(providers);
       console.log(providers);
+    });
+    getCsrfToken().then((token) => {
+      setCsrfToken(token);
+      console.log(token);
+    });
+    getSession().then((session) => {
+      setSession(session);
+      console.log(session);
+      if (session) {
+        router.push("/home");
+      }
     });
   }, []);
 
@@ -32,19 +48,27 @@ const SignIn = () => {
               Welcome back you've been missed!
             </h4>
           </div>
-          <div className="w-full md:space-y-6 lg:space-y-12">
+          <form
+            className="w-full md:space-y-6 lg:space-y-12"
+            method="post"
+            action="/api/auth/callback/credentials"
+          >
+            <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
             <input
               className="w-[80%] border p-3 rounded-lg bg-[#f5f5f5] shadow-md"
               type="text"
+              name="email"
               placeholder="Enter email"
             />
             <input
               className="w-[80%] border p-3 rounded-lg bg-[#f5f5f5] shadow-md"
               type="password"
+              name="password"
               placeholder="Password"
             />
             <button
-              onClick={() => console.log(providers)}
+              type="submit"
+              // onClick={() => console.log(providers)}
               className="w-[80%] font-lato border rounded-lg bg-[#EA8282] text-white shadow-md p-3 hover:bg-red-500 hover:tracking-widest duration-300"
             >
               Sign In
@@ -54,18 +78,30 @@ const SignIn = () => {
                 Don't have an account? Sign Up
               </p>
             </Link>
-          </div>
+          </form>
           <p className="font-lato md:text-base lg:text-lg">Or continue with</p>
-          <button
-            onClick={() => signIn(providers.github.id)}
-            className="w-[80%] font-lato bg-[#F5F5F5] shadow-md border rounded-lg p-3 flex items-center justify-center hover:bg-[#EA8282] duration-300"
-          >
-            <img
-              className="h-16"
-              src="/Media/IMG/github.png"
-              alt="Github Logo"
-            />
-          </button>
+          <div className="flex w-[80%]">
+            <button
+              onClick={() => signIn("github")}
+              className="w-full font-lato bg-[#F5F5F5] shadow-md border rounded-lg p-3 flex items-center justify-center hover:bg-[#EA8282] duration-300"
+            >
+              <img
+                className="h-16"
+                src="/Media/IMG/github.png"
+                alt="Github Logo"
+              />
+            </button>
+            <button
+              onClick={() => signIn("facebook")}
+              className="w-full font-lato bg-[#F5F5F5] shadow-md border rounded-lg p-3 flex items-center justify-center hover:bg-[#EA8282] duration-300"
+            >
+              <img
+                className="h-16"
+                src="/Media/IMG/facebook.png"
+                alt="Github Logo"
+              />
+            </button>
+          </div>
           <Link href="/shop">
             <p className="font-lato md:text-base lg:text-lg hover:underline hover:text-red-500 duration-300">
               Continue shopping
