@@ -5,8 +5,6 @@ import { useState } from "react";
 
 const BooksTable = ({books}) => {
 
-    const [activation, setActivation] = useState(1);
-
     const handleDeactivate = async (id) => {
         try {
           await axios.put(`/api/books/${id}`, {
@@ -34,7 +32,7 @@ const BooksTable = ({books}) => {
     return (
         <div className="overflow-x-auto w-screen min-h-screen">
         <h1 className="text-center font-bold text-wine text-2xl m-2">
-          All Books {activation}
+          All Books
         </h1>
         <div className="container mx-auto p-4">
           <table className="min-w-full rounded-lg overflow-hidden">

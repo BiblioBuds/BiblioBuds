@@ -199,7 +199,7 @@ const SignIn = () => {
         <img
           src="https://w.forfun.com/fetch/77/77b54e73aa6e6aee334586f0a86f7760.jpeg"
           alt="Cover Image"
-          className="w-full border-l-2 border-[#C0C0C0] rounded-tr-md rounded-br-md"
+          className="w-[50%] border-l-2 border-[#C0C0C0] rounded-tr-md rounded-br-md"
         />
       </div>
     </div>
