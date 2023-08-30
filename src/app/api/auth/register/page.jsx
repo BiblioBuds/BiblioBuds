@@ -67,12 +67,6 @@ const Register = () => {
       body: JSON.stringify(userData),
     })
       .then((res) => {
-        if (!res.ok) {
-          toast.error(
-            `Oops! There was an error creating your account. Please try again.`
-          );
-          throw new Error("Error creating account");
-        }
         return res.json();
       })
       .then((data) => {
@@ -118,13 +112,16 @@ const Register = () => {
             />
             {errors.password ? <p>{errors.password}</p> : null}
           </div>
-          <div
-            className="flex justify-center items-center bg-blue-500 hover:bg-blue-700 duration-300 p-3 rounded-xl text-white shadow-md space-x-1"
+          <button
+            className={`flex justify-center items-center bg-blue-500 ${
+              errors.email || errors.password ? "" : "hover:bg-blue-700"
+            } duration-300 p-3 rounded-xl text-white shadow-md space-x-1`}
+            disabled={errors.email || errors.password}
             onClick={handleSubmit}
           >
             <FaLock />
-            <button>Create Account</button>
-          </div>
+            Create Account
+          </button>
           <Link href="/api/auth/signin">
             <p className="font-lato md:font-lg lg:font-xl hover:text-red-500 hover:underline duration-300">
               Already have an account? Sign In
