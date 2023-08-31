@@ -8,7 +8,11 @@
     /* border: 1px solid rgb(131, 123, 123); */
 }
 .hometitle{
-    margin-top: 1rem;
+    position: absolute;
+  left: 50px;
+  top: 10%;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 .popular{
     width: 90%;
@@ -19,7 +23,10 @@
     /* border: 1px solid grey; */
 }
 .popularpad{
-    margin-right: 2rem;
+   
+    font-weight: bold;
+  font-size: 1.5rem;
+  left: 50px;
 }
 .cards{
     width: 90%;
