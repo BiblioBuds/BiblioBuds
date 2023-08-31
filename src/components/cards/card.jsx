@@ -1,12 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaBookOpen, FaShoppingCart, FaDollarSign } from "react-icons/fa";
+import {
+  FaBookOpen,
+  FaShoppingCart,
+  FaDollarSign,
+  FaMinus,
+  FaPlus,
+} from "react-icons/fa";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const manageCart = (book) => {
+const manageCart = (book, quantity) => {
   let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
   let itemIndex = cartItems.findIndex((item) => item.id === book.id);
@@ -17,7 +23,8 @@ const manageCart = (book) => {
     );
     cartItems.splice(itemIndex, 1);
   } else {
-    cartItems.push(book);
+    let bookWithQuantity = { ...book, quantity };
+    cartItems.push(bookWithQuantity);
     toast.success("Item successfully added to your cart.");
   }
 
@@ -27,6 +34,7 @@ const manageCart = (book) => {
 
 const Card = ({ book }) => {
   const [inCart, setInCart] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -34,7 +42,7 @@ const Card = ({ book }) => {
   }, []);
 
   const handleCart = () => {
-    let cartItems = manageCart(book);
+    let cartItems = manageCart(book, quantity);
     setInCart(cartItems.some((item) => item.id === book.id));
   };
 
@@ -62,10 +70,54 @@ const Card = ({ book }) => {
             </span>
             <span className="flex flex-row text-sm justify-center items-center">
               <FaDollarSign />
-              {book.price}
+              {(book.price * quantity).toFixed(2)}
             </span>
           </section>
         </div>
+        {!inCart ? (
+          <div className="flex mt-2 space-x-1">
+            <button
+              onClick={() => {
+                if (quantity > 1) {
+                  setQuantity(quantity - 1);
+                }
+              }}
+              className="border-b-[3px] border border-green-700 bg-green-500 text-white rounded py-1 px-2"
+            >
+              <FaMinus />
+            </button>
+            <input
+              className="w-[3rem] text-center border border-b-[3px] border-green-700 bg-green-500 text-white font-bold rounded"
+              type="text"
+              value={quantity}
+              onChange={(e) => {
+                let value = e.target.value;
+                if (value === "") {
+                  setQuantity(1);
+                } else {
+                  value = parseInt(value);
+                  if (value < 1) {
+                    setQuantity(1);
+                  } else if (value > book.stock) {
+                    setQuantity(book.stock);
+                  } else {
+                    setQuantity(value);
+                  }
+                }
+              }}
+            />
+            <button
+              onClick={() => {
+                if (quantity < book.stock) {
+                  setQuantity(quantity + 1);
+                }
+              }}
+              className="border-b-[3px] border border-green-700 bg-green-500 text-white rounded py-1 px-2"
+            >
+              <FaPlus />
+            </button>
+          </div>
+        ) : null}
         <button
           onClick={handleCart}
           className={`flex flex-row text-sm border rounded text-white hover:text-black border-b-4 ${
