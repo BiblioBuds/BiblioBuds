@@ -13,6 +13,7 @@
     margin-top: 2%;
     z-index: -1;
     backdrop-filter: blur(4px); 
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
   }
   
   .carouselItem {
@@ -40,8 +41,9 @@
     width: 30%; /* Ajusta el tamaño de la imagen */
     height: auto;
     object-fit: contain;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 12px rgba(188, 24, 229, 0.69);
     margin-left: -170%;
+    border-radius: 5%;
   }
 
   .bookName {
@@ -51,16 +53,17 @@
     color: rgb(243, 238, 238); /* Color del texto */
     text-align: left; /* Alineación del texto a la derecha */
     position: absolute;
-    top: 50%;
+    top: 30%;
     right: -150px; /* Ajusta esta distancia para el margen derecho */
     transform: translateY(-50%);
     width: 80%; /* Ajusta el ancho del contenedor de texto */
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
   padding: 5px 10px; /* Agrega un poco de espacio alrededor del texto */
   backdrop-filter: blur(4px); 
-  white-space: normal; /* Permite el ajuste automático de líneas */
- 
-  max-lines: 2; /* Limita la cantidad de líneas */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 4;
  
     
   }
@@ -84,4 +87,27 @@
   .carousel .control-dots .dot.selected {
     background: #333;
   }
+  
+  .carouselRating {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 20%;
+    left: 210px;
+  }
+  
+  .starContainer {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+  }
+  
+  .starIcon {
+    width: 50px;
+    height: 50px;
+    fill: #f4f3ee;
+    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.8));
+   }
+  
   

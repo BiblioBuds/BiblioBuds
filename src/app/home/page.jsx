@@ -7,15 +7,13 @@ import Card from '@/components/cards/card';
 
 export const Home = () => {
   
-   // Obtén el estado global de libros
-
-  // Filtra los 6 libros principales
+   
 
 
   return (
     <div className={styles.main}>
         <header>
-          <h1 className={styles.hometitle}>BiblioBuds</h1>
+          
           <h1 className={styles.hometitle}>For You</h1>
         </header>
         <PromoCarousel />
