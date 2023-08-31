@@ -1,16 +1,9 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation'
-import Link from "next/link";
-import {
-  FaBookOpen,
-  FaShoppingCart,
-  FaTimesCircle,
-  FaDollarSign,
-} from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import { useRouter } from "next/navigation";
+import { FaBookOpen, FaShoppingCart, FaDollarSign } from "react-icons/fa";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const manageCart = (book) => {
@@ -45,7 +38,7 @@ const Card = ({ book }) => {
     setInCart(cartItems.some((item) => item.id === book.id));
   };
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className="pt-4 flex-grow w-[22rem] h-[16.5rem] flex flex-row items-center space-x-4">
@@ -56,22 +49,22 @@ const Card = ({ book }) => {
         onClick={() => router.push(`/shop/${book.id}`)}
       />
       <section className="w-1/2 h-9/10 flex flex-col text-xs mr-4 justify-around cursor-pointer">
-      <div onClick={() => router.push(`/shop/${book.id}`)}>
-        <span className="w-9/10 h-8 flex flex-row text-sm items-center font-semibold">
-          {book.title}
-        </span>
-        <span className="w-9/10 h-8 flex flex-row text-sm items-center text-gray-600 italic">
-          {book.author}
-        </span>
-        <section className="w-9/10 flex flex-row text-xs mt-2 space-x-4">
-          <span className="flex flex-row text-sm justify-center items-center">
-            <FaBookOpen className="mr-1" /> {book.pages}
+        <div onClick={() => router.push(`/shop/${book.id}`)}>
+          <span className="w-9/10 h-8 flex flex-row text-sm items-center font-semibold">
+            {book.title}
           </span>
-          <span className="flex flex-row text-sm justify-center items-center">
-            <FaDollarSign />
-            {book.price}
+          <span className="w-9/10 h-8 flex flex-row text-sm items-center text-gray-600 italic">
+            {book.author}
           </span>
-        </section>
+          <section className="w-9/10 flex flex-row text-xs mt-2 space-x-4">
+            <span className="flex flex-row text-sm justify-center items-center">
+              <FaBookOpen className="mr-1" /> {book.pages}
+            </span>
+            <span className="flex flex-row text-sm justify-center items-center">
+              <FaDollarSign />
+              {book.price}
+            </span>
+          </section>
         </div>
         <button
           onClick={handleCart}

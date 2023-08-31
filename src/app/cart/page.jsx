@@ -24,9 +24,10 @@ const CartItem = ({ book, removeFromCart }) => (
       </div>
       <div className="space-x-1 font-lato">
         <span className="font-bold">Languages:</span>
-        {book.bookLanguages.map((item) => (
+        {book.bookLanguages.map((item, index) => (
           <span
             onClick={() => console.log(item)}
+            key={index}
             className="rounded p-1 bg-green-600 border-b-2 border-b-green-800 text-white font-bold"
           >
             {item?.language.language}
@@ -121,15 +122,19 @@ const Cart = () => {
         <div className="flex-grow w-2/3 flex flex-col justify-center items-center space-y-4">
           {!isLoading &&
             cartItems.map((item) => (
-              <CartItem book={item} removeFromCart={removeFromCart} />
+              <CartItem
+                key={item.id}
+                book={item}
+                removeFromCart={removeFromCart}
+              />
             ))}
         </div>
         <div className="space-x-8 w-1/3 flex flex-col items-start">
           <div className="p-2 rounded bg-zinc-200 w-[90%] h-fit space-y-3">
             <h1 className="font-bold font-inter text-xl">ORDER SUMMARY</h1>
             <div className="border border-black"></div>
-            {cartItems.map((item) => (
-              <div className="flex justify-between">
+            {cartItems.map((item, index) => (
+              <div className="flex justify-between" key={index}>
                 <div className="text-sm">
                   <span className="font-bold">x1</span> {item.title}
                 </div>
