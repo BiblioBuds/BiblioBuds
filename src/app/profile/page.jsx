@@ -1,7 +1,7 @@
 "use client"
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
-import styles from "./Profile.module.css"; // Importa tus estilos CSS módulos
+import styles from "./profile.module.css"; // Importa tus estilos CSS módulos
 
 const Profile = ({ session }) => {
   const [showMenu, setShowMenu] = useState(false); // Estado para mostrar/ocultar el menú
