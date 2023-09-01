@@ -45,7 +45,8 @@ model Book {
   ratingId    Int?
   ratings     Rating[]
   stock       Int
-  orders      OrderBook[]
+  // orders      OrderBook[]
+  details   Detail[]
   bookGenres  BookGenre[]
   bookFormats BookFormat[]
   bookLanguages BookLanguage[]
@@ -67,19 +68,30 @@ model Order {
   date      DateTime @default(now())
   status    String
   totalPrice Float
-  books     OrderBook[]
+  // books     OrderBook[]
+  details   Detail[]
   userId    String
   user      User    @relation(fields: [userId], references: [id])
 }
 
-model OrderBook {
-  orderId Int
-  bookId  Int
-  order   Order  @relation(fields: [orderId], references: [id])
-  book    Book   @relation(fields: [bookId], references: [id])
-
-  @@id([orderId, bookId])
+model Detail {
+  id Int @id @default(autoincrement())
+  orderId   Int
+  bookId    Int
+  order     Order     @relation(fields: [orderId], references: [id])
+  book      Book      @relation(fields: [bookId], references: [id])
+  quantity Int
+  unitPrice Float
 }
+
+// model OrderBook {
+//   orderId Int
+//   bookId  Int
+//   order   Order  @relation(fields: [orderId], references: [id])
+//   book    Book   @relation(fields: [bookId], references: [id])
+
+//   @@id([orderId, bookId])
+// }
 
 model Language {
   id       Int      @id @default(autoincrement())
