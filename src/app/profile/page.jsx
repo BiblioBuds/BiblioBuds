@@ -1,10 +1,13 @@
 "use client"
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import styles from "./profile.module.css"; // Importa tus estilos CSS módulos
 
 const Profile = ({ session }) => {
   const [showMenu, setShowMenu] = useState(false); // Estado para mostrar/ocultar el menú
+  
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -18,6 +21,12 @@ const Profile = ({ session }) => {
     // Manejar el caso en que el usuario no esté autenticado
     return <div>No estás autenticado.</div>;
   }
+
+  // Función para redirigir al usuario a la página de su cuenta
+  const goToAccountPage = () => {
+    router.push("/account"); // Cambia "/account" con la ruta correcta
+    setShowMenu(false); // Cierra el menú después de redirigir
+  };
 
   return (
     <div>
@@ -37,6 +46,9 @@ const Profile = ({ session }) => {
           </button>
           {showMenu && (
             <div className={styles.menu}>
+              <button onClick={goToAccountPage} className={styles.menuItem}>
+                My Account
+              </button>
               <button onClick={handleLogout} className={styles.menuItem}>
                 Cerrar Sesión
               </button>
@@ -51,4 +63,3 @@ const Profile = ({ session }) => {
 };
 
 export default Profile;
-

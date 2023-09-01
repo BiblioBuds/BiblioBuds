@@ -97,6 +97,10 @@ const Navbar = () => {
     setIsProfileMenuOpen(false);
   };
 
+  const goToAccountPage = () => {
+    router.push("/account"); // Cambia "/account" con la ruta correcta
+    setShowMenu(false); // Cierra el menú después de redirigir
+  };
   
 
   return (
@@ -178,7 +182,7 @@ const Navbar = () => {
           {/* Right Section */}
           <div className="hidden md:flex items-center space-x-3">
             {session ? (
-              <div className="relative">
+              <div className="relative" style={{ zIndex: 1000 }}>
                 <img
                   src={session.user.image}
                   alt={`${session.user.name}'s profile`}
@@ -191,6 +195,7 @@ const Navbar = () => {
                     onMouseLeave={closeProfileMenu}
                   >
                     <Link
+                    onClick={goToAccountPage}
                       href="/account"
                       className="text-gray-600 hover:text-gray-900 block"
                     >
