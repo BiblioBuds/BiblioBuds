@@ -176,13 +176,13 @@ const Navbar = () => {
           </div>
 
           {/* Right Section */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-3 ">
             {session ? (
-              <div className="relative">
+              <div className="relative" style={{ zIndex: 1000 }}>
                 <img
                   src={session.user.image}
                   alt={`${session.user.name}'s profile`}
-                  className="w-8 h-8 rounded-full cursor-pointer"
+                  className="w-8 h-8 rounded-full cursor-pointer style={{ zIndex: 1000 }}"
                   onClick={toggleProfileMenu}
                 />
                 {isProfileMenuOpen && (
