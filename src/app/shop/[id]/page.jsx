@@ -72,16 +72,17 @@ const Detail = ({ params }) => {
               src={book.image}
               alt="imagen"
             />
-          </div>
-          <div className="justify-center flex flex-col mr-6">
-            <div className="flex flex-row" onClick={() => console.log(inCart)}>
-              <StarIcon className="h-6 w-6 text-white" />
-              <StarIcon className="h-6 w-6 text-white" />
-              <StarIcon className="h-6 w-6 text-white" />
-              <StarIcon className="h-6 w-6 text-white" />
-              <StarIcon className="h-6 w-6 text-white" />
+            <div className="flex flex-row ml-24 mt-2" onClick={() => console.log(inCart)}>
+              <StarIcon className="h-8 w-8 text-white" />
+              <StarIcon className="h-8 w-8 text-white" />
+              <StarIcon className="h-8 w-8 text-white" />
+              <StarIcon className="h-8 w-8 text-white" />
+              <StarIcon className="h-8 w-8 text-white" />
             </div>
-            <h1 className=" text-4xl mt-2 pt-0 mb-4 font-serif mx-6 ml-0 text-white drop-shadow-lg">
+          </div>
+          <div className="justify-center flex flex-col mr-16 mt-4">
+            
+            <h1 className=" text-4xl mt-4 pt-0 mb-4 font-serif mx-6 ml-0 text-white drop-shadow-lg">
               {book.title}
             </h1>
             <div className="grid grid-cols-2 gap-1">
@@ -98,7 +99,7 @@ const Detail = ({ params }) => {
               </h1>
             </div>
             {!inCart ? (
-              <div className="flex mt-2 space-x-8 justify-center">
+              <div className="flex mt-6 space-x-8 justify-center">
                 <button
                   onClick={() => {
                     if (quantity > 1) {
