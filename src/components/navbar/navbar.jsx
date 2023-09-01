@@ -1,7 +1,7 @@
 "use client";
 import { useGlobalContext } from "@/app/Context/store";
 import axios from "axios";
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
@@ -18,16 +18,25 @@ import {
   FaBook,
   FaUsers
 } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+
 
 const Navbar = () => {
-  const [session, setSession] = useState({});
+  const { data: session } = useSession();
+  const [showMenu, setShowMenu] = useState(false); 
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    getSession().then((session) => {
-      setSession(session);
-      console.log(session);
-    });
-  }, []);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+  
+
+  // useEffect(() => {
+  //   getSession().then((session) => {
+  //     setSession(session);
+  //     console.log(session);
+  //   });
+  // }, []);
 
   const {
     setBooks,
@@ -79,6 +88,16 @@ const Navbar = () => {
       searchByQuery();
     }
   }, [searchInput]);
+
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  const closeProfileMenu = () => {
+    setIsProfileMenuOpen(false);
+  };
+
+  
 
   return (
     <nav className="bg-white shadow-lg">
@@ -157,29 +176,54 @@ const Navbar = () => {
           </div>
 
           {/* Right Section */}
-          {session ? (
-            <div className="hidden md:flex items-center space-x-3">
-              <Link
-                href="/api/auth/signout"
-                className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
-              >
-                <FaUserCircle className="w-8 h-8" />
-              </Link>
-            </div>
-          ) : (
-            <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-3">
+            {session ? (
+              <div className="relative">
+                <img
+                  src={session.user.image}
+                  alt={`${session.user.name}'s profile`}
+                  className="w-8 h-8 rounded-full cursor-pointer"
+                  onClick={toggleProfileMenu}
+                />
+                {isProfileMenuOpen && (
+                  <div
+                    className="absolute top-10 right-0 bg-white border shadow-md rounded-lg py-2 px-4 space-y-2"
+                    onMouseLeave={closeProfileMenu}
+                  >
+                    <Link
+                      href="/account"
+                      className="text-gray-600 hover:text-gray-900 block"
+                    >
+                      My Account
+                    </Link>
+                    <Link
+                      href="/myshopping"
+                      className="text-gray-600 hover:text-gray-900 block"
+                    >
+                      Shopping
+                    </Link>
+                    <Link
+                      href="/api/auth/signout" // Llama a la función de logout
+                      className="text-gray-600 hover:text-gray-900 block w-full text-left"
+                    >
+                      Logout
+                    </Link>
+                    
+                  </div>
+                )}
+              </div>
+            ) : (
               <Link
                 href="/api/auth/signin"
                 className="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-500 hover:text-white transition duration-300"
               >
                 Log In
               </Link>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </nav>
   );
 };
-
 export default Navbar;

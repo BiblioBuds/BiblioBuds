@@ -1,75 +1,54 @@
 "use client"
-// import React from "react"; // Importa React
-// import { getSession } from "next-auth/react";
-// import { useSession } from "next-auth/react";
-// import Shopping from "./shopping";
+import { signOut, useSession } from "next-auth/react";
+import { useState } from "react";
+import styles from "./profile.module.css"; // Importa tus estilos CSS módulos
 
-const Profile = () => {
-    return (
-        <div>
-            
+const Profile = ({ session }) => {
+  const [showMenu, setShowMenu] = useState(false); // Estado para mostrar/ocultar el menú
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const handleLogout = () => {
+    signOut();
+  };
+
+  if (!session) {
+    // Manejar el caso en que el usuario no esté autenticado
+    return <div>No estás autenticado.</div>;
+  }
+
+  return (
+    <div>
+      <section className={styles.profileSection}>
+        <div className={styles.profileInfo}>
+          <h4>Profile Info</h4>
+          <h2>{session.user.name}</h2>
+          <p>{session.user.email}</p>
+          <img
+            src={session.user.image}
+            alt={`${session.user.name}'s profile picture`}
+          />
         </div>
-    )
-}
+        <div className={styles.profileActions}>
+          <button onClick={toggleMenu} className={styles.profileButton}>
+            Opciones
+          </button>
+          {showMenu && (
+            <div className={styles.menu}>
+              <button onClick={handleLogout} className={styles.menuItem}>
+                Cerrar Sesión
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+      <button className={styles.profileButton}>Shopping</button>
+      <button className={styles.profileButton}>Searches</button>
+    </div>
+  );
+};
+
 export default Profile;
-
-// const Profile = ({ User, session }) => { // Corrige la declaración de los parámetros
-//   const UserInfo = User;
-//   const UserData = session;
-//   const { data: userSession, status } = useSession(); // Cambia el nombre de la constante para evitar conflictos
-
-//   return (
-//     <div>
-//       <section>
-//         <h4>Profile Info</h4>
-//         <h2>{UserData.user.name}</h2> {/* Cambia UserData.name a UserData.user.name */}
-//         <p>{UserData.user.email}</p> {/* Cambia {}UserData.email a {UserData.user.email} */}
-//       </section>
-//       <button>Shopping</button>
-//       <button>Searches</button>
-//     </div>
-//   );
-// };
-
-// export const getServerSideProps = async (context) => {
-//   const session = await getSession(context);
-//   return {
-//     props: {
-//       session, // Pasa la sesión al componente como prop
-//     },
-//   };
-// };
-
-// export default Profile;
-
-// import { getSession } from "next-auth/react";
-
-// export const getServerSideProps = async() =>{
-//     const session = await getSession()
-//     return{
-//         props:{
-
-//         }
-//     }
-// }
-
-// import React from "react";
-
-// const Profile = () => {
-//   return <div>Profile</div>;
-// };
-
-// export default Profile;
-
-/*-------------- Objeto user----------------
-en la constante del peril se tiene que tener recibir {session}
-
-
-expires: "xxxxxxxxxxxx"// esta propiedad nos dice cuando expira
-user{
-    email:"xxxxx",
-    image:"xxxxx",
-    name:"xxxxxx"
-}
-*/
 

@@ -36,3 +36,69 @@
     font-size: 125%;
     color: rgba(0, 0, 0, 0.603);
 }
+
+/* Navbar.module.css */
+
+/* Estilos para el ícono de perfil */
+.rounded-full {
+    border-radius: 50%;
+  }
+  
+  /* Estilos para el menú desplegable */
+  .absolute {
+    position: absolute;
+  }
+  
+  .top-10 {
+    top: 2.5rem; /* Ajusta la distancia desde la parte superior según tus necesidades */
+  }
+  
+  .right-0 {
+    right: 0;
+  }
+  
+  .bg-white {
+    background-color: white;
+  }
+  
+  .border {
+    border: 1px solid #e2e8f0; /* Color del borde */
+  }
+  
+  .shadow-md {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra del menú */
+  }
+  
+  .rounded-lg {
+    border-radius: 0.5rem; /* Ajusta la curvatura de las esquinas */
+  }
+  
+  .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem; /* Espaciado vertical */
+  }
+  
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem; /* Espaciado horizontal */
+  }
+  
+  .space-y-2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem; /* Espaciado entre elementos del menú */
+  }
+  
+  /* Estilos para los enlaces del menú */
+  .text-gray-600 {
+    color: #718096; /* Color del texto normal */
+  }
+  
+  .hover:text-gray-900 {
+    color: #2d3748; /* Color del texto al pasar el mouse */
+  }
+  
+  .block {
+    display: block;
+    width: 100%; /* Ancho completo para que sea clickeable */
+  }
+  
