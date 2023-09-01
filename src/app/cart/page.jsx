@@ -136,15 +136,18 @@ const Cart = () => {
             {cartItems.map((item, index) => (
               <div className="flex justify-between" key={index}>
                 <div className="text-sm">
-                  <span className="font-bold">x1</span> {item.title}
+                  <span className="font-bold">x{item.quantity}</span>{" "}
+                  {item.title}
                 </div>
-                <div className="text-sm font-bold">${item.price}</div>
+                <div className="text-sm font-bold">
+                  ${item.price * item.quantity}
+                </div>
               </div>
             ))}
             <p className="font-bold font-inter">
               TOTAL COST: $
               {cartItems
-                .reduce((total, item) => total + item.price, 0)
+                .reduce((total, item) => total + item.price * item.quantity, 0)
                 .toFixed(2)}
             </p>
             <div className="border border-black"></div>
