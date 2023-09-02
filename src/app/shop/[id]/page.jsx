@@ -63,8 +63,8 @@ const Detail = ({ params }) => {
 
   return (
     <div className="h-screen w-screen flex">
-      <div className="self-center w-[80%] h-[75%] bg-gradient-to-r from-cyan-500 to-blue-500 rounded-r-3xl">
-        <div className="mx-4 mt-3 h-20 grid grid-cols-2 gap-1 justify-center">
+      <div className="self-center w-[80%] h-[75%] bg-gradient-to-b from-indigo-500 from-10% via-indigo-400 via-30% to-sky-300 to-90% rounded-r-3xl">
+        <div className=" flex flex-row gap-24 justify-center">
           <div className="justify-center flex flex-col">
             <img
               style={{ display: "inline" }}
@@ -80,9 +80,9 @@ const Detail = ({ params }) => {
               <StarIcon className="h-8 w-8 text-white" />
             </div>
           </div>
-          <div className="justify-center flex flex-col mr-16 mt-4">
+          <div className="justify-center flex flex-col mr-12 mt-10">
             
-            <h1 className=" text-4xl mt-4 pt-0 mb-4 font-serif mx-6 ml-0 text-white drop-shadow-lg">
+            <h1 className=" text-4xl mt-6 pt-0 mb-4 font-serif mx-6 ml-0 text-white drop-shadow-lg">
               {book.title}
             </h1>
             <div className="grid grid-cols-2 gap-1">
@@ -94,12 +94,12 @@ const Detail = ({ params }) => {
               </h1>
             </div>
             <div className="overflow-auto h-48">
-              <h1 className=" text-lg pt-0 mb-4 font-serif mx-6 ml-0 text-white italic drop-shadow-lg overflow-auto">
+              <h1 className=" text-lg pt-0 mb-2 font-serif mx-6 ml-0 text-white italic drop-shadow-lg overflow-auto h-36">
                 {book.synopsis}
               </h1>
             </div>
             {!inCart ? (
-              <div className="flex mt-6 space-x-8 justify-center">
+              <div className="flex mt-2 space-x-8 justify-center">
                 <button
                   onClick={() => {
                     if (quantity > 1) {
@@ -143,7 +143,7 @@ const Detail = ({ params }) => {
               </div>
             ) : null}
             <button
-              className={`p-4 mt-8 text-lg font-bold rounded border-2 border-b-4 ${
+              className={`p-4 mt-4 mb-4 text-white text-lg font-bold rounded border border-b-4 ${
                 inCart
                   ? "bg-red-500 border-red-700 hover:border-red-500 hover:bg-red-700"
                   : "bg-green-500 border-green-700 hover:border-green-500 hover:bg-green-700"
