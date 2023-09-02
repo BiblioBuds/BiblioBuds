@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import prisma from "../../../../lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { signUpEmail } from "../orders/notifications/[id]/emails";
 
 export const POST = async (req, res) => {
   try {
@@ -40,6 +41,10 @@ export const POST = async (req, res) => {
         password: hashedPassword,
       },
     });
+
+    if (storedUser) {
+      await signUpEmail("User", email);
+    }
 
     return NextResponse.json({ storedUser }, { status: 200 });
   } catch (error) {
