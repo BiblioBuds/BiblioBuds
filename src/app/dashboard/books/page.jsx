@@ -21,21 +21,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
 import BooksTable from "./BooksTable"
+import { useGlobalContext } from "@/app/Context/store";
 
 const Books = () => {
-
-    const [books, setBooks] = useState()
-
-    useEffect(() => {
-        axios
-          .get("/api/books")
-          .then((res) => res.data)
-          .then((data) => setBooks(data))
-    })
+    const { books } = useGlobalContext();
 
     return (
         <div>
-            <BooksTable books={books}/>
+            <BooksTable books={books.books}/>
         </div>
     )
 }

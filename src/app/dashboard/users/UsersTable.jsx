@@ -26,7 +26,7 @@ const UsersTable = ({users}) => {
           console.log(error);
         }
     };
-
+    
     return (
         <div className="overflow-x-auto w-screen min-h-screen">
         <h1 className="text-center font-bold text-wine text-2xl m-2">

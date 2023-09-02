@@ -163,7 +163,6 @@ export const GET = async (req, {params}) => {
         id: parseInt(id),
       },
         include: {
-          orders:true,
           editorial:{
             select:{
               editorial:true

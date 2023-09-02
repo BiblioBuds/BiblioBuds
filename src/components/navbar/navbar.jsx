@@ -16,7 +16,8 @@ import {
   FaUserCircle,
   FaBars,
   FaBook,
-  FaUsers
+  FaUsers,
+  FaBookOpen
 } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 
@@ -176,6 +177,12 @@ const Navbar = () => {
               className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
             >
               <FaUsers className="w-6 h-6" />
+            </Link>
+            <Link
+              href="/dashboard/orders"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaBookOpen className="w-6 h-6" />
             </Link>
           </div>
 

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { StarIcon } from "@heroicons/react/24/solid";
 import { useGlobalContext } from "@/app/Context/store";
 import Card from '@/components/cards/card';
+import { useRouter } from "next/navigation";
 
 
 export const Home = () => {
@@ -30,6 +31,8 @@ export const Home = () => {
     console.log(books)
     console.log(books2)
 
+    const router = useRouter();
+
   return (
     <div className='w-screen h-full justify-center'>
         <div className='mb-2 h-80'>
@@ -43,14 +46,14 @@ export const Home = () => {
             orientation="horizontal"
             infinite={true} interval={4000} isPlaying={true}
             >
-                <div className='overflow-x-hidden'>
+                <div className='overflow-x-hidden overflow-y-hidden h-72'>
                 <Slider className="mt-4 ml-4 justify-start transition ease-out duration-5000" classNameAnimation='transition duration-5000 ease-in-out'>
                 <div className="h-full flex lg:gap-12 md:gap-6 gap-12 justify-start transition ease-out duration-5000">
                     {books?.length > 0 ?
                     books?.map((book,id)=> {
                         return (
-                            <Slide index={id}>
-                            <div className="grid grid-cols-2 bg-gradient-to-b from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% w-[400px] h-64 rounded-lg">
+                            <Slide index={id} className='cursor-pointer' onClick={() => router.push(`/shop/${book.id}`)}>
+                            <div className="grid grid-cols-2 bg-gradient-to-b from-indigo-500 from-10% via-indigo-400 via-30% to-sky-300 to-90% w-[400px] h-64 rounded-lg">
                                     <div>
                                         <img src={book?.image} alt="black chair and white table" className="w-32 h-56 mt-4 ml-4 rounded-lg grid-cols-1" />
                                     </div>
