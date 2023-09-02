@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function clearDatabase() {
+  await prisma.detail.deleteMany();
   await prisma.bookFormat.deleteMany();
   await prisma.bookGenre.deleteMany();
   await prisma.bookLanguage.deleteMany();
@@ -12,7 +13,8 @@ async function clearDatabase() {
   await prisma.editorial.deleteMany();
   await prisma.rating.deleteMany();
   await prisma.order.deleteMany();
-  await prisma.orderBook.deleteMany();
+  await prisma.user.deleteMany();
+  // await prisma.orderBook.deleteMany();
 }
 
 clearDatabase()
