@@ -1,10 +1,11 @@
-import prisma from "../../../../../../lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { approvedEmail, inProcessEmail, rejectedEmail } from "./emails";
 
-export const POST = async (req, { params }) => {
+export const POST = async (req, res) => {
   try {
-    const { id } = params;
+    const orderChange = await req.json();
+    const { id } = orderChange;
 
     const { status, status_detail, metadata } = (
       await axios(`https://api.mercadopago.com/v1/payments/${id}`, {
@@ -22,7 +23,6 @@ export const POST = async (req, { params }) => {
       });
       for (const { id, quantity } of metadata.record) {
         const product = await prisma.book.findUnique({ where: { id } });
-        // const product = await Products.findByPk(id);
         const stock = product.stock - quantity;
         const updateData = {
           stock,
@@ -32,7 +32,6 @@ export const POST = async (req, { params }) => {
           where: { id },
           data: updateData,
         });
-        // await prisma.book.update(updateData, { where: { id } });
       }
       await approvedEmail(metadata.name, metadata.email);
     } else if (status === "rejected") {

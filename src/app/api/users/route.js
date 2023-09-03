@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import prisma from "../../../../lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { signUpEmail } from "../orders/notifications/[id]/emails";
+import { signUpEmail } from "../orders/webhook/emails";
 
 export const POST = async (req, res) => {
   try {
