@@ -105,7 +105,8 @@ export const POST = async (req, res) => {
         failure: "https://biblio-buds-git-dev-bibliobuds.vercel.app/",
         pending: "https://biblio-buds-git-dev-bibliobuds.vercel.app/",
       },
-      notification_url: "https://biblio-buds-git-dev-bibliobuds.vercel.app/",
+      notification_url:
+        "https://biblio-buds-git-dev-bibliobuds.vercel.app/api/orders/webhook",
       metadata: {
         name: client.email,
         email: client.email,
