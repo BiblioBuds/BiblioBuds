@@ -268,7 +268,7 @@ const Navbar = () => {
             ) : (
               <Link
                 href="/api/auth/signin"
-                className="py-2 px-2 font-medium text-gray-500 rounded hover:text-white transition duration-300"
+                className="py-2 px-2 font-medium text-gray-500 rounded hover:text-[#87C6E9] transition duration-300"
               >
                 Log In
               </Link>
