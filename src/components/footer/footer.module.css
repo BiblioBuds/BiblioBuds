@@ -1,5 +1,5 @@
 .footcontainer {
-  position: relative;
+  position: fixed;
   height: 3rem;
   bottom: 0;
   left: 0;

@@ -209,10 +209,10 @@ const Navbar = () => {
                       My Account
                     </Link>
                     <Link
-                      href="/myshopping"
+                      href="/orders"
                       className="text-gray-600 hover:text-gray-900 block"
                     >
-                      Shopping
+                      My orders
                     </Link>
                     <Link
                       href="/api/auth/signout" // Llama a la función de logout
