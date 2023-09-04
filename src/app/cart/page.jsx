@@ -1,77 +1,42 @@
 "use client";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
+import { FaXmark } from "react-icons/fa6";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const CartItem = ({ book, removeFromCart }) => (
-  <div className="flex flex-row bg-zinc-100 rounded border border-b-[6px] border-black w-[90%] space-x-8 text-sm">
-    <section>
-      <img className="w-32 h-56 rounded-tl" src={book.image} alt={book.title} />
-    </section>
-    <section className="flex flex-col w-[81%] justify-evenly">
-      <div className="font-lato">
-        <span className="font-bold">Title: </span>
-        {book.title}
-      </div>
-      <div className="font-lato">
-        <span className="font-bold">Author: </span>
-        <span className="italic">{book.author}</span>
-      </div>
-      <div className="font-lato">
-        <span className="font-bold">Editorial: </span>
-        {book.editorial?.editorial}
-      </div>
-      <div className="space-x-1 font-lato">
-        <span className="font-bold">Languages:</span>
-        {book.bookLanguages.map((item, index) => (
-          <span
-            onClick={() => console.log(item)}
-            key={index}
-            className="rounded p-1 bg-green-600 border-b-2 border-b-green-800 text-white font-bold"
-          >
-            {item?.language.language}
-          </span>
-        ))}
-      </div>
-      {/* <div className="space-x-1 font-lato">
-        <span className="font-bold">Genres:</span>
-        {book.bookGenres.map((item) => (
-          <span
-            onClick={() => console.log(item)}
-            className="rounded p-1 bg-green-600 border-b-2 border-b-green-800 text-white font-bold"
-          >
-            {item?.genre.genre}
-          </span>
-        ))}
-      </div>
-      <div className="space-x-1 font-lato">
-        <span className="font-bold">Formats:</span>
-        {book.bookFormats.map((item) => (
-          <span
-            onClick={() => console.log(item)}
-            className="rounded p-1 bg-green-600 border-b-2 border-b-green-800 text-white font-bold"
-          >
-            {item?.format.format}
-          </span>
-        ))}
-      </div> */}
-      <button
-        className={`flex flex-row border rounded text-white hover:text-black border-b-4 bg-red-500 hover:bg-red-400 border-red-700 duration-300 font-bold mt-2 p-1 justify-center items-center`}
-        onClick={() => removeFromCart(book)}
-      >
-        REMOVE FROM CART
-      </button>
-      {/* <div className="font-lato">
-        <span className="font-bold">Price: </span>${book.price}
-      </div> */}
-    </section>
+  <div className="flex w-full items-center justify-between p-4 bg-white shadow border border-black rounded-lg">
+    <img
+      src={book?.image}
+      alt={book?.title}
+      className="w-16 h-24 mr-4 object-cover rounded"
+    />
+    <div className="flex-1">
+      <h2 className="text-lg font-semibold text-gray-900 font-inter">
+        {book?.title}
+      </h2>
+      <p className="text-sm text-gray-600">By {book?.author}</p>
+      <p className="text-sm text-gray-600">{book?.editorial?.editorial}</p>
+      <p className="text-sm text-gray-600">{book?.language}</p>
+      <p className="text-md font-semibold text-gray-900">${book?.price}</p>
+    </div>
+    <button
+      className="px-3 py-2 text-sm text-white bg-red-500 rounded hover:bg-red-600 border border-black"
+      onClick={() => removeFromCart(book)}
+    >
+      <FaXmark />
+    </button>
   </div>
 );
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const { data: session, status } = useSession();
+
   useEffect(() => {
     let items = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(items);
@@ -99,27 +64,44 @@ const Cart = () => {
     if (cartItems.length > 0) {
       toast.warn("Your cart was cleared successfully.");
     }
+    console.log(session);
     setCartItems([]);
   };
 
   const checkout = () => {
     localStorage.removeItem("cart");
+    if (!session) {
+      toast.error("You must login first to make an order.");
+      return;
+    }
     if (cartItems.length > 0) {
       toast.success(
         "Order confirmed! We have received your payment and will proceed to fulfill your order. Thank you for shopping with us!"
       );
+      axios
+        .post("/api/orders", { userId: session.user.id, products: cartItems })
+        .then((response) => {
+          // handle success
+          if (response.data && response.data.response.body.init_point) {
+            window.location = response.data.response.body.init_point;
+          }
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        });
     }
     setCartItems([]);
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center space-y-4">
+    <div className="flex flex-col w-full justify-center items-center space-y-0 lg:space-y-2 xl:space-y-3 2xl:space-y-4">
       <h1 className="p-2 text-xl font-bold font-inter tracking-wide">
         BIBLIOBUDS CART!{" "}
         {cartItems.length ? `(${cartItems.length} ITEMS)` : null}
       </h1>
       <div className="flex flex-row w-full">
-        <div className="flex-grow w-2/3 flex flex-col justify-center items-center space-y-4">
+        <div className="flex-grow w-2/3 mx-12 flex flex-col justify-center items-center space-y-2 xl:space-y-3 2xl:space-y-4">
           {!isLoading &&
             cartItems.map((item) => (
               <CartItem
@@ -130,7 +112,7 @@ const Cart = () => {
             ))}
         </div>
         <div className="space-x-8 w-1/3 flex flex-col items-start">
-          <div className="p-2 rounded bg-zinc-200 w-[90%] h-fit space-y-3">
+          <div className="p-2 rounded-lg bg-white border border-black shadow-lg w-[90%] h-fit space-y-3">
             <h1 className="font-bold font-inter text-xl">ORDER SUMMARY</h1>
             <div className="border border-black"></div>
             {cartItems.map((item, index) => (
