@@ -1,4 +1,6 @@
 "use client";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 
@@ -33,6 +35,8 @@ const CartItem = ({ book, removeFromCart }) => (
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const { data: session, status } = useSession();
+
   useEffect(() => {
     let items = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(items);
@@ -60,15 +64,32 @@ const Cart = () => {
     if (cartItems.length > 0) {
       toast.warn("Your cart was cleared successfully.");
     }
+    console.log(session);
     setCartItems([]);
   };
 
   const checkout = () => {
     localStorage.removeItem("cart");
+    if (!session) {
+      toast.error("You must login first to make an order.");
+      return;
+    }
     if (cartItems.length > 0) {
       toast.success(
         "Order confirmed! We have received your payment and will proceed to fulfill your order. Thank you for shopping with us!"
       );
+      axios
+        .post("/api/orders", { userId: session.user.id, products: cartItems })
+        .then((response) => {
+          // handle success
+          if (response.data && response.data.response.body.init_point) {
+            window.location = response.data.response.body.init_point;
+          }
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        });
     }
     setCartItems([]);
   };
