@@ -1,47 +1,55 @@
 import prisma from "../../../../../lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { approvedEmail, inProcessEmail, rejectedEmail } from "./emails";
+import mercadopago from "mercadopago";
+import axios from "axios";
 
 export const POST = async (req, res) => {
   try {
     const orderChange = await req.json();
-    const { id } = orderChange;
+    const { data, type } = orderChange;
+    const orderId = data.id;
 
-    const { status, status_detail, metadata } = (
-      await axios(`https://api.mercadopago.com/v1/payments/${id}`, {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
-        },
-      })
-    ).data;
+    if (type === "payment") {
+      const { data } = await axios.get(
+        `https://api.mercadopago.com/v1/payments/${orderId}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
+          },
+        }
+      );
 
-    if (status === "approved" && status_detail === "accredited") {
-      await prisma.order.update({
-        where: { id: metadata.order_id },
-        data: { status: "Approved" },
-      });
-      for (const { id, quantity } of metadata.record) {
-        const product = await prisma.book.findUnique({ where: { id } });
-        const stock = product.stock - quantity;
-        const updateData = {
-          stock,
-          isActive: stock > 0,
-        };
-        await prisma.book.update({
-          where: { id },
-          data: updateData,
+      const { status, status_detail, metadata } = data;
+
+      if (status === "approved" && status_detail === "accredited") {
+        await prisma.order.update({
+          where: { id: metadata.order_id },
+          data: { status: "Approved" },
         });
+        for (const { id, quantity } of metadata.record) {
+          const product = await prisma.book.findUnique({ where: { id } });
+          const stock = product.stock - quantity;
+          const updateData = {
+            stock,
+            isActive: stock > 0,
+          };
+          await prisma.book.update({
+            where: { id },
+            data: updateData,
+          });
+        }
+        await approvedEmail(metadata.name, metadata.email);
+      } else if (status === "rejected") {
+        await prisma.order.update({
+          where: { id: metadata.order_id },
+          data: { status: "Cancelled" },
+        });
+        await rejectedEmail(metadata.name, metadata.email);
+      } else if (status === "in_process") {
+        await inProcessEmail(metadata.name, metadata.email);
       }
-      await approvedEmail(metadata.name, metadata.email);
-    } else if (status === "rejected") {
-      await prisma.order.update({
-        where: { id: metadata.order_id },
-        data: { status: "Cancelled" },
-      });
-      await rejectedEmail(metadata.name, metadata.email);
-    } else if (status === "in_process") {
-      await inProcessEmail(metadata.name, metadata.email);
     }
 
     return NextResponse.json({ message: "Order updated successfully" });

@@ -14,7 +14,13 @@ export const GET = async (req, res) => {
 
   const searchQuery = nextReq.nextUrl.searchParams.get("searchInput") || "";
 
-  let filter = {};
+  let filter = {
+    isActive: true,
+    stock: {
+      gt: 0,
+    },
+  };
+
   if (searchQuery) {
     filter.OR = [
       { title: { contains: searchQuery, mode: "insensitive" } },
