@@ -15,7 +15,6 @@ const Dashboard = () => {
     const clearData = orders?.map(element => {
         return {date: element.date.slice(0,10), price: element.totalPrice};
     })
-    console.log(clearData)
 
     const result = {};
     clearData?.forEach(item => {
@@ -28,7 +27,6 @@ const Dashboard = () => {
     });
       
     const resultArray = Object.keys(result)?.map(date => ({ date, totalAmountSold: result[date] }));
-    console.log(resultArray);
     
 
     const [lineChartData, setLineChartData] = useState({
@@ -49,29 +47,24 @@ const Dashboard = () => {
       //Bar Chart Info //
       const bookSales = {};
       orders?.forEach((order) => {
-        // Iterate through the order details
         order.details.forEach((detail) => {
           const bookId = detail.book.id;
           const bookTitle = detail.book.title;
           const quantitySold = detail.quantity;
       
-          // If the bookId is not already in bookSales, add it with the quantity sold
           if (!bookSales[bookId]) {
             bookSales[bookId] = {
               title: bookTitle,
               totalUnitsSold: quantitySold,
             };
           } else {
-            // If the bookId is already in bookSales, update the total units sold
             bookSales[bookId].totalUnitsSold += quantitySold;
           }
         });
       });
       
-      // Convert the bookSales object to an array of objects
       const bookSalesArray = Object.values(bookSales);
       
-      console.log(bookSalesArray);
 
       const [barChartData, setBarChartData] = useState({
         labels: bookSalesArray?.map((data) => data.title), 
@@ -94,10 +87,8 @@ const Dashboard = () => {
         ]
       });
 
-
     return (
         <div className="w-screen h-screen">
-          <SpeedDialAdmin/>
             <div className="flex flex-row justify-center py-12">
                 <div className="bg-white w-3/12 transition duration-1500 ease-out hover:scale-110">
                 <h1 className="text-center font-bold text-5xl ">{users?.length}</h1>
@@ -121,7 +112,7 @@ const Dashboard = () => {
                 <h1 className="text-center font-bold text-5xl">
                     $
                     {orders?.reduce(
-                    (acum, actual) => acum + Number(actual.totalPrice),
+                    (acum, actual) => acum + Number(actual.totalPrice).toFixed(2),
                     0
                     )}
                 </h1>

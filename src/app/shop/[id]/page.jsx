@@ -63,7 +63,7 @@ const Detail = ({ params }) => {
 
   return (
     <div className="h-screen w-screen flex">
-      <div className="self-center w-[80%] h-[75%] bg-gradient-to-b from-indigo-500 from-10% via-indigo-400 via-30% to-sky-300 to-90% rounded-r-3xl">
+      <div className="self-center w-[80%] h-[75%] bg-gradient-to-b from-indigo-500 from-10% to-light-blue-200 to-90% rounded-r-3xl">
         <div className=" flex flex-row gap-24 justify-center">
           <div className="justify-center flex flex-col">
             <img

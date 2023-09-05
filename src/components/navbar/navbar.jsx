@@ -20,9 +20,11 @@ import {
   FaChartLine
 } from "react-icons/fa";
 import { useSession } from "next-auth/react";
+import SpeedDialAdmin from "../SpeedDial/SpeedDial";
 
 const Navbar = () => {
   const { data: session } = useSession();
+  console.log(session)
   const [showMenu, setShowMenu] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -174,7 +176,7 @@ const Navbar = () => {
               <FaShoppingCart className="w-6 h-6" />
               {showMenu ? <p className="font-bold font-raleway">Cart</p> : null}
             </Link>
-            <Link
+            {/* <Link
               href="/form"
               className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
                 showMenu
@@ -229,10 +231,11 @@ const Navbar = () => {
               className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
             >
               <FaChartLine className="w-6 h-6" />
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div>
+          <SpeedDialAdmin/>
           <button
             onClick={toggleProfileMenu}
             className="inline-block text-sm px-4 py-1 leading-none border rounded text-black border-black mt-2 md:mt-0"

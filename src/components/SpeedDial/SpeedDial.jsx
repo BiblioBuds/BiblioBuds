@@ -8,20 +8,9 @@ import {
 } from "@material-tailwind/react";
 import {
     PlusIcon,
-    HomeIcon,
-    CogIcon,
-    Square3Stack3DIcon,
 } from "@heroicons/react/24/outline";
 import {
-    FaSearch,
-    FaHome,
-    FaShoppingBag,
-    FaShoppingCart,
-    FaUserAlt,
     FaBookMedical,
-    FaTimesCircle,
-    FaUserCircle,
-    FaBars,
     FaBook,
     FaUsers,
     FaBookOpen,
@@ -31,20 +20,12 @@ import Link from "next/link";
 
 function SpeedDialAdmin() {
     
-
-
-    const labelProps = {
-        variant: "small",
-        color: "blue-gray",
-        className:
-          "absolute top-2/4 -left-2/4 -translate-y-2/4 -translate-x-3/4 font-normal",
-      };
 return (
     <div className="relative h-fit w-fit">
-    <div className="fixed top-28 right-10">
+    <div className="fixed top-16 right-4">
         <SpeedDial>
-        <SpeedDialHandler>
-            <IconButton size="lg" className="rounded-full bg-transparent shadow-gray-600">
+        <SpeedDialHandler className="h-10 w-10">
+            <IconButton className="rounded-full bg-transparent shadow-gray-600">
             <PlusIcon className="h-5 w-5 transition-transform group-hover:rotate-45 text-black" />
             </IconButton>
         </SpeedDialHandler>
