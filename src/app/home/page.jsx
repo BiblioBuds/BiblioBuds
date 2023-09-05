@@ -13,21 +13,24 @@ export const Home = () => {
     // const { books } = useGlobalContext();
     // console.log(books)
   
-    const [books, setBooks] = useState();
-    const[books2, setBooks2] = useState()
-
+    const [books, setBooks] = useState([]);
+    const [books2, setBooks2] = useState([]);
+    
+  
     const fetchBooks = async () => {
-        const data = await axios.get(`/api/books`)
-        .then((res) => res.data);
-        setBooks(data.slice(6,12));
-        setBooks2(data.slice(0,6))
-        console.log(data);
+      try {
+        const response = await axios.get(`/api/books`);
+        const data = response.data;
+        setBooks(data.slice(6, 12));
+        setBooks2(data.slice(0, 6));
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
     };
-
+  
     useEffect(() => {
-        fetchBooks();
+      fetchBooks();
     }, []);
-
     console.log(books)
     console.log(books2)
 
