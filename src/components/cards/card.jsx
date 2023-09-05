@@ -36,10 +36,10 @@ const Card = ({ book }) => {
   const [inCart, setInCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    setInCart(cartItems.some((item) => item.id === book.id));
-  }, []);
+  // useEffect(() => {
+  //   let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  //   setInCart(cartItems.some((item) => item.id === book.id));
+  // }, []);
 
   const handleCart = () => {
     let cartItems = manageCart(book, quantity);

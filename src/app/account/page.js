@@ -59,13 +59,13 @@ const AccountPage = () => {
           className="w-full p-2 border rounded"
         />
       </div>
-      <div className="mt-4">
-        <label className="block mb-2 text-lg">Correo Electrónico</label>
-        <p className="text-lg">{email}</p>
+      <div className="mt-3">
+        <label className="block mb-2 text-lg  ">Correo Electrónico</label>
+        <p className="text-lg w-full p-2 border rounded">{email}</p>
       </div>
       <button
   onClick={() => setIsEditing(!isEditing)}
-  className="px-4 py-2 text-white bg-violet-300 rounded-lg hover:bg-blue-600 focus:outline-none"
+  className="px-4 py-2 mt-3 text-white bg-violet-300 rounded-lg hover:bg-blue-600 focus:outline-none"
 >
   {isEditing ? "Guardar Cambios" : "Editar"}
 </button>
@@ -79,7 +79,7 @@ const AccountPage = () => {
           </button> */}
           <button
             onClick={() => setIsEditing(false)}
-            className="px-4 py-2 text-white bg-blue-200 rounded-lg hover:bg-red-600 focus:outline-none"
+            className="px-4  py-2 text-white bg-blue-200 rounded-lg hover:bg-red-600 focus:outline-none"
           >
             Cancelar
           </button>
