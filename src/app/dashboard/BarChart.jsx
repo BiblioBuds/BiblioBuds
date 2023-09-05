@@ -24,7 +24,7 @@ export const BarChart = ({ barChartData }) => {
               ticks: {
                 callback: function (title){
                   const valueLegend = this.getLabelForValue(title)
-                  const shortenLegend = valueLegend.slice(0,9) + "..."
+                  const shortenLegend = valueLegend.slice(0,12) + "..."
                   return shortenLegend
                 }
               }
