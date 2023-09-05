@@ -4,6 +4,7 @@ import axios from "axios"
 import { useGlobalContext } from "@/app/Context/store";
 import LineChart from "./LineChart";
 import  BarChart from "./BarChart";
+import SpeedDialAdmin from "@/components/SpeedDial/SpeedDial";
 
 
 const Dashboard = () => {
@@ -96,6 +97,7 @@ const Dashboard = () => {
 
     return (
         <div className="w-screen h-screen">
+          <SpeedDialAdmin/>
             <div className="flex flex-row justify-center py-12">
                 <div className="bg-white w-3/12 transition duration-1500 ease-out hover:scale-110">
                 <h1 className="text-center font-bold text-5xl ">{users?.length}</h1>
@@ -126,7 +128,7 @@ const Dashboard = () => {
                 <h1 className="text-center text-xl">Sales this Month</h1>
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 m-6">
+            <div className="grid grid-cols-2 gap-4 m-4">
               <div className="transition duration-1500 ease-out hover:scale-105">
                 <LineChart lineChartData={lineChartData}/>
               </div>
