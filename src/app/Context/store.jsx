@@ -33,6 +33,12 @@ const GlobalContext = createContext({
   setPage: () => 0,
   size: 12,
   setSize: () => 0,
+  orders: [],
+  setOrders: () => [],
+  users: [],
+  setUsers: () => [],
+  booksAdminTable: [],
+  setBooksAdminTable: () => []
 });
 
 export const GlobalContextProvider = ({ children }) => {
@@ -50,6 +56,9 @@ export const GlobalContextProvider = ({ children }) => {
   const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(12);
+  const [orders, setOrders] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [booksAdminTable, setBooksAdminTable] = useState([]);
 
   useEffect(() => {
     console.log("State Refresh");
@@ -99,6 +108,19 @@ export const GlobalContextProvider = ({ children }) => {
         // console.log(data);
         setEditorials(data);
       });
+      axios
+          .get("/api/orders")
+          .then((res) => res.data)
+          .then((data) => setOrders(data))
+      axios
+        .get("/api/users")
+        .then((res) => res.data)
+        .then((data) => setUsers(data))
+      axios
+        .get("/api/books")
+        .then((res) => res.data)
+        .then((data) => setBooksAdminTable(data))
+
   }, [filterGenre, filterFormat, filterLanguage, filterEditorial, orderBooks]);
 
   useEffect(() => {
@@ -153,6 +175,12 @@ export const GlobalContextProvider = ({ children }) => {
         setPage,
         size,
         setSize,
+        orders,
+        setOrders,
+        users,
+        setUsers,
+        booksAdminTable,
+        setBooksAdminTable
       }}
     >
       {children}

@@ -24,11 +24,11 @@ import BooksTable from "./BooksTable"
 import { useGlobalContext } from "@/app/Context/store";
 
 const Books = () => {
-    const { books } = useGlobalContext();
+    const { booksAdminTable } = useGlobalContext();
 
     return (
         <div>
-            <BooksTable books={books.books}/>
+            <BooksTable books={booksAdminTable}/>
         </div>
     )
 }

@@ -17,6 +17,7 @@ import {
   FaBook,
   FaUsers,
   FaBookOpen,
+  FaChartLine
 } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 
@@ -222,6 +223,12 @@ const Navbar = () => {
               {showMenu ? (
                 <p className="font-bold font-raleway">Orders</p>
               ) : null}
+            </Link>
+            <Link
+              href="/dashboard"
+              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
+            >
+              <FaChartLine className="w-6 h-6" />
             </Link>
           </div>
         </div>

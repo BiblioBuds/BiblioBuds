@@ -46,9 +46,7 @@ const BooksTable = ({books}) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {books
-                ?.sort((a, b) => a.id - b.id)
-                .map((book, key) => {
+              {books?.sort((a, b) => a.id - b.id)?.map((book, key) => {
                   return (
                     <tr
                       key={key}
