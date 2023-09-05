@@ -142,3 +142,25 @@ export const signUpEmail = async (name, email) => {
     res.status(500).json({ error: `Error sending email: ${error}` });
   }
 };
+
+export const customEmail = async (email, text) => {
+  try {
+    const mailOptions = {
+      from: `"Bibliobuds" <${process.env.GMAIL_EMAIL_ADDRESS}>`,
+      to: process.env.GMAIL_EMAIL_ADDRESS,
+      subject: `QUESTION BY ${email}`,
+      text: text,
+    };
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        res.status(500).json({ error: `Error sending email: ${err.message}` });
+      } else {
+        res
+          .status(200)
+          .json({ success: `Message delivered to ${info.accepted}` });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: `Error sending email: ${error}` });
+  }
+};

@@ -5,6 +5,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGlobalContext } from "@/app/Context/store";
+import axios from "axios";
 
 const NewBookInputs = () => {
   const { genres, formats, languages } = useGlobalContext();
@@ -72,14 +73,20 @@ const NewBookInputs = () => {
 
   let postBook = async (book) => {
     console.log(book);
-    await fetch("http://localhost:3000/api/books", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(book),
-    })
+    // await fetch("http://localhost:3000/api/books", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     // 'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    //   body: JSON.stringify(book),
+    // })
+    await axios
+      .post("/api/books", book, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         if (res.status == 200) {
           toast.success("Product created successfully!");
