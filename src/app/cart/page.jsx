@@ -77,19 +77,29 @@ const Cart = () => {
       return;
     }
     if (cartItems.length > 0) {
-      toast.success(
-        "Order confirmed! We have received your payment and will proceed to fulfill your order. Thank you for shopping with us!"
-      );
       axios
         .post("/api/orders", { userId: session.user.id, products: cartItems })
         .then((response) => {
-          // handle success
-          if (response.data && response.data.response.body.init_point) {
+          toast.success(
+            "Order confirmed! We have received your payment and will proceed to fulfill your order. Thank you for shopping with us!"
+          );
+          if (
+            response.data &&
+            response.data.response &&
+            response.data.response.body &&
+            response.data.response.body.init_point
+          ) {
+            localStorage.setItem(
+              "mercadopago-link",
+              response.data.response.body.init_point
+            );
             window.location = response.data.response.body.init_point;
           }
         })
         .catch((error) => {
-          // handle error
+          toast.error(
+            "There was an error when creating your order. Please try again later."
+          );
           console.log(error);
         });
     }
@@ -124,7 +134,7 @@ const Cart = () => {
                   {item.title}
                 </div>
                 <div className="text-sm font-bold">
-                  ${item.price * item.quantity}
+                  ${(item.price * item.quantity).toFixed(2)}
                 </div>
               </div>
             ))}
