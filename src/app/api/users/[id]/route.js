@@ -5,9 +5,6 @@ export const PUT = async (req, { params }) => {
     try {
       const { id } = params;
       const { isActive, role} = await req.json();
-  
-      console.log(isActive)
-      console.log(role)
       
       if (isActive !== undefined) {
         await prisma.user.update({
