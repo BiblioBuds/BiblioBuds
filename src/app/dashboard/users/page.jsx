@@ -12,7 +12,7 @@ const Users = () => {
           .get("/api/users")
           .then((res) => res.data)
           .then((data) => setUsers(data))
-    })
+    },[])
 
     return (
         <div>
