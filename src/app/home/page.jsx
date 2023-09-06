@@ -31,8 +31,6 @@ export const Home = () => {
     useEffect(() => {
       fetchBooks();
     }, []);
-    console.log(books)
-    console.log(books2)
 
     const router = useRouter();
 

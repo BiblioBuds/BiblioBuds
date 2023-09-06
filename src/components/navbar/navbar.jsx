@@ -24,7 +24,6 @@ import SpeedDialAdmin from "../SpeedDial/SpeedDial";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  console.log(session);
 
   const [showMenu, setShowMenu] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -96,7 +95,7 @@ const Navbar = () => {
         .then((data) => setIsAdmin(data.role));
       // console.log(isAdmin)
     }
-  }, [status]);
+  }, [status, isAdmin]);
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
