@@ -56,7 +56,7 @@ export const Home = () => {
                     books?.map((book,id)=> {
                         return (
                             <Slide index={id} className='cursor-pointer' onClick={() => router.push(`/shop/${book.id}`)}>
-                            <div className="grid grid-cols-2 bg-gradient-to-b from-indigo-500 from-10% via-indigo-400 via-30% to-sky-300 to-90% w-[400px] h-64 rounded-lg">
+                            <div className="grid grid-cols-2 bg-gradient-to-b from-indigo-500 from-10% to-light-blue-200 to-90% w-[400px] h-64 rounded-lg">
                                     <div>
                                         <img src={book?.image} alt="black chair and white table" className="w-32 h-56 mt-4 ml-4 rounded-lg grid-cols-1" />
                                     </div>

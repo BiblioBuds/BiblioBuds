@@ -14,7 +14,7 @@ const UsersTable = ({users}) => {
           console.log(error);
         }
     };
-
+    
     const handleActivate = async (id) => {
         try {
           await axios.put(`/api/users/${id}`, {
@@ -25,6 +25,30 @@ const UsersTable = ({users}) => {
         } catch (error) {
           console.log(error);
         }
+    };
+
+    const makeAdmin = async (id) => {
+      try {
+        await axios.put(`/api/users/${id}`, {
+            role: "ADMIN"
+          }
+        );
+      //   location.reload()
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const quitAdmin = async (id) => {
+      try {
+        await axios.put(`/api/users/${id}`, {
+            role: "GUEST"
+          }
+        );
+      //   location.reload()
+      } catch (error) {
+        console.log(error);
+      }
     };
     
     return (
@@ -55,7 +79,7 @@ const UsersTable = ({users}) => {
                       <td className="py-3 px-2 text-center">{user.email}</td>
                       <td className="py-3 px-2 text-center">{user.name}</td>
                       <td className="py-3 px-2 text-center">{user.role}</td>
-                      <td className="py-3 px-2 text-center">
+                      <td className="flex flex-row py-3 px-2 text-center">
                         {user.isActive === "true" ? (
                           <div className="flex mx-auto justify-center my-1">
                             <button
@@ -72,6 +96,25 @@ const UsersTable = ({users}) => {
                               onClick={() => handleActivate(user.id)}
                             >
                               Activate
+                            </button>
+                          </div>
+                        )}
+                        {user.role === "GUEST" ? (
+                          <div className="flex mx-auto justify-center my-1">
+                            <button
+                              className="text-sm border rounded text-white hover:text-black border-b-4  bg-green-500 hover:bg-green-400 border-green-700 w-fit duration-300 font-bold mt-2 p-1 justify-center items-center"
+                              onClick={() => makeAdmin(user.id)}
+                            >
+                              Make Admin
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex mx-auto justify-center my-1">
+                            <button
+                              className="text-sm border rounded text-white hover:text-black border-b-4 bg-red-500 hover:bg-red-400 border-red-700 w-fit duration-300 font-bold mt-2 p-1 justify-center items-center"
+                              onClick={() => quitAdmin(user.id)}
+                            >
+                              Quit Admin
                             </button>
                           </div>
                         )}
