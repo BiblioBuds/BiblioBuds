@@ -23,8 +23,9 @@ import { useSession } from "next-auth/react";
 import SpeedDialAdmin from "../SpeedDial/SpeedDial";
 
 const Navbar = () => {
-  const { data: session } = useSession();
-  console.log(session)
+  const { data: session, status } = useSession();
+  let userId = session.user.id
+
   const [showMenu, setShowMenu] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -80,6 +81,17 @@ const Navbar = () => {
       searchByQuery();
     }
   }, [searchInput]);
+
+  const [isAdmin, setIsAdmin] = useState()
+
+  useEffect(() => {
+    axios
+      .get("/api/users/admin?" + userId)
+      .then((res) => res.data)
+      .then((data) => setIsAdmin(data.role))
+      // console.log(isAdmin)
+    
+},[])
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
@@ -235,7 +247,7 @@ const Navbar = () => {
           </div>
         </div>
         <div>
-          <SpeedDialAdmin/>
+          {isAdmin === 'ADMIN' && <SpeedDialAdmin/>}
           <button
             onClick={toggleProfileMenu}
             className="inline-block text-sm px-4 py-1 leading-none border rounded text-black border-black mt-2 md:mt-0"
