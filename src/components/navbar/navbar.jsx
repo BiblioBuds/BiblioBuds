@@ -24,9 +24,8 @@ import SpeedDialAdmin from "../SpeedDial/SpeedDial";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  let userId = session.user.id
   console.log(session);
-  
+
   const [showMenu, setShowMenu] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -86,16 +85,18 @@ const Navbar = () => {
     }
   }, [searchInput]);
 
-  const [isAdmin, setIsAdmin] = useState()
+  const [isAdmin, setIsAdmin] = useState();
 
   useEffect(() => {
-    axios
-      .get("/api/users/admin?" + userId)
-      .then((res) => res.data)
-      .then((data) => setIsAdmin(data.role))
+    if (session) {
+      let userId = session.user.id;
+      axios
+        .get("/api/users/admin?" + userId)
+        .then((res) => res.data)
+        .then((data) => setIsAdmin(data.role));
       // console.log(isAdmin)
-    
-},[])
+    }
+  }, [status]);
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
@@ -159,114 +160,6 @@ const Navbar = () => {
                   onClick={() => {
                     setSearchInput("");
                   }}
-            ) : null}
-          </div>
-          <div className="md:flex flex-grow w-full items-center justify-normal md:justify-center md:space-x-5 space-x-0">
-            <Link
-              href="/home"
-              // className="block mt-4 md:inline-block md:mt-0 text-black mr-4"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaHome className="h-6 w-6" />
-              {showMenu ? <p className="font-bold font-raleway">Home</p> : null}
-            </Link>
-            <Link
-              href="/shop"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaShoppingBag className="w-6 h-6" />
-              {showMenu ? <p className="font-bold font-raleway">Shop</p> : null}
-            </Link>
-            <Link
-              href="/cart"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaShoppingCart className="w-6 h-6" />
-              {showMenu ? <p className="font-bold font-raleway">Cart</p> : null}
-            </Link>
-            {/* <Link
-              href="/form"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaBookMedical className="h-6 w-6" />
-              {showMenu ? <p className="font-bold font-raleway">Form</p> : null}
-            </Link>
-            <Link
-              href="/dashboard/books"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaBook className="h-6 w-6" />
-              {showMenu ? (
-                <p className="font-bold font-raleway">Books</p>
-              ) : null}
-            </Link>
-            <Link
-              href="/dashboard/users"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaUsers className="w-6 h-6" />
-              {showMenu ? (
-                <p className="font-bold font-raleway">Users</p>
-              ) : null}
-            </Link>
-            <Link
-              href="/dashboard/orders"
-              className={`flex items-center mt-2 mr-1 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaBookOpen className="w-6 h-6" />
-              {showMenu ? (
-                <p className="font-bold font-raleway">Orders</p>
-              ) : null}
-            </Link>
-            <Link
-              href="/dashboard"
-              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
-            >
-              <FaChartLine className="w-6 h-6" />
-            </Link> */}
-          </div>
-        </div>
-        <div>
-          {isAdmin === 'ADMIN' && <SpeedDialAdmin/>}
-          <button
-            onClick={toggleProfileMenu}
-            className="inline-block text-sm px-4 py-1 leading-none border rounded text-black border-black mt-2 md:mt-0"
-          >
-            {session ? (
-              <div className="relative" style={{}}>
-                <img
-                  src={session.user.image}
-                  alt={`${session.user.name}'s profile`}
-                  className="w-8 h-8 rounded-full cursor-pointer"
-                  onClick={toggleProfileMenu}
                 />
               ) : null}
             </div>
@@ -311,66 +204,10 @@ const Navbar = () => {
                   <p className="font-bold font-raleway">Cart</p>
                 ) : null}
               </Link>
-              {/* <Link
-                href="/form"
-                className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaBookMedical className="h-6 w-6" />
-                {showMenu ? <p className="font-bold font-raleway">Form</p> : null}
-              </Link>
-              <Link
-                href="/dashboard/books"
-                className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaBook className="h-6 w-6" />
-                {showMenu ? (
-                  <p className="font-bold font-raleway">Books</p>
-                ) : null}
-              </Link>
-              <Link
-                href="/dashboard/users"
-                className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaUsers className="w-6 h-6" />
-                {showMenu ? (
-                  <p className="font-bold font-raleway">Users</p>
-                ) : null}
-              </Link>
-              <Link
-                href="/dashboard/orders"
-                className={`flex items-center mt-2 mr-1 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaChartLine className="w-6 h-6" />
-                {showMenu ? (
-                  <p className="font-bold font-raleway">Dashboard</p>
-                ) : null}
-              </Link>
-              <Link
-                href="/dashboard"
-                className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
-              >
-                <FaChartLine className="w-6 h-6" />
-              </Link> */}
             </div>
           </div>
           <div>
-            <SpeedDialAdmin />
+            {isAdmin === "ADMIN" && <SpeedDialAdmin />}
             <button
               onClick={toggleProfileMenu}
               className="inline-block text-sm px-4 py-1 leading-none border rounded text-black border-black mt-2 md:mt-0"
