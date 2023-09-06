@@ -21,7 +21,9 @@ const CartItem = ({ book, removeFromCart }) => (
       <p className="text-sm text-gray-600">By {book?.author}</p>
       <p className="text-sm text-gray-600">{book?.editorial?.editorial}</p>
       <p className="text-sm text-gray-600">{book?.language}</p>
-      <p className="text-md font-semibold text-gray-900">${book?.price}</p>
+      <p className="text-md font-semibold text-gray-900">
+        ${book?.price} per unit
+      </p>
     </div>
     <button
       className="px-3 py-2 text-sm text-white bg-red-500 rounded hover:bg-red-600 border border-black"
