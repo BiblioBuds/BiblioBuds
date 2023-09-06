@@ -101,9 +101,9 @@ export const POST = async (req, res) => {
     let preference = {
       items,
       back_urls: {
-        success: "https://biblio-buds-git-dev-bibliobuds.vercel.app/",
-        failure: "https://biblio-buds-git-dev-bibliobuds.vercel.app/",
-        pending: "https://biblio-buds-git-dev-bibliobuds.vercel.app/",
+        success: "https://biblio-buds-git-dev-bibliobuds.vercel.app/orders",
+        failure: "https://biblio-buds-git-dev-bibliobuds.vercel.app/orders",
+        pending: "https://biblio-buds-git-dev-bibliobuds.vercel.app/orders",
       },
       notification_url:
         "https://biblio-buds-git-dev-bibliobuds.vercel.app/api/orders/webhook",

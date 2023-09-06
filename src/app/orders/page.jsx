@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const { data: session, status } = useSession();
+  const [checkoutLink, setCheckoutLink] = useState("");
 
   const fetchOrders = async () => {
     if (status === "authenticated") {
@@ -47,19 +48,23 @@ const Orders = () => {
   useEffect(() => {
     if (status === "authenticated") {
       fetchOrders();
+      let mpLink = localStorage.getItem("mercadopago-link") || "";
+      if (mpLink) {
+        setCheckoutLink(mpLink);
+      }
     }
   }, [status]);
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-semibold mb-4 font-inter">My Orders</h1>
+      <h1 className="text-3xl font-semibold mb-2 font-inter">My Orders</h1>
       {orders.length === 0 ? (
         <p>You don't have any orders.</p>
       ) : (
         <ul className="space-y-4">
           {orders
             .sort((a, b) => b.id - a.id)
-            .map((order) => (
+            .map((order, index, self) => (
               <li
                 key={order.id}
                 className="bg-white shadow-md rounded-lg border border-black p-4 font-raleway"
@@ -92,9 +97,17 @@ const Orders = () => {
                     onClick={() => cancelOrder(order.id)}
                     className="p-2 mt-2 rounded border border-black text-white bg-red-500 hover:bg-red-700 duration-300"
                   >
-                    Cancel Order
+                    CANCEL ORDER
                   </button>
                 ) : null}
+                {index === 0 && order.status !== "Approved" && checkoutLink && (
+                  <button
+                    onClick={() => (window.location = checkoutLink)}
+                    className="p-2 border border-black rounded text-white bg-green-700 ml-4"
+                  >
+                    CHECKOUT LINK
+                  </button>
+                )}
               </li>
             ))}
         </ul>
