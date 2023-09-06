@@ -17,7 +17,7 @@ import {
   FaBook,
   FaUsers,
   FaBookOpen,
-  FaChartLine
+  FaChartLine,
 } from "react-icons/fa";
 import { useSession } from "next-auth/react";
 
@@ -67,9 +67,11 @@ const Navbar = () => {
       .then((data) => {
         setBooks(data);
       });
-    if (router.pathname !== "/shop") {
-      router.push("/shop");
-      return;
+    if (searchInput !== "") {
+      if (router.pathname !== "/shop") {
+        router.push("/shop");
+        return;
+      }
     }
   };
 
@@ -139,7 +141,7 @@ const Navbar = () => {
               />
             ) : null}
           </div>
-          <div className="md:flex flex-grow w-full items-center justify-normal md:justify-center md:space-x-5 space-x-0">
+          <div className="md:flex flex-grow w-full items-center justify-normal md:justify-center md:space-x-12 space-x-0">
             <Link
               href="/home"
               // className="block mt-4 md:inline-block md:mt-0 text-black mr-4"
@@ -175,60 +177,17 @@ const Navbar = () => {
               {showMenu ? <p className="font-bold font-raleway">Cart</p> : null}
             </Link>
             <Link
-              href="/form"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaBookMedical className="h-6 w-6" />
-              {showMenu ? <p className="font-bold font-raleway">Form</p> : null}
-            </Link>
-            <Link
-              href="/dashboard/books"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaBook className="h-6 w-6" />
-              {showMenu ? (
-                <p className="font-bold font-raleway">Books</p>
-              ) : null}
-            </Link>
-            <Link
-              href="/dashboard/users"
-              className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                showMenu
-                  ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                  : null
-              }`}
-            >
-              <FaUsers className="w-6 h-6" />
-              {showMenu ? (
-                <p className="font-bold font-raleway">Users</p>
-              ) : null}
-            </Link>
-            <Link
-              href="/dashboard/orders"
+              href="/dashboard"
               className={`flex items-center mt-2 mr-1 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
                 showMenu
                   ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
                   : null
               }`}
             >
-              <FaBookOpen className="w-6 h-6" />
-              {showMenu ? (
-                <p className="font-bold font-raleway">Orders</p>
-              ) : null}
-            </Link>
-            <Link
-              href="/dashboard"
-              className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
-            >
               <FaChartLine className="w-6 h-6" />
+              {showMenu ? (
+                <p className="font-bold font-raleway">Dashboard</p>
+              ) : null}
             </Link>
           </div>
         </div>
@@ -240,8 +199,12 @@ const Navbar = () => {
             {session ? (
               <div className="relative" style={{}}>
                 <img
-                  src={session.user.image}
-                  alt={`${session.user.name}'s profile`}
+                  src={
+                    session.user.image ? session.user.image : "/user-icon.jpg"
+                  }
+                  alt={`${
+                    session.user.name ? `${session.user.name}'s` : "your"
+                  } profile`}
                   className="w-8 h-8 rounded-full cursor-pointer"
                   onClick={toggleProfileMenu}
                 />

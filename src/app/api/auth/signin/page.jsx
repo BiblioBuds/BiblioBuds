@@ -88,24 +88,23 @@ const SignIn = () => {
 
   const handleLogin = async () => {
     try {
-      await signIn('google');
-      toast.success('Login successful. Welcome back!');
-      
+      await signIn("google");
+      toast.success("Login successful. Welcome back!");
+
       // Realiza una redirección asincrónica después del éxito
       redirectToShop();
     } catch (error) {
       toast.error(
-        'Oops! There was an error logging into your account with Google. Please try again.'
+        "Oops! There was an error logging into your account with Google. Please try again."
       );
     }
   };
 
   const redirectToShop = () => {
     setTimeout(() => {
-      router.push('/shop');
+      router.push("/shop");
     }, 100); // Espera 500 milisegundos antes de redirigir
   };
-
 
   // TODO: Agregar notificaciones al credential provider
   return (
@@ -190,7 +189,7 @@ const SignIn = () => {
                 alt="Github Logo"
               />
             </button>
-            <button
+            {/* <button
               onClick={() =>
                 signIn("facebook")
                   .then(() => {
@@ -209,17 +208,17 @@ const SignIn = () => {
                 src="/Media/IMG/facebook.png"
                 alt="Github Logo"
               />
-            </button>
+            </button> */}
             <button
-        onClick={handleLogin}
-        className="w-full font-lato bg-[#F5F5F5] shadow-md border rounded-lg p-3 flex items-center justify-center hover:bg-[#EA8282] duration-300"
-      >
-        <img
-          className="h-16"
-          src="/Media/IMG/google.png"
-          alt="Google Logo"
-        />
-      </button>
+              onClick={handleLogin}
+              className="w-full font-lato bg-[#F5F5F5] shadow-md border rounded-lg p-3 flex items-center justify-center hover:bg-[#EA8282] duration-300"
+            >
+              <img
+                className="h-16"
+                src="/Media/IMG/google.png"
+                alt="Google Logo"
+              />
+            </button>
           </div>
           <Link href="/shop">
             <p className="font-lato md:text-base lg:text-lg hover:underline hover:text-red-500 duration-300">
