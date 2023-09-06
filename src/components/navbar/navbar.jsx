@@ -23,8 +23,9 @@ import { useSession } from "next-auth/react";
 import SpeedDialAdmin from "../SpeedDial/SpeedDial";
 
 const Navbar = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   console.log(session);
+
   const [showMenu, setShowMenu] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -83,6 +84,19 @@ const Navbar = () => {
       searchByQuery();
     }
   }, [searchInput]);
+
+  const [isAdmin, setIsAdmin] = useState();
+
+  useEffect(() => {
+    if (session) {
+      let userId = session.user.id;
+      axios
+        .get("/api/users/admin?" + userId)
+        .then((res) => res.data)
+        .then((data) => setIsAdmin(data.role));
+      // console.log(isAdmin)
+    }
+  }, [status]);
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
@@ -190,66 +204,10 @@ const Navbar = () => {
                   <p className="font-bold font-raleway">Cart</p>
                 ) : null}
               </Link>
-              {/* <Link
-                href="/form"
-                className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaBookMedical className="h-6 w-6" />
-                {showMenu ? <p className="font-bold font-raleway">Form</p> : null}
-              </Link>
-              <Link
-                href="/dashboard/books"
-                className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaBook className="h-6 w-6" />
-                {showMenu ? (
-                  <p className="font-bold font-raleway">Books</p>
-                ) : null}
-              </Link>
-              <Link
-                href="/dashboard/users"
-                className={`flex items-center mt-2 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaUsers className="w-6 h-6" />
-                {showMenu ? (
-                  <p className="font-bold font-raleway">Users</p>
-                ) : null}
-              </Link>
-              <Link
-                href="/dashboard/orders"
-                className={`flex items-center mt-2 mr-1 md:mt-0 text-black hover:bg-black hover:text-white md:hover:text-[#87C6E9] md:hover:bg-transparent duration-300 ${
-                  showMenu
-                    ? "border-black border shadow-md rounded py-2 px-4 space-x-2"
-                    : null
-                }`}
-              >
-                <FaChartLine className="w-6 h-6" />
-                {showMenu ? (
-                  <p className="font-bold font-raleway">Dashboard</p>
-                ) : null}
-              </Link>
-              <Link
-                href="/dashboard"
-                className="py-4 px-3 text-black hover:text-cyan-600 duration-300"
-              >
-                <FaChartLine className="w-6 h-6" />
-              </Link> */}
             </div>
           </div>
           <div>
-            <SpeedDialAdmin />
+            {isAdmin === "ADMIN" && <SpeedDialAdmin />}
             <button
               onClick={toggleProfileMenu}
               className="inline-block text-sm px-4 py-1 leading-none border rounded text-black border-black mt-2 md:mt-0"
