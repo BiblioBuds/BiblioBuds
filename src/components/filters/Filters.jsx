@@ -7,7 +7,7 @@ const ORDER_ITEMS = ["Title", "Price", "Pages"];
 
 const Category = ({ title, items, setFilters, mapItem }) => (
   <div className="my-1">
-    <h2 className="font-bold text-lg">{title}</h2>
+    <h2 className="font-cursive text-lg">{title}</h2>
     <div className="border-t border-gray-200"></div>
     {items.map((item) => mapItem(setFilters, item))}
   </div>
@@ -65,7 +65,7 @@ const Filters = () => {
 
   return (
     <div className="p-2 w-fit">
-      <h1 className="font-bold text-xl">Categories</h1>
+      <h1 className="font-cursive font-bold text-xl">Categories</h1>
       <div className="flex flex-wrap">
         {filterGenre && (
           <FilterTag

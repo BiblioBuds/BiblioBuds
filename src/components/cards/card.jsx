@@ -82,12 +82,12 @@ const Card = ({ book }) => {
                   setQuantity(quantity - 1);
                 }
               }}
-              className="border-b-[3px] border border-green-700 bg-green-500 text-white rounded py-1 px-2"
+              className="border-b-[3px] border border-indigo-400 bg-indigo-500 text-white rounded py-1 px-2"
             >
               <FaMinus />
             </button>
             <input
-              className="w-[3rem] text-center border border-b-[3px] border-green-700 bg-green-500 text-white font-bold rounded"
+               className="w-[3rem] text-center border border-b-[3px] border-indigo-400 bg-indigo-500 text-white font-bold rounded"
               type="text"
               value={quantity}
               onChange={(e) => {
@@ -112,7 +112,7 @@ const Card = ({ book }) => {
                   setQuantity(quantity + 1);
                 }
               }}
-              className="border-b-[3px] border border-green-700 bg-green-500 text-white rounded py-1 px-2"
+              className="border-b-[3px] border border-indigo-400 bg-indigo-500 text-white rounded py-1 px-2"
             >
               <FaPlus />
             </button>
@@ -123,7 +123,7 @@ const Card = ({ book }) => {
           className={`flex flex-row text-sm border rounded text-white hover:text-black border-b-4 ${
             inCart
               ? "bg-red-500 hover:bg-red-400 border-red-700"
-              : "bg-green-500 hover:bg-green-400 border-green-700"
+              : "bg-indigo-400 hover:bg-indigo-400 border-indigo-400"
           } w-[75%] duration-300 font-bold mt-2 p-1 justify-center items-center`}
         >
           {inCart ? (

@@ -108,7 +108,7 @@ const Cart = () => {
 
   return (
     <div className="flex flex-col w-full justify-center items-center space-y-0 lg:space-y-2 xl:space-y-3 2xl:space-y-4">
-      <h1 className="p-2 text-xl font-bold font-inter tracking-wide">
+      <h1 className="p-2 text-xl font-cursive font-inter tracking-wide">
         BIBLIOBUDS CART!{" "}
         {cartItems.length ? `(${cartItems.length} ITEMS)` : null}
       </h1>
@@ -130,7 +130,7 @@ const Cart = () => {
             {cartItems.map((item, index) => (
               <div className="flex justify-between" key={index}>
                 <div className="text-sm">
-                  <span className="font-bold">x{item.quantity}</span>{" "}
+                  <span className="font-cursive">x{item.quantity}</span>{" "}
                   {item.title}
                 </div>
                 <div className="text-sm font-bold">
@@ -138,7 +138,7 @@ const Cart = () => {
                 </div>
               </div>
             ))}
-            <p className="font-bold font-inter">
+            <p className="font-cursive font-inter">
               TOTAL COST: $
               {cartItems
                 .reduce((total, item) => total + item.price * item.quantity, 0)
