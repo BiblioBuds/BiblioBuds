@@ -59,7 +59,7 @@ const Footer = () => {
   // TODO: Validar los campos y crear el endpoint
   if (pathname !== "/api/auth/signin" && pathname !== "/api/auth/register") {
     return (
-      <div className="flex flex-grow w-full justify-center bg-[#87C6E9] text-white p-6 mt-8">
+      <div className="flex flex-grow w-full justify-center bg-[#87C6E9] text-white p-6">
         <div className="flex flex-col md:flex-row w-full xl:w-3/4 2xl:w-1/2 space-y-4">
           <form
             onSubmit={handleSubmit}

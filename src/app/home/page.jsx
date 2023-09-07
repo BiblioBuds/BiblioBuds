@@ -1,107 +1,79 @@
 "use client";
-import axios from 'axios';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import { useEffect, useState } from 'react';
-import { StarIcon } from "@heroicons/react/24/solid";
 import { useGlobalContext } from "@/app/Context/store";
-import Card from '@/components/cards/card';
+import { Carousel } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 
+const ProductCard = ({ book }) => {
+  return (
+    <div className="flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md border border-black">
+      <div className="mx-4 mt-4 h-[35rem] overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+        <img
+          src={book.image}
+          alt={book.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="p-6 text-center">
+        <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+          {book.title}
+        </h4>
+        <p className="block bg-gradient-to-tr from-gray-700 to-gray-500 italic bg-clip-text font-sans text-base font-medium leading-relaxed text-transparent antialiased">
+          {book.author}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export const Home = () => {
+  const { books } = useGlobalContext();
 
-    // const { books } = useGlobalContext();
-    // console.log(books)
-  
-    const [books, setBooks] = useState([]);
-    const [books2, setBooks2] = useState([]);
-    
-  
-    const fetchBooks = async () => {
-      try {
-        const response = await axios.get(`/api/books`);
-        const data = response.data;
-        setBooks(data.slice(6, 12));
-        setBooks2(data.slice(0, 6));
-      } catch (error) {
-        console.error('Error fetching books:', error);
-      }
-    };
-  
-    useEffect(() => {
-      fetchBooks();
-    }, []);
+  const router = useRouter();
 
-    const router = useRouter();
-
-    return (
-        <div className="bg-white- w-screen h-full justify-center">
-        <div className="mb-2 h-80">
-          <h1 className="text-3xl font-cursive font-bold pt-4 ml-20">For you</h1>
-          <CarouselProvider
-            naturalSlideWidth={100}
-            naturalSlideHeight={125}
-            totalSlides={6}
-            visibleSlides={3}
-            step={1}
-            orientation="horizontal"
-            infinite={true}
-            interval={4000}
-            isPlaying={true}
+  return (
+    <div className="w-full">
+      <div className="space-y-4">
+        <h1 className="font-inter tracking-widest font-semibold text-center text-3xl p-2">
+          WELCOME TO <span className="text-indigo-400">BIBLIOBUDS!</span>
+        </h1>
+        <Carousel loop={true} autoplay={true} className="h-[35rem]">
+          <img
+            src="https://images.unsplash.com/photo-1526243741027-444d633d7365?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
+            alt="image 3"
+            className="h-full w-full object-cover"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1618365908648-e71bd5716cba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            alt="image 1"
+            className="h-full w-full object-cover"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1550399105-c4db5fb85c18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
+            alt="image 2"
+            className="h-full w-full object-cover"
+          />
+        </Carousel>
+        {/* <h2 className="font-inter text-xl p-3">
+          Some of our most sold products:
+        </h2> */}
+        <div className="flex flex-grow flex-row md:col-span-3 col-span-1 w-full justify-evenly">
+          {books?.length > 0
+            ? books?.books
+                ?.sort((a, b) => a.stock - b.stock)
+                .slice(0, 4)
+                .map((book) => <ProductCard book={book} />)
+            : null}
+        </div>
+        <div className="w-full flex justify-center items-center">
+          <button
+            onClick={() => router.push("/shop")}
+            className="mb-4 border border-black rounded text-center px-6 py-3 font-inter tracking-widest underline hover:bg-black hover:text-white duration-200"
           >
-              <div className='overflow-x-hidden'>
-      <Slider className="mt-4 ml-4 justify-start transition ease-out duration-5000" classNameAnimation='transition duration-5000 ease-in-out'>
-        <div className="h-full flex lg:gap-12 md:gap-6 gap-12 justify-start transition ease-out duration-5000">
-          {books?.length > 0 ?
-            books?.slice(0, 6).map((book, id) => { // Limita el mapeo a solo 3 elementos
-              return (
-                <Slide index={id} key={book.id}>
-                          <div className="grid grid-cols-2 bg-gradient-to-b from-purple-200 to-purple-300 w-[300px] h-64 rounded-lg">
-                    <div>
-                      <img src={book?.image} alt="black chair and white table" className="w-24 h-40 mt-4 ml-4 rounded-lg grid-cols-1" />
-                    </div>
-                    <div className="justify-start mr-2">
-    <h2 className="mt-4 text-lg lg:text-lg font-semibold leading-5 lg:leading-6 text-white font-cursive">{book?.title}</h2>
-                      <h2 className="mt-1 text-base lg:text-base font-cursive italic leading-5 lg:leading-6 text-white">{book?.author}</h2>
-                      <div className="flex flex-row mt-1">
-                        <StarIcon className="h-6 w-6 text-white" />
-                        <StarIcon className="h-6 w-6 text-white" />
-                        <StarIcon className="h-6 w-6 text-white" />
-                        <StarIcon className="h-6 w-6 text-white" />
-                        <StarIcon className="h-6 w-6 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                </Slide>
-              )
-  
-                    })
-                    : <p>Loading...</p>
-                    }
-                    </div>
-                </Slider>
-                </div>  
-            </CarouselProvider>
+            GO SHOPPING!
+          </button>
         </div>
-        <div className="p-4 w-full ml-2">
-            <div className=" space-y-5">
-                <h1 className='text-3xl font-cursive pt-4 ml-20'>Top Rated</h1>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 justify-center items-center w-full mx-auto">
-                {books2?.length > 0 ? (
-                    books2?.map(
-                    (book) =>
-                        book.stock > 0 &&
-                        book.isActive && <Card key={book.id} book={book} />
-                    )
-                ) : (
-                    <p className="font-raleway text-lg font-bold text-center">
-                    Loading...
-                    </p>
-                )}
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 export default Home;
