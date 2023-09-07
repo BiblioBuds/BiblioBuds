@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProductsCard({ item }) {
 
@@ -20,6 +22,7 @@ function ProductsCard({ item }) {
           isActive: "false"
         }
       );
+      toast.success("Book Deactivated.");
       location.reload()
     } catch (error) {
       console.log(error);
@@ -32,6 +35,7 @@ const handleActivate = async (id) => {
           isActive: "true"
         }
       );
+      toast.success("Book Activated.");
       location.reload()
     } catch (error) {
       console.log(error);
@@ -68,6 +72,7 @@ const [allowUpdate, setAllowUpdate] = useState(false);
           "Content-Type": "application/json",
         },
       });
+      toast.success("Book Updated.");
     } catch (error) {
       console.log(error);
     }
