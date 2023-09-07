@@ -57,7 +57,11 @@ const Footer = () => {
   const pathname = usePathname();
 
   // TODO: Validar los campos y crear el endpoint
-  if (pathname !== "/api/auth/signin" && pathname !== "/api/auth/register") {
+  if (
+    pathname !== "/api/auth/signin" &&
+    pathname !== "/api/auth/register" &&
+    !pathname.includes("/dashboard")
+  ) {
     return (
       <div className="flex flex-grow w-full justify-center bg-[#87C6E9] text-white p-6">
         <div className="flex flex-col md:flex-row w-full xl:w-3/4 2xl:w-1/2 space-y-4">

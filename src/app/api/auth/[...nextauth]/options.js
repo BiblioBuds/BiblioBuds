@@ -20,7 +20,7 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      redirectUri: "http://localhost:3000/api/auth/callback/google"
+      redirectUri: "http://localhost:3000/api/auth/callback/google",
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -45,7 +45,11 @@ export const authOptions = {
         });
 
         // If user exists, compare passwords
-        if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        if (
+          user &&
+          user.isActive &&
+          bcrypt.compareSync(credentials.password, user.password)
+        ) {
           // If passwords match, return user
           return {
             id: user.id,
