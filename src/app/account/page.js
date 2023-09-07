@@ -60,7 +60,7 @@ const AccountPage = () => {
         />
       </div>
       <div className="mt-3">
-        <label className="block mb-2 text-lg  ">Correo Electrónico</label>
+        <label className="block mb-2 text-lg  ">Email</label>
         <p className="text-lg w-full p-2 border rounded">{email}</p>
       </div>
       <button

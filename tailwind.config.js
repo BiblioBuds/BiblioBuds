@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ["Inter", "sans-serif"],
+        cursive: ['CursiveFont', 'cursive'],
         lato: ["Lato", "sans-serif"],
         raleway: ["Raleway", "sans-serif"],
       },
