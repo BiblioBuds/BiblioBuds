@@ -4,10 +4,23 @@ import axios from "axios"
 import { useGlobalContext } from "@/app/Context/store";
 import LineChart from "./LineChart";
 import  BarChart from "./BarChart";
-import SpeedDialAdmin from "@/components/SpeedDial/SpeedDial";
-
+import { useSession } from "next-auth/react";
 
 const Dashboard = () => {
+  const { data: session, status } = useSession();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        if (session) {
+          let userId = session.user.id;
+          axios
+            .get("/api/users/admin?" + userId)
+            .then((res) => res.data)
+            .then((data) => setIsAdmin(data.role));
+          // console.log(isAdmin)
+        }
+      }, [status, isAdmin]);
+
     const { orders, users } = useGlobalContext();
     console.log(orders)
 
@@ -88,6 +101,8 @@ const Dashboard = () => {
       });
 
     return (
+      <div>
+            {isAdmin === "ADMIN"?
         <div className="w-screen h-screen">
             <div className="flex flex-row justify-center py-12">
                 <div className="bg-white w-3/12 transition duration-1500 ease-out hover:scale-110">
@@ -127,6 +142,12 @@ const Dashboard = () => {
                 <BarChart barChartData={barChartData}/>
               </div>
             </div>
+        </div>
+        :
+        <div>
+            <h1>Not Allowed</h1>
+        </div>
+            }
         </div>
     )
 }

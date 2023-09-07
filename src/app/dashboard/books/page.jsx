@@ -22,13 +22,37 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import BooksTable from "./BooksTable"
 import { useGlobalContext } from "@/app/Context/store";
+import { useSession } from "next-auth/react";
 
 const Books = () => {
+    const { data: session, status } = useSession();
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        if (session) {
+          let userId = session.user.id;
+          axios
+            .get("/api/users/admin?" + userId)
+            .then((res) => res.data)
+            .then((data) => setIsAdmin(data.role));
+          // console.log(isAdmin)
+        }
+      }, [status, isAdmin]);
+
+
     const { booksAdminTable } = useGlobalContext();
 
     return (
         <div>
-            <BooksTable books={booksAdminTable}/>
+            {isAdmin === "ADMIN"?
+            <div>
+                <BooksTable books={booksAdminTable}/>
+            </div>
+            : 
+            <div>
+                <h1>Not Allowed</h1>
+            </div>
+            }       
         </div>
     )
 }
