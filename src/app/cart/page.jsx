@@ -107,8 +107,8 @@ const Cart = () => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center space-y-0 lg:space-y-2 xl:space-y-3 2xl:space-y-4">
-      <h1 className="p-2 text-xl font-cursive font-inter tracking-wide">
+    <div className="flex flex-col w-full justify-center items-center space-y-0 lg:space-y-2 xl:space-y-3 2xl:space-y-4 mb-4">
+      <h1 className="p-2 text-xl font-inter tracking-wide">
         BIBLIOBUDS CART!{" "}
         {cartItems.length ? `(${cartItems.length} ITEMS)` : null}
       </h1>
@@ -138,7 +138,7 @@ const Cart = () => {
                 </div>
               </div>
             ))}
-            <p className="font-cursive font-inter">
+            <p className="font-inter">
               TOTAL COST: $
               {cartItems
                 .reduce((total, item) => total + item.price * item.quantity, 0)
