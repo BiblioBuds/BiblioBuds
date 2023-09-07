@@ -1,3 +1,4 @@
+"use client"
 import NewBookInputs from "@/components/NewBookInputs/NewBookInputs";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
