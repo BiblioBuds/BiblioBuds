@@ -9,7 +9,7 @@ const UsersTable = ({users}) => {
               isActive: "false"
             }
           );
-        //   location.reload()
+          location.reload()
         } catch (error) {
           console.log(error);
         }
@@ -21,7 +21,7 @@ const UsersTable = ({users}) => {
               isActive: "true"
             }
           );
-        //   location.reload()
+          location.reload()
         } catch (error) {
           console.log(error);
         }
@@ -33,7 +33,7 @@ const UsersTable = ({users}) => {
             role: "ADMIN"
           }
         );
-      //   location.reload()
+        location.reload()
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +45,7 @@ const UsersTable = ({users}) => {
             role: "GUEST"
           }
         );
-      //   location.reload()
+        location.reload()
       } catch (error) {
         console.log(error);
       }
