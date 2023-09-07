@@ -89,7 +89,7 @@ export const Home = () => {
         book.stock > 0 && book.isActive && (
           <div key={book.id} className="bg-gradient-to-r from-fuchsia-100 to-fuchsia-300 rounded-lg p-4 border border-black-600 hover:shadow-lg">
             <img src={book.image} alt={book.title} className="w-30 h-40 mb-2 rounded-lg" />
-            <h2 className="text-lg font-cursive font-bold text-gray-800 trucate">{book.title}</h2>
+            <h2 className="text-lg font-cursive font-bold text-gray-800">{book.title}</h2>
             <p className="text-base font-cursive font-light text-gray-500 italic">{book.author}</p>
             <p className="text-gray-400 mt-2">{book.description}</p>
           </div>

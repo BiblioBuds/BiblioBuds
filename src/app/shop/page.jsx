@@ -6,7 +6,7 @@ import Pagination from "@/components/pagination/Pagination";
 const Shop = () => {
   return (
     <div className="flex">
-    <div className="p-4 border-3 border-gray-400 bg-gray-200 rounded-lg">
+    <div className="p-4 bg-gradient-to-r from-purple-300 to-purple-100 border-3 border-gray-200 rounded-lg">
       {/* Agregamos un borde grueso (border-4), un fondo gris (bg-gray-200) y redondeamos los bordes (rounded-lg) */}
       <Filters />
     </div>
