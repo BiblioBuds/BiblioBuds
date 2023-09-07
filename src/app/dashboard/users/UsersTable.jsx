@@ -1,5 +1,7 @@
 "use client"
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UsersTable = ({users}) => {
     
@@ -9,6 +11,7 @@ const UsersTable = ({users}) => {
               isActive: "false"
             }
           );
+          toast.success("User Deactivated.");
           location.reload()
         } catch (error) {
           console.log(error);
@@ -21,6 +24,7 @@ const UsersTable = ({users}) => {
               isActive: "true"
             }
           );
+          toast.success("User Activated.");
           location.reload()
         } catch (error) {
           console.log(error);
@@ -33,6 +37,7 @@ const UsersTable = ({users}) => {
             role: "ADMIN"
           }
         );
+        toast.success("User promoted to Admin.");
         location.reload()
       } catch (error) {
         console.log(error);
@@ -45,6 +50,7 @@ const UsersTable = ({users}) => {
             role: "GUEST"
           }
         );
+        toast.success("User downgraded to Guest.");
         location.reload()
       } catch (error) {
         console.log(error);
