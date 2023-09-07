@@ -12,7 +12,7 @@ const UsersTable = ({users}) => {
             }
           );
           toast.success("User Deactivated.");
-        //   location.reload()
+          location.reload()
         } catch (error) {
           console.log(error);
         }
@@ -25,7 +25,7 @@ const UsersTable = ({users}) => {
             }
           );
           toast.success("User Activated.");
-        //   location.reload()
+          location.reload()
         } catch (error) {
           console.log(error);
         }
@@ -38,7 +38,7 @@ const UsersTable = ({users}) => {
           }
         );
         toast.success("User promoted to Admin.");
-      //   location.reload()
+        location.reload()
       } catch (error) {
         console.log(error);
       }
@@ -51,7 +51,7 @@ const UsersTable = ({users}) => {
           }
         );
         toast.success("User downgraded to Guest.");
-      //   location.reload()
+        location.reload()
       } catch (error) {
         console.log(error);
       }
