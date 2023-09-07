@@ -84,7 +84,7 @@ export const authOptions = {
           token.id = existingUser.id;
         } else {
           // If the user does not exist and the provider is Github
-          if (account.provider === "github") {
+          if (account.provider === "github" || account.provider === "google") {
             const newUser = await prisma.user.create({
               data: {
                 email: user.email,
