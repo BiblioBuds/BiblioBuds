@@ -60,7 +60,8 @@ const Footer = () => {
   if (
     pathname !== "/api/auth/signin" &&
     pathname !== "/api/auth/register" &&
-    !pathname.includes("/dashboard")
+    !pathname.includes("/dashboard") &&
+    pathname !== "/form"
   ) {
     return (
       <div className="flex flex-grow w-full justify-center bg-[#87C6E9] text-white p-6">
