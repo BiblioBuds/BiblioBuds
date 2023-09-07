@@ -112,9 +112,9 @@ const Dashboard = () => {
                 <h1 className="text-center font-bold text-5xl">
                     $
                     {orders?.reduce(
-                    (acum, actual) => acum + Number(actual.totalPrice).toFixed(2),
+                    (acum, actual) => acum + Number(actual.totalPrice),
                     0
-                    )}
+                    ).toFixed(2)}
                 </h1>
                 <h1 className="text-center text-xl">Sales this Month</h1>
                 </div>
